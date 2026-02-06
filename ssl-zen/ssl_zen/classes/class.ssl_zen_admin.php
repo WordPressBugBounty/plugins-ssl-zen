@@ -99,7 +99,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                         );
                     } else {
                         $success = array(
-                            'notice'  => sprintf( '<div class="message success">%s</div>', __( 'You have successfully pointed the records to Stackpath.', 'ssl-zen' ) ),
+                            'notice'  => sprintf( '<div class="message success">%s</div>', esc_html__( 'You have successfully pointed the records to Stackpath.', 'ssl-zen' ) ),
                             'records' => $correct_records,
                         );
                         update_option( 'ssl_zen_settings_stage', 'step3' );
@@ -112,7 +112,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                             update_option( 'ssl_zen_settings_stage', 'step4' );
                             update_option( 'ssl_zen_cert_details', $apiResponse['details'] );
                             $success = array(
-                                'notice' => sprintf( '<div class="message success">%s</div>', __( 'You have successfully generated a free SSL certificate for your website.', 'ssl-zen' ) ),
+                                'notice' => sprintf( '<div class="message success">%s</div>', esc_html__( 'You have successfully generated a free SSL certificate for your website.', 'ssl-zen' ) ),
                             );
                             break;
                         default:
@@ -358,7 +358,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                             $fiveMinutes = 300;
                             update_option( 'ssl_zen_dns_check_activation', time() + $fiveMinutes );
                             $result['time'] = $fiveMinutes;
-                            $result['message'] = __( 'We couldn\'t find your verification token in your domain\'s TXT records.', 'ssl-zen' ) . __( 'Please try again in 5 minutes', 'ssl-zen' ) . ' ' . __( 'or try http variant.', 'ssl-zen' );
+                            $result['message'] = esc_html__( 'We couldn\'t find your verification token in your domain\'s TXT records.', 'ssl-zen' ) . ' ' . esc_html__( 'Please try again in 5 minutes', 'ssl-zen' ) . ' ' . esc_html__( 'or try http variant.', 'ssl-zen' );
                         } else {
                             $result['message'] = __( 'Verification failed, try dns variant.', 'ssl-zen' );
                         }
@@ -586,7 +586,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 echo admin_url( 'admin.php?page=ssl_zen&tab=settings' );
                 ?>">
                                         <?php 
-                _e( 'Settings', 'ssl-zen' );
+                esc_html_e( 'Settings', 'ssl-zen' );
                 ?>
                                     </a>
                                 <?php 
@@ -596,7 +596,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                     <a class="upgrade"
                                        href="https://checkout.freemius.com/mode/dialog/plugin/4586/plan/7397/licenses/1/">
                                         <?php 
-                _e( 'Upgrade', 'ssl-zen' );
+                esc_html_e( 'Upgrade', 'ssl-zen' );
                 ?>
                                     </a>
                                 <?php 
@@ -608,7 +608,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 echo admin_url( 'admin.php?page=ssl_zen&tab=settings' );
                 ?>">
                                         <?php 
-                _e( 'Debug', 'ssl-zen' );
+                esc_html_e( 'Debug', 'ssl-zen' );
                 ?>
                                     </a>
                                 <?php 
@@ -620,7 +620,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 echo admin_url( 'admin.php?page=ssl_zen-contact' );
                 ?>">
                                         <?php 
-                _e( 'Support', 'ssl-zen' );
+                esc_html_e( 'Support', 'ssl-zen' );
                 ?>
                                     </a>
                                 <?php 
@@ -680,38 +680,38 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                 <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
                                     <h4>
                                         <?php 
-                _e( 'Never Pay for SSL Again!', 'ssl-zen' );
+                esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' );
                 ?>
                                     </h4>
                                     <p class="mt-1">
                                         <?php 
-                _e( 'Upgrade to our Pro Plan', 'ssl-zen' );
+                esc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' );
                 ?>
                                     </p>
                                 </div>
                                 <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
                                 <span>
                                     <?php 
-                _e( 'AUTOMATIC', 'ssl-zen' );
+                esc_html_e( 'AUTOMATIC', 'ssl-zen' );
                 ?><br>
                                     <?php 
-                _e( 'DOMAIN VERIFICATION', 'ssl-zen' );
+                esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' );
                 ?>
                                 </span>
                                     <span>
                                     <?php 
-                _e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' );
+                esc_html_e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' );
                 ?>
                                 </span>
                                     <span>
                                     <?php 
-                _e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' );
+                esc_html_e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' );
                 ?>
                                 </span>
                                 </div>
                                 <div class="col-lg-2 text-center text-lg-right mt-4 mt-lg-0 align ssl-zen-pro-upgrade">
                                     <button><?php 
-                _e( 'UPGRADE', 'ssl-zen' );
+                esc_html_e( 'UPGRADE', 'ssl-zen' );
                 ?></button>
                                 </div>
                             </div>
@@ -753,7 +753,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             ?>
                         </a>
                         <span class="mr-2"><?php 
-            _e( 'Website Details', 'ssl-zen' );
+            esc_html_e( 'Website Details', 'ssl-zen' );
             ?></span>
                         <span></span>
                     </li>
@@ -774,7 +774,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             ?>
                         </a>
                         <span class="mr-2"><?php 
-            _e( 'Domain Verification', 'ssl-zen' );
+            esc_html_e( 'Domain Verification', 'ssl-zen' );
             ?></span>
                         <span></span>
                     </li>
@@ -795,7 +795,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             ?>
                         </a>
                         <span class="mr-2"><?php 
-            _e( 'Install Certificate', 'ssl-zen' );
+            esc_html_e( 'Install Certificate', 'ssl-zen' );
             ?></span>
                         <span></span>
                     </li>
@@ -807,7 +807,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             echo admin_url( 'admin.php?page=ssl_zen&tab=step4' );
             ?>">4</a>
                         <span><?php 
-            _e( 'Activate SSL', 'ssl-zen' );
+            esc_html_e( 'Activate SSL', 'ssl-zen' );
             ?></span>
                     </li>
                 </ul>
@@ -881,7 +881,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 $apiResponse = ssl_zen_auth::call( 'verify_records' );
                 if ( !$apiResponse || intval( $apiResponse['wait'] ) === 1 ) {
                     // stay on the same page and show a notice.
-                    $notice['warning'] = ( empty( $apiResponse['wait_reason'] ) ? __( 'We are verifying your DNS records. Please wait…', 'ssl-zen' ) : $apiResponse['wait_reason'] );
+                    $notice['warning'] = ( empty( $apiResponse['wait_reason'] ) ? esc_html__( 'We are verifying your DNS records. Please wait…', 'ssl-zen' ) : esc_html( $apiResponse['wait_reason'] ) );
                     $scanDnsButtonClass = 'd-none';
                     $timerButtonClass = '';
                     $image = 'warning-circle';
@@ -924,13 +924,13 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                         <div class="col-md-7 p-5">
                             <h4 class="mb-3">
                                 <?php 
-            _e( 'Domain Verification', 'ssl-zen' );
+            esc_html_e( 'Domain Verification', 'ssl-zen' );
             ?>
                             </h4>
                             <p>
                                 <?php 
             // Change message if a "Update DNS Record" is displayed
-            _e( ( $domainconnectUrl ? 'Click on Update DNS Records to automatically update your DNS records on GoDaddy to start pointing to the StackPath Network.' : 'Your site is almost ready! Update your DNS to start pointing to the Stackpath Network.' ), 'ssl-zen' );
+            esc_html_e( $domainconnectUrl ? 'Click on Update DNS Records to automatically update your DNS records on GoDaddy to start pointing to the StackPath Network.' : 'Your site is almost ready! Update your DNS to start pointing to the Stackpath Network.', 'ssl-zen' );
             ?>
                             </p>
 
@@ -942,16 +942,16 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                     <tbody>
                                     <tr class="grey">
                                         <th><?php 
-            _e( 'Type', 'ssl-zen' );
+            esc_html_e( 'Type', 'ssl-zen' );
             ?></th>
                                         <th><?php 
-            _e( 'Name', 'ssl-zen' );
+            esc_html_e( 'Name', 'ssl-zen' );
             ?></th>
                                         <th><?php 
-            _e( 'Value', 'ssl-zen' );
+            esc_html_e( 'Value', 'ssl-zen' );
             ?></th>
                                         <th><?php 
-            _e( 'TTL', 'ssl-zen' );
+            esc_html_e( 'TTL', 'ssl-zen' );
             ?></th>
                                     </tr>
                                     <?php 
@@ -983,7 +983,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 echo esc_attr( $copy_class );
                 ?>"
                                                    title="<?php 
-                _e( 'Copy', 'ssl-zen' );
+                esc_html_e( 'Copy', 'ssl-zen' );
                 ?>"
                                                    data-clipboard-text="<?php 
                 echo esc_attr( $record['value'] );
@@ -1011,7 +1011,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                        data-ajax-data="<?php 
             echo esc_attr( json_encode( $ajaxData ) );
             ?>"><?php 
-            _e( 'Scan DNS Records', 'ssl-zen' );
+            esc_html_e( 'Scan DNS Records', 'ssl-zen' );
             ?>
                                         <img src="<?php 
             echo esc_url( SSL_ZEN_URL );
@@ -1037,7 +1037,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                                href="<?php 
                 echo esc_url( $domainconnectUrl );
                 ?>"><?php 
-                _e( 'Update DNS Records', 'ssl-zen' );
+                esc_html_e( 'Update DNS Records', 'ssl-zen' );
                 ?>
                                                 <img src="<?php 
                 echo esc_url( SSL_ZEN_URL );
@@ -1074,30 +1074,30 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                             <div class="description pb-5 pt-5 pl-4 pr-4">
                                 <h4 class="mb-4">
                                     <?php 
-            _e( 'How to update DNS records?', 'ssl-zen' );
+            esc_html_e( 'How to update DNS records?', 'ssl-zen' );
             ?>
                                     <br/>
                                     <a href="https://support.stackpath.com/hc/en-us/articles/360001105186-How-To-Configure-DNS-for-CDN-WAF-with-Your-Provider"
                                        class="tutorial ml-0"
                                        target="_blank"><?php 
-            _e( 'Video Tutorial', 'ssl-zen' );
+            esc_html_e( 'Video Tutorial', 'ssl-zen' );
             ?></a>
                                 </h4>
                                 <ul>
                                     <li><?php 
-            _e( 'Log in to your domain provider (e.g. GoDaddy).', 'ssl-zen' );
+            esc_html_e( 'Log in to your domain provider (e.g. GoDaddy).', 'ssl-zen' );
             ?></li>
                                     <li><?php 
-            _e( 'Find your domain and click on it.', 'ssl-zen' );
+            esc_html_e( 'Find your domain and click on it.', 'ssl-zen' );
             ?>
                                     <li><?php 
-            _e( 'Find DNS Settings or just Settings.', 'ssl-zen' );
+            esc_html_e( 'Find DNS Settings or just Settings.', 'ssl-zen' );
             ?></li>
                                     <li><?php 
-            _e( 'Look for the A record and update it with the value displayed in the table on the left side.', 'ssl-zen' );
+            esc_html_e( 'Look for the A record and update it with the value displayed in the table on the left side.', 'ssl-zen' );
             ?> </li>
                                     <li><?php 
-            _e( 'If you cannot enter TTL as 300, try 600 or the lowest value allowed by your domain provider.', 'ssl-zen' );
+            esc_html_e( 'If you cannot enter TTL as 300, try 600 or the lowest value allowed by your domain provider.', 'ssl-zen' );
             ?></li>
                                 </ul>
                             </div>
@@ -1113,7 +1113,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                    href="<?php 
             echo admin_url( 'admin.php?page=ssl_zen&tab=step3' );
             ?>"><?php 
-            _e( 'Next', 'ssl-zen' );
+            esc_html_e( 'Next', 'ssl-zen' );
             ?></a>
             </div>
 
@@ -1137,28 +1137,28 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                             <div>
                                 <h4 class="mb-3">
                                     <?php 
-            _e( 'Free Dedicated Certificate', 'ssl-zen' );
+            esc_html_e( 'Free Dedicated Certificate', 'ssl-zen' );
             ?>
                                 </h4>
                                 <h5>
                                     <?php 
-            _e( 'Details', 'ssl-zen' );
+            esc_html_e( 'Details', 'ssl-zen' );
             ?>
                                 </h5>
                                 <h6><?php 
-            _e( 'Issued by', 'ssl-zen' );
+            esc_html_e( 'Issued by', 'ssl-zen' );
             ?>
                                     : <?php 
             echo esc_html( ( empty( $apiResponse['details']['issuer'] ) ? '-' : $apiResponse['details']['issuer'] ) );
             ?></h6>
                                 <h6><?php 
-            _e( 'Trusted', 'ssl-zen' );
+            esc_html_e( 'Trusted', 'ssl-zen' );
             ?>
                                     : <?php 
             echo esc_html( ( intval( $apiResponse['details']['trusted'] ) === 1 ? $trustedImg : '' ) );
             ?></h6>
                                 <h6><?php 
-            _e( 'Expires on', 'ssl-zen' );
+            esc_html_e( 'Expires on', 'ssl-zen' );
             ?>: <?php 
             $expires = '-';
             if ( !empty( $apiResponse['details']['expirationDate'] ) ) {
@@ -1172,7 +1172,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                 </h6>
                                 <h5 class="mt-4">
                                     <?php 
-            _e( 'Hosts', 'ssl-zen' );
+            esc_html_e( 'Hosts', 'ssl-zen' );
             ?>
                                 </h5>
                                 <?php 
@@ -1217,7 +1217,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                        data-ajax-data="<?php 
             echo esc_attr( json_encode( $ajaxData ) );
             ?>"><?php 
-            _e( 'Force Recheck', 'ssl-zen' );
+            esc_html_e( 'Force Recheck', 'ssl-zen' );
             echo esc_url( file_get_contents( SSL_ZEN_DIR . 'img/' . $image . '.svg' ) );
             ?></a>
                                     <span class="time-wait <?php 
@@ -1237,7 +1237,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             echo esc_attr( $nextButtonClass );
             ?>"
                        href="#"><?php 
-            _e( 'Next', 'ssl-zen' );
+            esc_html_e( 'Next', 'ssl-zen' );
             ?></a>
                 </div>
 
@@ -1327,7 +1327,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             }
             add_action( 'admin_notices', function () {
                 $class = 'm-1 notice notice-info is-dismissible';
-                $heading = __( 'Wohooo!!!' );
+                $heading = esc_html__( 'Wohooo!!!', 'ssl-zen' );
                 $message = sprintf( __( 'Your site has an SSL now! SSL Zen just saved you $60/year in SSL Certificate fees. Could you please do us a BIG favor and rate SSL Zen a 5-star on %1$swordpress.org%2$s and help us spread the word about the plugin?', 'ssl-zen' ), '<a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank">', '</a>' );
                 $rate_the_plugin = sprintf( __( '%1$sRate the plugin%2$s', 'ssl-zen' ), '<a class="button button-primary" href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank">', '</a>' );
                 $dont_ask_again = sprintf( __( '%1$sDon\'t ask again%2$s', 'ssl-zen' ), '<a class="button" href="' . admin_url( 'admin.php?page=ssl_zen&tab=settings&reviewed=done' ) . '">', '</a>' );
@@ -1366,16 +1366,16 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                     <div class="line"></div>
                                 </div>
                                 <h4><?php 
-            _e( 'SSL Certificate Successfully Installed!', 'ssl-zen' );
+            esc_html_e( 'SSL Certificate Successfully Installed!', 'ssl-zen' );
             ?></h4>
                                 <p class="saved-quote">
                                     <?php 
-            _e( 'Wowzer! We just saved you $60/year in SSL Certificate fees.', 'ssl-zen' );
+            esc_html_e( 'Wowzer! We just saved you $60/year in SSL Certificate fees.', 'ssl-zen' );
             ?>
                                 </p>
                                 <div class="propose d-lg-flex align-items-center">
                                     <?php 
-            _e( 'Could you please do us a BIG favour and give SSL Zen a', 'ssl-zen' );
+            esc_htmlesc_html_e( 'Could you please do us a BIG favour and give SSL Zen a', 'ssl-zen' );
             ?>
                                     <i class="star ml-2 mr-2"></i>
                                     <i class="star mr-2"></i>
@@ -1383,16 +1383,16 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                     <i class="star mr-2"></i>
                                     <i class="star mr-2"></i>
                                     <?php 
-            _e( 'on WordPress.org?', 'ssl-zen' );
+            esc_html_e( 'on WordPress.org?', 'ssl-zen' );
             ?>
                                 </div>
                                 <a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post"
                                    target="_blank"
                                    class="review primary mt-4 mb-2"><?php 
-            _e( 'LEAVE A REVIEW', 'ssl-zen' );
+            esc_html_e( 'LEAVE A REVIEW', 'ssl-zen' );
             ?></a>
                                 <span class="review-timing"><?php 
-            _e( 'It will only take few moments', 'ssl-zen' );
+            esc_html_e( 'It will only take few moments', 'ssl-zen' );
             ?></span>
                             </div>
                         </div>
@@ -1402,7 +1402,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             echo admin_url( 'admin.php?page=ssl_zen&tab=settings' );
             ?>">
                                     <?php 
-            _e( 'REMIND ME LATER', 'ssl-zen' );
+            esc_html_e( 'REMIND ME LATER', 'ssl-zen' );
             ?>
                                 </a>
                             </div>
@@ -1420,7 +1420,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
          */
         private static function cloudflareDetectedState() {
             $heading = __( 'SSL certificate cannot be installed!', 'ssl-zen' );
-            $message = sprintf( __( 'Due to technical limitations, it\'s currently not possible to install SSL certificate on CloudFlare hosted websites using our plugin. We are sorry for the inconvenience. %1$s Please watch the below video tutorial on how you can use CloudFlare Plugin (Unofficial) to get an SSL certificate on your website.%2$s', 'ssl-zen' ), "<br/>", '<br/><iframe width="560" height="315" src="https://www.youtube.com/embed/lPAt2nfgtPA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' );
+            $message = sprintf( esc_html__( 'Due to technical limitations, it\'s currently not possible to install SSL certificate on CloudFlare hosted websites using our plugin. We are sorry for the inconvenience. %1$s Please watch the below video tutorial on how you can use CloudFlare Plugin (Unofficial) to get an SSL certificate on your website.%2$s', 'ssl-zen' ), "<br/>", '<br/><iframe width="560" height="315" src="https://www.youtube.com/embed/lPAt2nfgtPA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>' );
             ?>
             <div class="ssl-zen-steps-container p-0 mb-4">
                 <div class="row ssl-zen-error-state-container">
@@ -1764,17 +1764,17 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                         $arrCertificates = array(SSL_ZEN_DIR . 'keys/private.pem', SSL_ZEN_DIR . 'keys/certificate.crt', SSL_ZEN_DIR . 'keys/cabundle.crt');
                         //TODO move elsewhere
                         $headers = array('Content-Type: text/html; charset=UTF-8');
-                        $message = __( 'Hello,', 'ssl-zen' ) . '<br><br>';
-                        $message .= __( 'Thank you for using SSLZen.com for generating your SSL certificate.', 'ssl-zen' ) . '<br><br>';
-                        $message .= __( 'Download the attached files on your local computer, You will need them in the next step to install SSL certificate on your website.', 'ssl-zen' ) . '<br>';
-                        $message .= __( 'You can open these files using any text editors such as Notepad.', 'ssl-zen' ) . '<br><br>';
-                        $message .= __( 'What does these files do?', 'ssl-zen' ) . '<br>';
-                        $message .= __( 'private.pem = Private Key: ( KEY )', 'ssl-zen' ) . '<br>';
-                        $message .= __( 'certificate.crt = Certificate: ( CRT )', 'ssl-zen' ) . '<br>';
-                        $message .= __( 'cabundle.crt = Certificate Authority Bundle: ( CABUNDLE )', 'ssl-zen' ) . '<br><br>';
-                        $message .= __( 'Please return back to SSL Zen and complete the remaining steps.', 'ssl-zen' ) . '<br><br>';
-                        $message .= __( 'Thanks,', 'ssl-zen' ) . '<br>';
-                        $message .= __( 'SSL Zen', 'ssl-zen' );
+                        $message = esc_html__( 'Hello,', 'ssl-zen' ) . '<br><br>';
+                        $message .= esc_html__( 'Thank you for using SSLZen.com for generating your SSL certificate.', 'ssl-zen' ) . '<br><br>';
+                        $message .= esc_html__( 'Download the attached files on your local computer, You will need them in the next step to install SSL certificate on your website.', 'ssl-zen' ) . '<br>';
+                        $message .= esc_html__( 'You can open these files using any text editors such as Notepad.', 'ssl-zen' ) . '<br><br>';
+                        $message .= esc_html__( 'What does these files do?', 'ssl-zen' ) . '<br>';
+                        $message .= esc_html__( 'private.pem = Private Key: ( KEY )', 'ssl-zen' ) . '<br>';
+                        $message .= esc_html__( 'certificate.crt = Certificate: ( CRT )', 'ssl-zen' ) . '<br>';
+                        $message .= esc_html__( 'cabundle.crt = Certificate Authority Bundle: ( CABUNDLE )', 'ssl-zen' ) . '<br><br>';
+                        $message .= esc_html__( 'Please return back to SSL Zen and complete the remaining steps.', 'ssl-zen' ) . '<br><br>';
+                        $message .= esc_html__( 'Thanks,', 'ssl-zen' ) . '<br>';
+                        $message .= esc_html__( 'SSL Zen', 'ssl-zen' );
                         wp_mail(
                             get_option( 'ssl_zen_email', '' ),
                             'Confidential: SSL Certificates for ' . get_option( 'ssl_zen_base_domain', '' ),

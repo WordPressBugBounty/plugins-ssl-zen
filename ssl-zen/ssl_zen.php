@@ -4,10 +4,10 @@
  *
  * Helps install a FREE SSL certificate from LetsEncrypt, fixes mixed content, insecure content by redirecting to https, and forces SSL on all pages.
  *
- * Plugin Name:       SSL Zen - Free SSL Certificate & HTTPS Redirect for WordPress
+ * Plugin Name:       SSL Zen — SSL Certificate Installer & HTTPS Redirects
  * Plugin URI:        https://sslzen.com
  * Description:       Helps install a free SSL certificate from LetsEncrypt, fixes mixed content, insecure content by redirecting to https, and forces SSL on all pages.
- * Version:           4.7.6
+ * Version:           4.7.7
  * Author:            SSL Zen
  * Author URI:        http://sslzen.com
  * License:           GNU General Public License v3.0
@@ -48,6 +48,7 @@ if ( !function_exists( 'sz_fs' ) ) {
                 'has_addons'      => false,
                 'has_paid_plans'  => true,
                 'has_affiliation' => 'all',
+                'is_org_compliant' => true,
                 'menu'            => array(
                     'pricing'    => false,
                     'slug'       => 'ssl_zen',
@@ -73,7 +74,7 @@ if ( !function_exists( 'sz_fs' ) ) {
         $freemius_link
     ) {
         return sprintf(
-            __( 'Hey %1$s', 'my-text-domain' ) . ',<br>' . __( 'We highly recommend that you opt-in to our security notifications. Opting in also helps us provide you fast support. We track non-sensitive diagnostic data using Freemius.', 'ssl-zen' ),
+            __( 'Hey %1$s', 'ssl-zen' ) . ',<br>' . __( 'We highly recommend that you opt-in to our security notifications. Opting in also helps us provide you fast support. We track non-sensitive diagnostic data using Freemius.', 'ssl-zen' ),
             $user_first_name,
             '<b>' . $product_title . '</b>',
             '<b>' . $user_login . '</b>',
@@ -95,7 +96,7 @@ if ( !function_exists( 'sz_fs' ) ) {
  * Define constants used in the plugin
  */
 if ( !defined( 'SSL_ZEN_PLUGIN_VERSION' ) ) {
-    define( 'SSL_ZEN_PLUGIN_VERSION', '4.7.6' );
+    define( 'SSL_ZEN_PLUGIN_VERSION', '4.7.7' );
 }
 if ( !defined( 'SSL_ZEN_DIR' ) ) {
     define( 'SSL_ZEN_DIR', plugin_dir_path( __FILE__ ) . 'ssl_zen/' );

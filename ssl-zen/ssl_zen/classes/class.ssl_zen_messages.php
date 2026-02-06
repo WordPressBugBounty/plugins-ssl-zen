@@ -89,7 +89,7 @@ if (!class_exists('ssl_zen_messages')) {
                     'msg' => __('The install_ssl cURL call did not return valid JSON: Sorry, there was a problem installing the SSL on domain.', 'ssl-zen') . self::getContactLink(),
                 ],
                 'cpanel_install_ssl_err2' => [
-                    'msg' => self::getContactLink() . __('The install_ssl cURL call returned valid JSON, but reported errors: ' . base64_decode(sanitize_text_field($_REQUEST['msg'])), 'ssl-zen')
+                    'msg' => self::getContactLink() . sprintf( __('The install_ssl cURL call returned valid JSON, but reported errors: %s', 'ssl-zen'), esc_html( base64_decode(sanitize_text_field($_REQUEST['msg'])) ) )
                 ],
                 'wrong_cred' => [
                     'msg' => __('Oops! We can\'t connect to your cPanel. Please recheck the cPanel settings and provide correct credentials. If the problem still persists,', 'ssl-zen') . self::getContactLink(false),
@@ -107,7 +107,7 @@ if (!class_exists('ssl_zen_messages')) {
                     'type' => 'warning'
                 ],
                 'lets_encrypt_error_invaliddomain' => [
-                    'msg' => __('"' . $baseDomain . '" is not a valid domain name that Let\'s Encrypt would be able to issue a certificate for.', 'ssl-zen'),
+                    'msg' => sprintf( __('"%s" is not a valid domain name that Let\'s Encrypt would be able to issue a certificate for.', 'ssl-zen'), esc_html( $baseDomain ) ),
                     'type' => 'error'
                 ],
                 'lets_encrypt_error_statusnotoperational' => [
@@ -115,9 +115,10 @@ if (!class_exists('ssl_zen_messages')) {
                     'type' => 'error'
                 ],
                 'lets_encrypt_error_ratelimit' => [
-                    'msg' => __(
-                        '"' . $baseDomain . '" is currently affected by Let\'s Encrypt-based rate limits (https://letsencrypt.org/docs/rate-limits/). You may review certificates that have already been issued by visiting https://crt.sh/?q=%your_domain . Please note that it is not possible to ask for a rate limit to be manually cleared.
-The Duplicate Certificate limit (5 certificates with the exact same set of domains per week) has been exceeded and is affecting the domain "' . $baseDomain . '". The exact set of domains affected is: "' . $baseDomain . '". It may be possible to avoid this rate limit by issuing a certificate with an additional or different domain name.', 'ssl-zen'
+                    'msg' => sprintf(
+                        __('"%1$s" is currently affected by Let\'s Encrypt-based rate limits (https://letsencrypt.org/docs/rate-limits/). You may review certificates that have already been issued by visiting https://crt.sh/?q=%%your_domain . Please note that it is not possible to ask for a rate limit to be manually cleared.
+The Duplicate Certificate limit (5 certificates with the exact same set of domains per week) has been exceeded and is affecting the domain "%1$s". The exact set of domains affected is: "%1$s". It may be possible to avoid this rate limit by issuing a certificate with an additional or different domain name.', 'ssl-zen'),
+                        esc_html( $baseDomain )
                     ),
                     'type' => 'error'
                 ],
@@ -133,9 +134,10 @@ Error creating new order :: Policy forbids issuing for name', 'ssl-zen'
                     'type' => 'error'
                 ],
                 'lets_encrypt_error_anotworking' => [
-                    'msg' => __(
-                        '"' . $baseDomain . '" has an A (IPv4) record (1.2.3.4) but a request to this address over port 80 did not succeed.
-A timeout was experienced while communicating with ' . $baseDomain . '/1.2.3.4: Get http://' . $baseDomain . '/.well-known/acme-challenge/letsdebug-test: dial tcp 1.2.3.4:80: i/o timeout', 'ssl-zen'
+                    'msg' => sprintf(
+                        __('"%1$s" has an A (IPv4) record (1.2.3.4) but a request to this address over port 80 did not succeed.
+A timeout was experienced while communicating with %1$s/1.2.3.4: Get http://%1$s/.well-known/acme-challenge/letsdebug-test: dial tcp 1.2.3.4:80: i/o timeout', 'ssl-zen'),
+                        esc_html( $baseDomain )
                     ),
                     'type' => 'warning'
                 ],
@@ -152,11 +154,11 @@ A timeout was experienced while communicating with ' . $baseDomain . '/1.2.3.4: 
                     'type' => 'warning'
                 ],
                 'lets_encrypt_error_cloudflarecdn' => [
-                    'msg' => __('The domain "' . $baseDomain . '" is being served through Cloudflare CDN. Any Let\'s Encrypt certificate installed on the origin server will only encrypt traffic between the server and Cloudflare. It is strongly recommended that the SSL option \'Full SSL (strict)\' be enabled.', 'ssl-zen'),
+                    'msg' => sprintf( __('The domain "%s" is being served through Cloudflare CDN. Any Let\'s Encrypt certificate installed on the origin server will only encrypt traffic between the server and Cloudflare. It is strongly recommended that the SSL option \'Full SSL (strict)\' be enabled.', 'ssl-zen'), esc_html( $baseDomain ) ),
                     'type' => 'warning'
                 ],
                 'lets_encrypt_error_cloudflaresslnotprovisioned' => [
-                    'msg' => __('"' . $baseDomain . '" is being served through Cloudflare CDN and a certificate has not yet been provisioned yet by Cloudflare.', 'ssl-zen'),
+                    'msg' => sprintf( __('"%s" is being served through Cloudflare CDN and a certificate has not yet been provisioned yet by Cloudflare.', 'ssl-zen'), esc_html( $baseDomain ) ),
                     'type' => 'warning'
                 ],
                 'lets_encrypt_error_multipleipaddressdiscrepancy' => [
@@ -164,7 +166,7 @@ A timeout was experienced while communicating with ' . $baseDomain . '/1.2.3.4: 
                     'type' => 'warning'
                 ],
                 'lets_encrypt_error_aaaanotworking' => [
-                    'msg' => __('"' . $baseDomain . '" has an A (IPv4) record but a request to this address over port 80 did not succeed.', 'ssl-zen'),
+                    'msg' => sprintf( __('"%s" has an A (IPv4) record but a request to this address over port 80 did not succeed.', 'ssl-zen'), esc_html( $baseDomain ) ),
                     'type' => 'warning'
                 ],
                 'invalid_ip_address' => [
@@ -231,7 +233,7 @@ A timeout was experienced while communicating with ' . $baseDomain . '/1.2.3.4: 
             $message = 'Click here to report an issue.';
             $message = $upperCase ? $message : strtolower($message);
 
-            return sprintf(' <a href="' . admin_url('admin.php?page=ssl_zen-contact') . '">%s</a>', __($message, 'ssl-zen'));
+            return sprintf(' <a href="' . esc_url( admin_url('admin.php?page=ssl_zen-contact') ) . '">%s</a>', esc_html( __( $message, 'ssl-zen' ) ) );
         }
 
         /**
@@ -239,7 +241,8 @@ A timeout was experienced while communicating with ' . $baseDomain . '/1.2.3.4: 
          */
         public static function getCronErrorMessage()
         {
-            return __('We were unable to add a cron job automatically. LetsEncrypt SSL certificates are only valid for 90 days and you are required to renew the certificate.', 'ssl-zen') . __('To automatically renew the certificates, please add a cron job using cPanel.', 'ssl-zen') . __('Follow this video guide - https://youtu.be/YwpUjz1tMbA?t=77', 'ssl-zen') . '<br>' . __('Please add the below command to the cron job and select Once Per Day in Common Settings:', 'ssl-zen') . '<br>' . '<strong>' . __('php -q ' . str_replace("classes", "", __DIR__) . 'cron.php >/dev/null 2>&1', 'ssl-zen') . '</strong>';
+            $cron_path = str_replace("classes", "", __DIR__) . 'cron.php';
+            return __('We were unable to add a cron job automatically. LetsEncrypt SSL certificates are only valid for 90 days and you are required to renew the certificate.', 'ssl-zen') . __('To automatically renew the certificates, please add a cron job using cPanel.', 'ssl-zen') . __('Follow this video guide - https://youtu.be/YwpUjz1tMbA?t=77', 'ssl-zen') . '<br>' . __('Please add the below command to the cron job and select Once Per Day in Common Settings:', 'ssl-zen') . '<br>' . '<strong>' . sprintf( __('php -q %s >/dev/null 2>&1', 'ssl-zen'), esc_html( $cron_path ) ) . '</strong>';
         }
     }
 }

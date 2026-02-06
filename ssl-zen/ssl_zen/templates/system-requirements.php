@@ -10,7 +10,7 @@
 	<?php wp_nonce_field( 'ssl_zen_system_requirements', 'ssl_zen_system_requirements_nonce' ); ?>
     <div class="ssl-zen-steps-container p-0 border-0">
         <h4 class="ssl-zen-system-requirement-header pb-2 mb-4">
-			<?php _e( 'System Requirements Check', 'ssl-zen' ); ?>
+			<?php esc_html_e( 'System Requirements Check', 'ssl-zen' ); ?>
         </h4>
         <div class="row ssl-zen-system-requirement-container">
             <div class="col-lg-<?php echo esc_attr( $col ); ?>">
@@ -18,7 +18,7 @@
                     <tbody>
                     <tr class="grey">
                         <th>Server</th>
-                        <th><?php _e( 'Info', 'ssl-zen' ); ?></th>
+                        <th><?php esc_html_e( 'Info', 'ssl-zen' ); ?></th>
                     </tr>
                     <tr>
                         <td>PHP Version > 5.6.20+</td>
@@ -27,7 +27,7 @@
                                 <i class="check"></i>
 							<?php else: ?>
                                 <div class="d-flex justify-content-between align-items-center">
-									<?php _e( 'Please ask your hosting provider to upgrade your PHP to the latest version.', 'ssl-zen' ); ?>
+									<?php esc_html_e( 'Please ask your hosting provider to upgrade your PHP to the latest version.', 'ssl-zen' ); ?>
                                     <i class="check error"></i>
                                 </div>
 							<?php endif; ?>
@@ -40,7 +40,7 @@
                                 <i class="check"></i>
 							<?php else: ?>
                                 <div class="d-flex justify-content-between align-items-center">
-									<?php _e( 'Please ask your hosting provider to enable cURL on your website server.', 'ssl-zen' ); ?>
+									<?php esc_html_e( 'Please ask your hosting provider to enable cURL on your website server.', 'ssl-zen' ); ?>
                                     <i class="check error"></i>
                                 </div>
 							<?php endif; ?>
@@ -53,7 +53,7 @@
                                 <i class="check"></i>
 							<?php else: ?>
                                 <div class="d-flex justify-content-between align-items-center">
-									<?php _e( 'Please ask your hosting provider to enable open SSL on your website server.', 'ssl-zen' ); ?>
+									<?php esc_html_e( 'Please ask your hosting provider to enable open SSL on your website server.', 'ssl-zen' ); ?>
                                     <i class="check error"></i>
                                 </div>
 							<?php endif; ?>

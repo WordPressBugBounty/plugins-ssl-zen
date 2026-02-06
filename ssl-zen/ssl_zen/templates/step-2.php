@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12 mb-5">
                     <p class="verification-question">
-						<?php _e( 'Which domain verification process would you like to use?', 'ssl-zen' ); ?>
+						<?php esc_html_e( 'Which domain verification process would you like to use?', 'ssl-zen' ); ?>
                     </p>
                 </div>
                 <div class="col-md-6">
@@ -35,12 +35,12 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5><?php _e( 'Step 1', 'ssl-zen' ); ?></h5>
-                            <p><?php _e( 'Create .well-known/acme-challenge folder ', 'ssl-zen' ); ?></p>
+                            <h5><?php esc_html_e( 'Step 1', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Create .well-known/acme-challenge folder ', 'ssl-zen' ); ?></p>
                         </div>
                         <div>
-                            <h5><?php _e( 'Step 2 ', 'ssl-zen' ); ?></h5>
-                            <p><?php _e( 'Upload verification file(s) ', 'ssl-zen' ); ?></p>
+                            <h5><?php esc_html_e( 'Step 2 ', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Upload verification file(s) ', 'ssl-zen' ); ?></p>
                         </div>
                     </div>
                 </div>
@@ -55,12 +55,12 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5><?php _e( 'Step 1', 'ssl-zen' ); ?></h5>
-                            <p><?php _e( 'Identify your domain host', 'ssl-zen' ); ?></p>
+                            <h5><?php esc_html_e( 'Step 1', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Identify your domain host', 'ssl-zen' ); ?></p>
                         </div>
                         <div>
-                            <h5><?php _e( 'Step 2', 'ssl-zen' ); ?></h5>
-                            <p><?php _e( 'Add a domain TXT record', 'ssl-zen' ); ?></p>
+                            <h5><?php esc_html_e( 'Step 2', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Add a domain TXT record', 'ssl-zen' ); ?></p>
                         </div>
                     </div>
                 </div>
@@ -107,31 +107,31 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h4 class="mb-4">
-											<?php _e( 'HTTP Verification', 'ssl-zen' ); ?>
+											<?php esc_html_e( 'HTTP Verification', 'ssl-zen' ); ?>
 
 											<?php if ( $cPanel ) : ?>
                                                 <a href="https://www.youtube.com/watch?v=9PT7r8TSHks"
                                                    class="tutorial ml-3"
-                                                   target="_blank"><?php _e( 'Video Tutorial', 'ssl-zen' ); ?></a>
+                                                   target="_blank"><?php esc_html_e( 'Video Tutorial', 'ssl-zen' ); ?></a>
 
 											<?php else: ?>
                                                 <a href="https://www.youtube.com/watch?v=XApeU26YcV8"
                                                    class="tutorial ml-3"
-                                                   target="_blank"><?php _e( 'Video Tutorial', 'ssl-zen' ); ?></a>
+                                                   target="_blank"><?php esc_html_e( 'Video Tutorial', 'ssl-zen' ); ?></a>
 											<?php endif; ?>
                                         </h4>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h5><?php _e( 'STEP 1', 'ssl-zen' ); ?></h5>
-                                        <p><?php _e( 'Create a folder to upload verification files', 'ssl-zen' ); ?></p>
+                                        <h5><?php esc_html_e( 'STEP 1', 'ssl-zen' ); ?></h5>
+                                        <p><?php esc_htmlesc_html_e( 'Create a folder to upload verification files', 'ssl-zen' ); ?></p>
                                     </div>
                                     <div class="col-md-8">
-                                        <span><?php _e( 'Navigate to the Folder where you have hosted WordPress.', 'ssl-zen' ); ?></span><br>
-                                        <span><?php _e( 'Create a folder', 'ssl-zen' ); ?></span>
+                                        <span><?php esc_html_e( 'Navigate to the Folder where you have hosted WordPress.', 'ssl-zen' ); ?></span><br>
+                                        <span><?php esc_html_e( 'Create a folder', 'ssl-zen' ); ?></span>
                                         <span class="folder">.well-known</span>
-                                        <span><?php _e( 'and inside it another folder', 'ssl-zen' ); ?></span><br>
+                                        <span><?php esc_html_e( 'and inside it another folder', 'ssl-zen' ); ?></span><br>
                                         <span class="folder">acme-challenge</span>
                                     </div>
                                 </div>
@@ -140,13 +140,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mt-5">
-                            <h5><?php _e( 'STEP 2', 'ssl-zen' ); ?></h5>
-                            <p><?php _e( 'Upload the verification file(s)', 'ssl-zen' ); ?></p>
+                            <h5><?php esc_html_e( 'STEP 2', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Upload the verification file(s)', 'ssl-zen' ); ?></p>
                         </div>
                         <div class="col-md-8 mt-5">
-                            <span><?php _e( 'Download the file(s) below on your local computer and', 'ssl-zen' ); ?></span>
+                            <span><?php esc_htmlesc_html_e( 'Download the file(s) below on your local computer and', 'ssl-zen' ); ?></span>
                             <br>
-                            <span><?php _e( 'upload them in', 'ssl-zen' ); ?></span>
+                            <span><?php esc_htmlesc_html_e( 'upload them in', 'ssl-zen' ); ?></span>
                             <span class="folder">.well-known/acme-challenge</span>
                             <span>folder</span><br>
                         </div>
@@ -165,7 +165,7 @@
 										<?php
 									}
 								endif; ?>
-                                <a class="scan-http primary mr-3 <?php echo esc_attr( empty( $arrPendingHttp ) ? 'disabled' : '' ); ?>"><?php _e( 'Verify', 'ssl-zen' ); ?></a>
+                                <a class="scan-http primary mr-3 <?php echo esc_attr( empty( $arrPendingHttp ) ? 'disabled' : '' ); ?>"><?php esc_html_e( 'Verify', 'ssl-zen' ); ?></a>
                                 <div class="message-container"></div>
                             </div>
                         </div>
@@ -176,10 +176,10 @@
                         <div class="col-md-8">
                             <div class="ssl-zen-domain-verification-variant-tab-container-left">
                                 <h4 class="mb-4">
-									<?php _e( 'DNS Verification', 'ssl-zen' ); ?>
+									<?php esc_html_e( 'DNS Verification', 'ssl-zen' ); ?>
                                     <a href="https://youtu.be/ubT5EpBr6-U"
                                        class="tutorial ml-3"
-                                       target="_blank"><?php _e( 'Video Tutorial', 'ssl-zen' ); ?></a>
+                                       target="_blank"><?php esc_html_e( 'Video Tutorial', 'ssl-zen' ); ?></a>
                                 </h4>
                                 <p><?php _e(
 										'To verify domain ownership, you will need to create a DNS record of the
@@ -188,8 +188,8 @@
                                 </p>
 								<?php if ( ! empty( $arrPendingDns ) ) : ?>
                                     <div class="record-table mt-4">
-                                        <div class="head"><?php _e( 'Domain TXT Record', 'ssl-zen' ); ?></div>
-                                        <div class="head"><?php _e( 'Value', 'ssl-zen' ); ?></div>
+                                        <div class="head"><?php esc_html_e( 'Domain TXT Record', 'ssl-zen' ); ?></div>
+                                        <div class="head"><?php esc_html_e( 'Value', 'ssl-zen' ); ?></div>
 										<?php
 										foreach ( $arrPendingDns as $key => $item ) :
 											$rowClass = ! $key ? 'first' : 'second';
@@ -200,14 +200,14 @@
                                                        type="text"
                                                        value="<?php echo esc_attr( $value ); ?>">
                                                 <i class="copy"
-                                                   title="<?php _e( 'Copy', 'ssl-zen' ) ?>"></i>
+                                                   title="<?php esc_attr_e( 'Copy', 'ssl-zen' ) ?>"></i>
                                             </div>
                                             <div class="record <?php echo esc_attr( $rowClass ); ?> d-flex align-items-center justify-content-between">
                                                 <input class="txt"
                                                        type="text"
                                                        value="<?php echo esc_attr( $item['DNSDigest'] ); ?>">
                                                 <i class="copy"
-                                                   title="<?php _e( 'Copy', 'ssl-zen' ) ?>"></i>
+                                                   title="<?php esc_attr_e( 'Copy', 'ssl-zen' ) ?>"></i>
                                             </div>
 										<?php
 										endforeach;
@@ -235,23 +235,23 @@
                         </div>
                         <div class="col-md-4">
                             <div class="description pb-5 pt-5 pl-4 pr-4">
-                                <h4><?php _e( 'How to add a TXT record ?', 'ssl-zen' ) ?></h4>
+                                <h4><?php esc_html_e( 'How to add a TXT record ?', 'ssl-zen' ) ?></h4>
                                 <ul>
-                                    <li><?php _e( 'Sign in to your domain host.', 'ssl-zen' ) ?></li>
-                                    <li><?php _e( 'Go to your domain’s DNS records.', 'ssl-zen' ) ?>
-										<?php _e( 'The page might be called something like', 'ssl-zen' ) ?>
+                                    <li><?php esc_html_e( 'Sign in to your domain host.', 'ssl-zen' ) ?></li>
+                                    <li><?php esc_html_e( 'Go to your domain’s DNS records.', 'ssl-zen' ) ?>
+										<?php esc_htmlesc_html_e( 'The page might be called something like', 'ssl-zen' ) ?>
                                         DNS Management, Name Server
                                         Management, Control Panel,
                                         or Advanced
-                                        Settings. <?php _e( 'Select the option to add a new record.', 'ssl-zen' ) ?>
+                                        Settings. <?php esc_html_e( 'Select the option to add a new record.', 'ssl-zen' ) ?>
                                     </li>
-                                    <li><?php _e( 'For the record type, select TXT', 'ssl-zen' ) ?></li>
-                                    <li><?php _e( 'In the Name/Host/Alias field, enter ', 'ssl-zen' ) ?> [
+                                    <li><?php esc_html_e( 'For the record type, select TXT', 'ssl-zen' ) ?></li>
+                                    <li><?php esc_html_e( 'In the Name/Host/Alias field, enter ', 'ssl-zen' ) ?> [
                                         _acme-challenge ]
                                     </li>
-                                    <li><?php _e( 'In the TTL field, enter 300 or lower', 'ssl-zen' ) ?></li>
-                                    <li><?php _e( 'In the Value/Answer/Destination field, paste the verification record and Save the record.', 'ssl-zen' ) ?></li>
-                                    <li><?php _e( 'Come back here and click on Scan DNS Record button.', 'ssl-zen' ) ?></li>
+                                    <li><?php esc_html_e( 'In the TTL field, enter 300 or lower', 'ssl-zen' ) ?></li>
+                                    <li><?php esc_html_e( 'In the Value/Answer/Destination field, paste the verification record and Save the record.', 'ssl-zen' ) ?></li>
+                                    <li><?php esc_html_e( 'Come back here and click on Scan DNS Record button.', 'ssl-zen' ) ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -264,6 +264,6 @@
 	?>
     <div class="text-right mb-4">
         <a class="primary next <?php echo esc_attr( $nextButtonClass ); ?>"
-           href="#"><?php _e( 'Next', 'ssl-zen' ); ?></a>
+           href="#"><?php esc_html_e( 'Next', 'ssl-zen' ); ?></a>
     </div>
 </form>

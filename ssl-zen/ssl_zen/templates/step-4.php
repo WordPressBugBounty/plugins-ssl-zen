@@ -12,25 +12,25 @@
             <div class="col-md-8 steps">
                 <div>
                     <h4 class="mb-4">
-						<?php _e( 'To start serving your wordpress website over SSL, we need to do the following:', 'ssl-zen' ); ?>
+						<?php esc_htmlesc_html_e( 'To start serving your wordpress website over SSL, we need to do the following:', 'ssl-zen' ); ?>
                     </h4>
                     <ul>
 						<?php if ( sz_fs()->is_plan( 'cdn', true ) ) { ?>
                             <li>
-                                <span><?php _e( 'All incoming HTTP requests on your website will be redirected to HTTPS', 'ssl-zen' ); ?></span>
+                                <span><?php esc_html_e( 'All incoming HTTP requests on your website will be redirected to HTTPS', 'ssl-zen' ); ?></span>
                             </li>
                             <li>
-                                <span><?php _e( 'Add code to wp-config.php to enable administration over SSL', 'ssl-zen' ); ?></span>
+                                <span><?php esc_html_e( 'Add code to wp-config.php to enable administration over SSL', 'ssl-zen' ); ?></span>
                             </li>
                             <li>
-                                <span><?php _e( 'Add code to avoid insecure content warning', 'ssl-zen' ); ?></span>
+                                <span><?php esc_html_e( 'Add code to avoid insecure content warning', 'ssl-zen' ); ?></span>
                             </li>
 						<?php } else { ?>
                             <li>
-                                <span><?php _e( 'All incoming HTTP requests on your website will be redirected to HTTPS', 'ssl-zen' ); ?></span>
+                                <span><?php esc_html_e( 'All incoming HTTP requests on your website will be redirected to HTTPS', 'ssl-zen' ); ?></span>
                             </li>
                             <li>
-                                <span><?php _e( 'Your site URL and Home URL will be changed from HTTP  to HTTPS', 'ssl-zen' ); ?></span>
+                                <span><?php esc_html_e( 'Your site URL and Home URL will be changed from HTTP  to HTTPS', 'ssl-zen' ); ?></span>
                             </li>
                             <li>
                                 <span><?php _e( 'We will fix insecure content warning by replacing HTTP URL\'s to HTTPS URL\'s', 'ssl-zen' ); ?></span>
@@ -75,10 +75,10 @@
                 <div>
                     <div class="note">
                         <div class="head">
-                            <span class="important"><?php _e( 'Note', 'ssl-zen' ) ?></span>
+                            <span class="important"><?php esc_html_e( 'Note', 'ssl-zen' ) ?></span>
                         </div>
                         <div class="body">
-                            <span><?php _e( 'Remember to clear your browser cache after SSL is activated on your website.', 'ssl-zen' ); ?></span>
+                            <span><?php esc_html_e( 'Remember to clear your browser cache after SSL is activated on your website.', 'ssl-zen' ); ?></span>
                         </div>
                     </div>
                 </div>
@@ -87,6 +87,6 @@
     </div>
     <div class="text-right mb-4">
         <a class="primary next"
-           href="#"><?php _e( 'Next', 'ssl-zen' ); ?></a>
+           href="#"><?php esc_html_e( 'Next', 'ssl-zen' ); ?></a>
     </div>
 </form>

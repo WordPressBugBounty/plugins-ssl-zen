@@ -26,19 +26,19 @@
  */
 
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    wp_die(__("Unfortunately, this app is not compatible with Windows. It works on Linux hosting.", 'auto-install-free-ssl'));
+    wp_die(__("Unfortunately, this app is not compatible with Windows. It works on Linux hosting.", 'ssl-zen'));
 }
 
 if (!defined('PHP_VERSION_ID') || PHP_VERSION_ID < 50400) {
-    wp_die(__("You need at least PHP 5.4.0\n", 'auto-install-free-ssl'));
+    wp_die(__("You need at least PHP 5.4.0\n", 'ssl-zen'));
 }
 
 if (!extension_loaded('openssl')) {
-    wp_die(__("You need OpenSSL extension enabled with PHP\n", 'auto-install-free-ssl'));
+    wp_die(__("You need OpenSSL extension enabled with PHP\n", 'ssl-zen'));
 }
 
 if (!extension_loaded('curl')) {
-    wp_die(__("You need Curl extension enabled with PHP\n", 'auto-install-free-ssl'));
+    wp_die(__("You need Curl extension enabled with PHP\n", 'ssl-zen'));
 }
 
 require_once __DIR__ . '/../../../../wp-load.php';

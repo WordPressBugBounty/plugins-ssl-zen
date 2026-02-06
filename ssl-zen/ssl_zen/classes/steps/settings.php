@@ -31,10 +31,10 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
                             <div>
                                 <label for="enable_debug"
                                        class="d-block title"><?php 
-            _e( 'Show Debug URL', 'ssl-zen' );
+            esc_html_e( 'Show Debug URL', 'ssl-zen' );
             ?></label>
                                 <span><?php 
-            _e( 'Generates the debug log for sharing with the support team.', 'ssl-zen' );
+            esc_htmlesc_html_e( 'Generates the debug log for sharing with the support team.', 'ssl-zen' );
             ?></span>
                             </div>
                         </li>
@@ -64,12 +64,12 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
             ?>"
                     >
                         <?php 
-            _e( 'Reset Plugin', 'ssl-zen' );
+            esc_html_e( 'Reset Plugin', 'ssl-zen' );
             ?>
                     </a>
                     <input type="hidden" name="stackpath_reset_plugin" id="stackpath_reset_plugin">
                     <span class="d-block mini-message"><?php 
-            _e( 'This will reset the plugin and allow you to start from the beginning.', 'ssl-zen' );
+            esc_html_e( 'This will reset the plugin and allow you to start from the beginning.', 'ssl-zen' );
             ?></span>
                     <?php 
             if ( $detectedStackPathIp ) {
@@ -78,9 +78,9 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
                             <?php 
                 echo sprintf( 
                     /* translators: 1: StackPath IP 2: Host IP */
-                    __( 'Your website DNS record for type A is currently pointing to StackPath\'s IP - %1$s. Please change your website A record to %2$s and CNAME record for "www" to your domain before we can reset the plugin' ),
-                    $detectedStackPathIp,
-                    get_option( 'ssl_zen_stackpath_host_ip' )
+                    esc_html__( 'Your website DNS record for type A is currently pointing to StackPath\'s IP - %1$s. Please change your website A record to %2$s and CNAME record for "www" to your domain before we can reset the plugin', 'ssl-zen' ),
+                    esc_html( $detectedStackPathIp ),
+                    esc_html( get_option( 'ssl_zen_stackpath_host_ip' ) )
                  );
                 ?>
                         </div>
@@ -116,10 +116,10 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
                                 <label
                                     for="enable_debug"
                                     class="d-block title"><?php 
-            _e( 'Enable Debugging', 'ssl-zen' );
+            esc_html_e( 'Enable Debugging', 'ssl-zen' );
             ?></label>
                                 <span><?php 
-            _e( 'Enables LOG_DEBUG for full debugging. Only enable when asked by the support team.', 'ssl-zen' );
+            esc_html_e( 'Enables LOG_DEBUG for full debugging. Only enable when asked by the support team.', 'ssl-zen' );
             ?></span>
                             </div>
                         </li>
@@ -128,7 +128,7 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
                 <div class="col-md-12">
                     <div class="table">
                         <div class="head"><?php 
-            _e( 'Debug Log', 'ssl-zen' );
+            esc_html_e( 'Debug Log', 'ssl-zen' );
             ?></div>
 
                         <div class="body p-0">
@@ -142,10 +142,10 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
             echo admin_url( 'admin.php?page=ssl_zen&tab=settings&download=debug_log' );
             ?>"
                             class="d-inline-block primary mb-2 download-debug"><?php 
-            _e( 'Download Debug Log', 'ssl-zen' );
+            esc_html_e( 'Download Debug Log', 'ssl-zen' );
             ?></a>
                         <span class="d-block mini-message"><?php 
-            _e( 'When asked, please download and share this file with SSL Zen support team.', 'ssl-zen' );
+            esc_html_e( 'When asked, please download and share this file with SSL Zen support team.', 'ssl-zen' );
             ?></span>
                     </div>
                 </div>

@@ -22,17 +22,17 @@
 		<?php if ( in_array( 'advanced', $tabsToShow, true ) ) : ?>
             <li data-tab="advanced"
                 class="advanced <?php echo esc_attr( $activeTab === 'advanced' ? 'active' : '' ); ?>">
-				<?php _e( 'Advanced', 'ssl-zen' ) ?>
+				<?php esc_html_e( 'Advanced', 'ssl-zen' ) ?>
             </li>
 		<?php endif; ?>
 		<?php if ( in_array( 'status', $tabsToShow, true ) ) : ?>
             <li data-tab="status" class="status <?php echo esc_attr( $activeTab === 'status' ? 'active' : '' ); ?>">
-				<?php _e( 'Status', 'ssl-zen' ) ?>
+				<?php esc_html_e( 'Status', 'ssl-zen' ) ?>
             </li>
 		<?php endif; ?>
 		<?php if ( in_array( 'debug', $tabsToShow, true ) ) : ?>
             <li data-tab="debug" class="debug <?php echo esc_attr( $activeTab === 'debug' ? 'active' : '' ); ?>">
-				<?php _e( 'Debug', 'ssl-zen' ) ?>
+				<?php esc_html_e( 'Debug', 'ssl-zen' ) ?>
             </li>
 		<?php endif; ?>
     </ul>
@@ -45,11 +45,11 @@
                         <div class="body">
                             <ul>
                                 <li class="mb-4 mt-3">
-                                    <span class="d-block title"><?php _e( 'Issued to', 'ssl-zen' ); ?></span>
+                                    <span class="d-block title"><?php esc_html_e( 'Issued to', 'ssl-zen' ); ?></span>
                                     <span class="d-block"><?php echo esc_html( $primaryDomain ); ?></span>
                                 </li>
                                 <li class="mb-4">
-                                    <span class="d-block title"><?php _e( 'Issued by', 'ssl-zen' ); ?></span>
+                                    <span class="d-block title"><?php esc_html_e( 'Issued by', 'ssl-zen' ); ?></span>
                                     <span class="d-block"><?php echo esc_html( $issuer ); ?></span>
                                 </li>
                                 <li class="mb-4">
@@ -98,14 +98,14 @@
                 </div>
                 <div class="col-md-8">
                     <div class="table">
-                        <div class="head"><?php _e( 'Advanced settings', 'ssl-zen' ); ?></div>
+                        <div class="head"><?php esc_html_e( 'Advanced settings', 'ssl-zen' ); ?></div>
                         <div class="body right">
                             <ul class="mb-4">
 								<?php if ( sz_fs()->is_plan( 'cdn', true ) ) : ?>
                                     <li class="mb-4 line">
                                         <label for="stackpath_purge_everything"
-                                               class="d-block title"><?php _e( 'Purge Everything', 'ssl-zen' ) ?></label>
-                                        <span><?php _e( 'Remove files from cache globally and retrieve them from your origin again the next time they are requested.', 'ssl-zen' ) ?></span>
+                                               class="d-block title"><?php esc_html_e( 'Purge Everything', 'ssl-zen' ) ?></label>
+                                        <span><?php esc_html_e( 'Remove files from cache globally and retrieve them from your origin again the next time they are requested.', 'ssl-zen' ) ?></span>
                                         <div class="mb-5 mt-2">
                                             <a href="#"
                                                class="d-inline-block primary stackpath-purge sslzen-form-button"
@@ -125,8 +125,8 @@
                                         </div>
                                         <div>
                                             <label for="stackpath_auto_purge"
-                                                   class="d-block title"><?php _e( 'Auto Purge', 'ssl-zen' ) ?></label>
-                                            <span><?php _e( 'Automatically purge pages and posts as they are updated in WordPress.', 'ssl-zen' ) ?></span>
+                                                   class="d-block title"><?php esc_html_e( 'Auto Purge', 'ssl-zen' ) ?></label>
+                                            <span><?php esc_html_e( 'Automatically purge pages and posts as they are updated in WordPress.', 'ssl-zen' ) ?></span>
                                         </div>
                                     </li>
                                     <li class="d-flex mb-4 line">
@@ -139,8 +139,8 @@
                                         </div>
                                         <div>
                                             <label for="stackpath_bypass_cache"
-                                                   class="d-block title"><?php _e( 'Bypass Cache for WordPress cookies', 'ssl-zen' ) ?></label>
-                                            <span><?php _e( '[wp-*, wordpress, comment_*, woocommerce_*]', 'ssl-zen' ) ?></span>
+                                                   class="d-block title"><?php esc_html_e( 'Bypass Cache for WordPress cookies', 'ssl-zen' ) ?></label>
+                                            <span><?php esc_html_e( '[wp-*, wordpress, comment_*, woocommerce_*]', 'ssl-zen' ) ?></span>
                                         </div>
                                     </li>
 								<?php else: ?>
@@ -154,8 +154,8 @@
                                         </div>
                                         <div>
                                             <label for="enable_301_htaccess_redirect"
-                                                   class="d-block title"><?php _e( 'Enable 301 .htaccess redirect', 'ssl-zen' ) ?></label>
-                                            <span><?php _e( 'Speeds up your website but might also cause a redirect loop and lock you out of your website.', 'ssl-zen' ) ?></span>
+                                                   class="d-block title"><?php esc_html_e( 'Enable 301 .htaccess redirect', 'ssl-zen' ) ?></label>
+                                            <span><?php esc_html_e( 'Speeds up your website but might also cause a redirect loop and lock you out of your website.', 'ssl-zen' ) ?></span>
                                         </div>
                                     </li>
                                     <li class="d-flex mb-4 line">
@@ -168,8 +168,8 @@
                                         </div>
                                         <div>
                                             <label for="lock_htaccess_file"
-                                                   class="d-block title"><?php _e( 'Lock down .htaccess file', 'ssl-zen' ) ?></label>
-                                            <span><?php _e( 'Disables the plugin from making any changes so you can edit the file manually.', 'ssl-zen' ) ?></span>
+                                                   class="d-block title"><?php esc_html_e( 'Lock down .htaccess file', 'ssl-zen' ) ?></label>
+                                            <span><?php esc_html_e( 'Disables the plugin from making any changes so you can edit the file manually.', 'ssl-zen' ) ?></span>
                                         </div>
                                     </li>
 								<?php endif; ?>
@@ -185,7 +185,7 @@
                                                     target="_blank"
                                                     class="text-muted sslzen-link-underline"
                                             >
-                                                <?php _e( 'How to safely disable the plugin?', 'ssl-zen' ); ?>
+                                                <?php esc_html_e( 'How to safely disable the plugin?', 'ssl-zen' ); ?>
                                             </a>
                                         </span>
                                 <span class="error mini-message d-block w-100"><?php echo esc_attr( $deactivateMsg ); ?></span>
@@ -201,7 +201,7 @@
 								<?php
 								echo sprintf(
 								/* translators: 1: Link tag start 2: Link tag close */
-									__( 'Would you like to use SSL Zen plugin in your local language? Click %1$shere%2$s to contribute.' ),
+									esc_html__( 'Would you like to use SSL Zen plugin in your local language? Click %1$shere%2$s to contribute.', 'ssl-zen' ),
 									'<a href="https://translate.wordpress.org/projects/wp-plugins/ssl-zen/">',
 									'</a>'
 								);
@@ -238,7 +238,7 @@
                     <a href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=settings&download=status_info' ); ?>"
                        class="d-inline-block primary mb-2 download-status">Download
                         Status Info</a>
-                    <span class="d-block mini-message"><?php _e( 'When asked, please download and share this file with SSL Zen support team.', 'ssl-zen' ) ?></span>
+                    <span class="d-block mini-message"><?php esc_html_e( 'When asked, please download and share this file with SSL Zen support team.', 'ssl-zen' ) ?></span>
                 </div>
                 <div class="col-md-6">
                     <table class="table table-bordered">

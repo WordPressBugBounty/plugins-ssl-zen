@@ -46,13 +46,13 @@ echo esc_html( $tagline );
             <div class="col-sm-3">
                 <div>
 					<?php 
-_e( 'Domain Details', 'ssl-zen' );
+esc_html_e( 'Domain Details', 'ssl-zen' );
 ?>
                 </div>
             </div>
             <div class="col-sm-9 pt-4 pb-4">
                 <label for="domaiAdress"><?php 
-_e( 'Domain Address', 'ssl-zen' );
+esc_html_e( 'Domain Address', 'ssl-zen' );
 ?></label>
                 <br>
                 <span class="text mb-3">
@@ -71,7 +71,7 @@ echo esc_attr( $host );
 if ( sz_fs()->is_plan( 'cdn', true ) ) {
     ?>
                     <span class="mini-message d-block w-100"><?php 
-    _e( 'The domain name you would like to point to the StackPath Edge.', 'ssl-zen' );
+    esc_html_e( 'The domain name you would like to point to the StackPath Edge.', 'ssl-zen' );
     ?></span>
 				<?php 
 }
@@ -87,13 +87,13 @@ if ( !ssl_zen_helper::checkWWWSubDomainExistence( $host ) && !sz_fs()->is_plan( 
     ?> >
                         <label for="include_www">
 							<?php 
-    _e( 'Include www-prefixed version too?', 'ssl-zen' );
+    esc_html_e( 'Include www-prefixed version too?', 'ssl-zen' );
     ?> &nbsp;
                             <a href="#"
                                data-toggle="tooltip"
                                data-placement="right"
                                title="<?php 
-    _e( 'By default, we generate SSL certificate only for domain.com. If user enters www.domain.com your website will show a not secure warning. Check this box to create a certificate for www.domain.com too. Make sure you have a CNAME or A record added for www in your domain panel.', 'ssl-zen' );
+    esc_html_e( 'By default, we generate SSL certificate only for domain.com. If user enters www.domain.com your website will show a not secure warning. Check this box to create a certificate for www.domain.com too. Make sure you have a CNAME or A record added for www in your domain panel.', 'ssl-zen' );
     ?>">
                                 <img src="<?php 
     echo esc_url( SSL_ZEN_URL );
@@ -118,14 +118,14 @@ if ( sz_fs()->is_plan( 'cdn', true ) ) {
                 <div class="col-sm-3">
                     <div>
 						<?php 
-    _e( 'Hostname/IP Address', 'ssl-zen' );
+    esc_html_e( 'Hostname/IP Address', 'ssl-zen' );
     ?>
                         &nbsp;
                     </div>
                 </div>
                 <div class="col-sm-9 pt-4 pb-4">
                     <label for="ip_address"><?php 
-    _e( 'Hostname/IP Address', 'ssl-zen' );
+    esc_html_e( 'Hostname/IP Address', 'ssl-zen' );
     ?></label>
                     <br>
                     <span class="text mb-3">
@@ -139,7 +139,7 @@ if ( sz_fs()->is_plan( 'cdn', true ) ) {
     echo esc_html( $apiResponse['ip'] );
     ?>">
                     <span class="mini-message d-block w-100"><?php 
-    _e( 'The IP address of your website.', 'ssl-zen' );
+    esc_html_e( 'The IP address of your website.', 'ssl-zen' );
     ?></span>
 
                 </div>
@@ -149,18 +149,18 @@ if ( sz_fs()->is_plan( 'cdn', true ) ) {
                 <div class="col-sm-3">
                     <div>
 						<?php 
-    _e( 'Contact Details', 'ssl-zen' );
+    esc_html_e( 'Contact Details', 'ssl-zen' );
     ?>
                         &nbsp;
                     </div>
                 </div>
                 <div class="col-sm-9 pt-4 pb-4">
                     <label for="email"><?php 
-    _e( 'Email Address', 'ssl-zen' );
+    esc_html_e( 'Email Address', 'ssl-zen' );
     ?></label> <br>
                     <input type="email" name="email" id="email"
                            placeholder="<?php 
-    _e( 'Enter your email address', 'ssl-zen' );
+    esc_html_e( 'Enter your email address', 'ssl-zen' );
     ?>"
                            value="<?php 
     echo esc_attr( get_option( 'ssl_zen_email' ) );
@@ -200,7 +200,7 @@ if ( !sz_fs()->is_plan( 'cdn', true ) ) {
     </div>
     <div class="text-right mb-4">
         <a class="sslzen-step1-next-button primary next" href="#"><?php 
-_e( 'Next', 'ssl-zen' );
+esc_html_e( 'Next', 'ssl-zen' );
 ?></a>
     </div>
 </form>

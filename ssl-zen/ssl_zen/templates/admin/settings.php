@@ -21,22 +21,22 @@
 					// show settings button only when the stage is that.
 					if ( $stage === 'settings' && ssl_zen_helper::isTabAvailableAtThisStage( $tab, 'settings', ssl_zen_admin::$allowedTabs ) ) { ?>
                         <a class="settings" href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=settings' ); ?>">
-							<?php _e( 'Settings', 'ssl-zen' ); ?>
+							<?php esc_html_e( 'Settings', 'ssl-zen' ); ?>
                         </a>
 					<?php }
 					if ( ssl_zen_helper::isTabAvailableAtThisStage( $tab, 'upgrade', ssl_zen_admin::$allowedTabs ) && SSLZenCPanel::detect_cpanel() ) { ?>
                         <a class="upgrade" href="https://checkout.freemius.com/mode/dialog/plugin/4586/plan/7397/licenses/1/">
-							<?php _e( 'Upgrade', 'ssl-zen' ); ?>
+							<?php esc_html_e( 'Upgrade', 'ssl-zen' ); ?>
                         </a>
 					<?php }
 					if ( $stage !== 'settings' ) { ?>
                         <a class="settings" href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=settings' ); ?>">
-							<?php _e( 'Debug', 'ssl-zen' ); ?>
+							<?php esc_html_e( 'Debug', 'ssl-zen' ); ?>
                         </a>
 					<?php }
 					if ( ssl_zen_helper::isTabAvailableAtThisStage( $tab, 'support', ssl_zen_admin::$allowedTabs ) ) { ?>
                         <a class="support" href="<?php echo admin_url( 'admin.php?page=ssl_zen-contact' ); ?>">
-							<?php _e( 'Support', 'ssl-zen' ); ?>
+							<?php esc_html_e( 'Support', 'ssl-zen' ); ?>
                         </a>
 					<?php } ?>
                 </div>
@@ -78,16 +78,16 @@
             <a href="<?php echo esc_url( $upgradeUrl ); ?>">
                 <div class="row align-items-center">
                     <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
-                        <h4><?php _e( 'Never Pay for SSL Again!', 'ssl-zen' ); ?></h4>
-                        <p class="mt-1"><?php _e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
+                        <h4><?php esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' ); ?></h4>
+                        <p class="mt-1"><?php esc_htmlesc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
                     </div>
                     <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
-                        <span><?php _e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php _e( 'DOMAIN VERIFICATION', 'ssl-zen' ); ?></span>
-                        <span><?php _e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' ); ?></span>
-                        <span><?php _e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' ); ?></span>
+                        <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' ); ?></span>
+                        <span><?php esc_html_e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' ); ?></span>
+                        <span><?php esc_html_e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' ); ?></span>
                     </div>
                     <div class="col-lg-2 text-center text-lg-right mt-4 mt-lg-0 align ssl-zen-pro-upgrade">
-                        <button><?php _e( 'UPGRADE', 'ssl-zen' ); ?></button>
+                        <button><?php esc_html_e( 'UPGRADE', 'ssl-zen' ); ?></button>
                     </div>
                 </div>
             </a>

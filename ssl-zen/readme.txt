@@ -1,4 +1,4 @@
-=== SSL Certificate - Free SSL, HTTPS by SSL Zen ===
+=== SSL Zen — SSL Certificate Installer & HTTPS Redirects ===
 Contributors: sslzen, sslzensupport
 Donate link: https://paypal.me/sagarspatil
 Tags: ssl,free ssl,free ssl certificate,https,mixed content
@@ -6,19 +6,19 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 4.7.6
+Stable tag: 4.7.7
 
 Helps install a free Let's Encrypt SSL certificate, redirects HTTP to HTTPS and forces SSL on all pages.
 
 == Description ==
 
-### Secure your website with a Free Let's Encrypt SSL certificate. Trusted by 100,000+ websites globally! ###
+### Secure your website with a Free Let's Encrypt SSL certificate. ###
 
 https://www.youtube.com/watch?v=Jk86wUqoOco
 
-[SSL Zen](https://sslzen.com) is WordPress's most trusted and highly reviewed 'Free SSL certificate' plugin that helps you to secure your website, protect your customer's data and show your visitors you're trustworthy and authentic.
+[SSL Zen](https://sslzen.com) is a 'Free SSL certificate' plugin that helps you to secure your website, protect your customer's data and show your visitors you're trustworthy and authentic.
 
-Manually installing a free Let's Encrypt SSL certificate is not as easy as it sounds. It involves editing SSL configuration files on your web server and troubleshooting issues, which, believe us, will crop up! Instead, with our plugin, all you need to do is follow a few easy steps to get your free Let's Encrypt SSL certificate. No coding, no hassle, no more mixed content, or insecure content warnings. In other words, you require no special developer experience to move your HTTP web pages to HTTPS or to force SSL on your website.
+Manually installing a free Let's Encrypt SSL certificate involves editing SSL configuration files on your web server and troubleshooting issues. With this plugin, you can follow a few steps to get your free Let's Encrypt SSL certificate. No coding required, no more mixed content, or insecure content warnings. You require no special developer experience to move your HTTP web pages to HTTPS or to force SSL on your website.
 
 = Features of Free Version: =
 * Generate a free SSL certificate by verifying your domain ownership
@@ -26,10 +26,10 @@ Manually installing a free Let's Encrypt SSL certificate is not as easy as it so
 * Renew the free SSL certificate by re-verifying and re-installing the SSL certificate every 90 days
 * Settings page that shows your SSL certificate validity duration
 * Get an email reminder 30 days before the free SSL certificate expires
-* Secure padlock in the browser using Let’s Encrypt™ Free SSL certificate
-* Increased SEO ranking as SSL certificate is now a ranking factor
-* Customers will trust you as the SSL certificate displays information about your domain name and is verified by Let’s Encrypt™
-* Accept safe payments online as customers trust websites with SSL certificates
+* Secure padlock in the browser using Let's Encrypt™ Free SSL certificate
+* SSL certificate is a ranking factor for search engines
+* SSL certificate displays information about your domain name and is verified by Let's Encrypt™
+* Enable secure payment processing on websites with SSL certificates
 
 
 Note: The free version requires you to manually verify your domain name with [Let's Encrypt](https://letsencrypt.org) by uploading a file on your server. You will also need to upload the free SSL certificate on your server and configure them. SSL certificate from Let's Encrypt is only valid for [90 days](https://letsencrypt.org/2015/11/09/why-90-days.html) and need to be manually renewed. If you fail to renew your free SSL certificate, your website will start showing a not secure warning to the visitors.
