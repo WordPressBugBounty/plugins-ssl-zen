@@ -79,7 +79,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
                         <h4><?php esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' ); ?></h4>
-                        <p class="mt-1"><?php esc_htmlesc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
+                        <p class="mt-1"><?php esc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
                     </div>
                     <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
                         <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' ); ?></span>

@@ -1375,7 +1375,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                 </p>
                                 <div class="propose d-lg-flex align-items-center">
                                     <?php 
-            esc_htmlesc_html_e( 'Could you please do us a BIG favour and give SSL Zen a', 'ssl-zen' );
+            esc_html_e( 'Could you please do us a BIG favour and give SSL Zen a', 'ssl-zen' );
             ?>
                                     <i class="star ml-2 mr-2"></i>
                                     <i class="star mr-2"></i>

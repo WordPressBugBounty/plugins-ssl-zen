@@ -4,9 +4,9 @@ Donate link: https://paypal.me/sagarspatil
 Tags: ssl,free ssl,free ssl certificate,https,mixed content
 Requires at least: 4.2
 License: GPL3
-Tested up to: 6.6
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.7
+Stable tag: 4.7.8
 
 Helps install a free Let's Encrypt SSL certificate, redirects HTTP to HTTPS and forces SSL on all pages.
 
@@ -197,6 +197,11 @@ You can get the help of your hosting provider to install your WordPress in the r
 7. Settings to enable 301 redirection the settings page.
 
 == Changelog ==
+
+= 4.7.8 =
+* Critical fix: setup wizard fatal error on Step 2 (and Step 4 / Settings) caused by a malformed esc_html_e() call — this was breaking SSL certificate installation for free-tier users on PHP 8+
+* Fixed PHP warnings (undefined array key 'contact' / 'initialIp') in the Let's Encrypt account handler
+* Verified compatibility with WordPress 7.0 (full certificate issuance and HTTPS activation tested end-to-end)
 
 = 4.7.2 =
 * Minor bug fixes

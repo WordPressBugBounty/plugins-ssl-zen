@@ -125,7 +125,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h5><?php esc_html_e( 'STEP 1', 'ssl-zen' ); ?></h5>
-                                        <p><?php esc_htmlesc_html_e( 'Create a folder to upload verification files', 'ssl-zen' ); ?></p>
+                                        <p><?php esc_html_e( 'Create a folder to upload verification files', 'ssl-zen' ); ?></p>
                                     </div>
                                     <div class="col-md-8">
                                         <span><?php esc_html_e( 'Navigate to the Folder where you have hosted WordPress.', 'ssl-zen' ); ?></span><br>
@@ -144,9 +144,9 @@
                             <p><?php esc_html_e( 'Upload the verification file(s)', 'ssl-zen' ); ?></p>
                         </div>
                         <div class="col-md-8 mt-5">
-                            <span><?php esc_htmlesc_html_e( 'Download the file(s) below on your local computer and', 'ssl-zen' ); ?></span>
+                            <span><?php esc_html_e( 'Download the file(s) below on your local computer and', 'ssl-zen' ); ?></span>
                             <br>
-                            <span><?php esc_htmlesc_html_e( 'upload them in', 'ssl-zen' ); ?></span>
+                            <span><?php esc_html_e( 'upload them in', 'ssl-zen' ); ?></span>
                             <span class="folder">.well-known/acme-challenge</span>
                             <span>folder</span><br>
                         </div>
@@ -239,7 +239,7 @@
                                 <ul>
                                     <li><?php esc_html_e( 'Sign in to your domain host.', 'ssl-zen' ) ?></li>
                                     <li><?php esc_html_e( 'Go to your domain’s DNS records.', 'ssl-zen' ) ?>
-										<?php esc_htmlesc_html_e( 'The page might be called something like', 'ssl-zen' ) ?>
+										<?php esc_html_e( 'The page might be called something like', 'ssl-zen' ) ?>
                                         DNS Management, Name Server
                                         Management, Control Panel,
                                         or Advanced

@@ -34,7 +34,7 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
             esc_html_e( 'Show Debug URL', 'ssl-zen' );
             ?></label>
                                 <span><?php 
-            esc_htmlesc_html_e( 'Generates the debug log for sharing with the support team.', 'ssl-zen' );
+            esc_html_e( 'Generates the debug log for sharing with the support team.', 'ssl-zen' );
             ?></span>
                             </div>
                         </li>

@@ -12,7 +12,7 @@
             <div class="col-md-8 steps">
                 <div>
                     <h4 class="mb-4">
-						<?php esc_htmlesc_html_e( 'To start serving your wordpress website over SSL, we need to do the following:', 'ssl-zen' ); ?>
+						<?php esc_html_e( 'To start serving your wordpress website over SSL, we need to do the following:', 'ssl-zen' ); ?>
                     </h4>
                     <ul>
 						<?php if ( sz_fs()->is_plan( 'cdn', true ) ) { ?>
