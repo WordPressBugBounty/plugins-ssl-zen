@@ -140,6 +140,45 @@ if (!class_exists('ssl_zen_certificate')) {
         }
 
         /**
+         * v4.7.11: Force a brand-new Let's Encrypt order (fresh challenge tokens).
+         *
+         * Fixes the Step-2 dead-end: if a DNS/HTTP challenge fails validation at
+         * Let's Encrypt it becomes "invalid" and is no longer "pending", so
+         * getPendingAuthorization() returns empty and the wizard used to disable
+         * the Scan button forever with no way to recover. Deleting the stored
+         * 'order' file makes getOrCreateOrder() build a fresh order (new authz +
+         * new tokens) while keeping the ACME account keys, so the user simply
+         * gets a new record to add and can continue — never stuck.
+         *
+         * @since 4.7.11
+         * @static
+         */
+        public static function forceNewOrder()
+        {
+            try {
+                self::$order = null;
+                self::$pendingAuths = array();
+                $keyDir = rtrim( self::getKeysDir(), '/' );
+                // Remove any stored 'order' file (base dir + any per-domain subdirs)
+                // so a fresh LE order is created on the next getOrCreateOrder().
+                $dirs = array_merge( array( $keyDir ), (array) glob( $keyDir . '/*', GLOB_ONLYDIR ) );
+                foreach ( $dirs as $d ) {
+                    $orderFile = rtrim( (string) $d, '/' ) . '/order';
+                    if ( is_file( $orderFile ) ) {
+                        @unlink( $orderFile );
+                    }
+                }
+                // Clear the stale verification flag + cooldown so the UI un-sticks.
+                delete_option( 'ssl_zen_domain_verified' );
+                delete_option( 'ssl_zen_dns_check_activation' );
+                return self::generateOrder( false );
+            } catch ( Exception $e ) {
+                self::redirect_on_error( $e, false );
+            }
+            return null;
+        }
+
+        /**
          * Checks for all the pending authorizations on Let's Encrypt for an order and
          * update the authorization status
          *
@@ -156,7 +195,22 @@ if (!class_exists('ssl_zen_certificate')) {
                 if (is_array($arrPending) && count($arrPending)) {
                     $order = self::generateOrder($redirect);
                     foreach ($arrPending as $pending) {
-                        $order->verifyPendingOrderAuthorization($pending['identifier'], $type, false);
+                        // BUGFIX (v4.7.9): pass $localcheck = TRUE (was false).
+                        //
+                        // With localcheck=false the library submitted the challenge to
+                        // Let's Encrypt WITHOUT first confirming the TXT/HTTP token was
+                        // actually resolvable. On any DNS-propagation delay LE marked the
+                        // authorization "invalid" (permanent), and every subsequent
+                        // 5-minute retry silently skipped it (retries only act on
+                        // "pending" auths). That was the root cause of the endless
+                        // "we couldn't find your verification token, try again in 5
+                        // minutes" loop even when the record was correct.
+                        //
+                        // With localcheck=true the library confirms the token is visible
+                        // locally FIRST and only then asks LE to validate — so the
+                        // challenge is never burned prematurely and the existing retry
+                        // logic works once DNS finishes propagating.
+                        $order->verifyPendingOrderAuthorization($pending['identifier'], $type, true);
                     }
                 }
             } catch (Exception $e) {

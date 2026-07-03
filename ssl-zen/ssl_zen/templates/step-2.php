@@ -75,6 +75,17 @@
 		// Get next DNS check time left and calc diff if it is not empty
 		$dnsCheckActivation = get_option( 'ssl_zen_dns_check_activation', '' );
 		$diff               = ! empty( $dnsCheckActivation ) ? $dnsCheckActivation - time() : null;
+		// v4.7.11: if the challenge has died (no pending authorizations left) and
+		// the domain isn't verified yet, recreate a fresh order so the user gets a
+		// new record and can retry — instead of being stranded with a permanently
+		// disabled Scan button and a hidden record table.
+		if ( empty( $arrPendingDns ) && empty( $arrPendingHttp ) && empty( $showNextButton ) ) {
+			ssl_zen_certificate::forceNewOrder();
+			$arrPendingHttp     = ssl_zen_certificate::getPendingAuthorization( \LEClient\LEOrder::CHALLENGE_TYPE_HTTP, false );
+			$arrPendingDns      = ssl_zen_certificate::getPendingAuthorization( \LEClient\LEOrder::CHALLENGE_TYPE_DNS, false );
+			$dnsCheckActivation = '';
+			$diff               = null;
+		}
 		// Logic for scan-dns button class and also timer class
 		if ( empty( $arrPendingDns ) ) {
 			$scanDnsButtonClass = 'disabled';

@@ -85,6 +85,15 @@ if ( !class_exists( 'SSLZenScripts' ) ) {
                 [],
                 SSL_ZEN_PLUGIN_VERSION
             );
+            // v4.7.10: modern UI layer — loaded AFTER style.css so it refines
+            // the admin look (SSL Zen pink brand, softer cards) without touching
+            // the original stylesheet or any wizard markup.
+            wp_enqueue_style(
+                'ssl-zen-modern-css',
+                SSL_ZEN_URL . 'css/ssl-zen-modern.css',
+                ['ssl-zen-style-css'],
+                SSL_ZEN_PLUGIN_VERSION
+            );
             // Enqueue Scripts
             wp_enqueue_script( 'jQuery' );
             wp_enqueue_script(
@@ -117,11 +126,34 @@ if ( !class_exists( 'SSLZenScripts' ) ) {
                     'copied_failure' => __( 'Failed to copy.', 'ssl-zen' ),
                 ],
             ] );
-            // Add Help Scout Beacon Integration
-            echo '<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>';
-            // Initialize Beacon for Free version of the plugin.
-            if ( sz_fs()->is_free_plan() ) {
-                echo '<script type="text/javascript">window.Beacon("init", "366da59a-6789-4c2a-8a9f-3a6f1735b8a8");</script>';
+            // ---------------------------------------------------------------
+            // SSL Zen self-hosted support widget (replaces the Help Scout Beacon).
+            // Branded, answers-first help widget served from our own helpdesk.
+            // It auto-attaches diagnostic context so the AI can answer without
+            // the user having to hunt down their WordPress / plugin details.
+            //
+            // The helpdesk origin is filterable so it can be re-pointed without
+            // editing the plugin: add_filter( 'ssl_zen_support_widget_base', ... ).
+            // ---------------------------------------------------------------
+            $support_base = apply_filters( 'ssl_zen_support_widget_base', 'https://support.sslzen.com' );
+            $support_base = untrailingslashit( esc_url_raw( $support_base ) );
+            if ( ! empty( $support_base ) ) {
+                global $wp_version;
+                $home = wp_parse_url( home_url() );
+                $ctx = [
+                    'domain'         => isset( $home['host'] ) ? $home['host'] : '',
+                    'site_url'       => admin_url( 'admin.php?page=ssl_zen' ),
+                    'wp_version'     => $wp_version,
+                    'plugin_version' => SSL_ZEN_PLUGIN_VERSION,
+                    'plan'           => ( sz_fs()->is_free_plan() ? 'Free' : 'Premium' ),
+                    'php_version'    => PHP_VERSION,
+                    'step'           => ( isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : '' ),
+                ];
+                echo '<script type="text/javascript">window.SSLZEN_SUPPORT = '
+                    . wp_json_encode( [ 'base' => $support_base, 'context' => $ctx ] )
+                    . ';</script>' . "\n";
+                echo '<script type="text/javascript" src="' . esc_url( $support_base . '/chat-widget.js' )
+                    . '" defer></script>' . "\n";
             }
         }
 

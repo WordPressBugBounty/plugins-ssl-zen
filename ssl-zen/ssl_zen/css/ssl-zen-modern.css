@@ -1,0 +1,97 @@
+/* ============================================================================
+   SSL Zen — Modern admin UI layer (v4.7.10)
+   Additive override, enqueued AFTER style.css so it refines the existing
+   wizard WITHOUT touching structure/PHP. Goals (from the competitor study of
+   Really Simple Security + WP Encryption): a calm, premium, on-brand look —
+   SSL Zen pink instead of the old generic blue, softer cards, cleaner buttons
+   and typography, clearer upgrade path. Low-risk, reversible.
+   ============================================================================ */
+:root{
+  --sz-pink:#e5397f; --sz-pink-dark:#c72d6c; --sz-pink-soft:#fdeef4;
+  --sz-ink:#141726; --sz-body:#4a4f5e; --sz-line:#e9ebf2;
+  --sz-radius:12px; --sz-shadow:0 4px 20px rgba(20,23,38,.06),0 1px 3px rgba(20,23,38,.05);
+}
+
+/* Page canvas + base type */
+.toplevel_page_ssl_zen #wpwrap{ background:#f7f8fb; }
+.ssl-zen-content-container{ font-size:16px; color:var(--sz-body); }
+.ssl-zen-content-container h1,
+.ssl-zen-content-container h2,
+.ssl-zen-content-container h3{ color:var(--sz-ink); letter-spacing:-.01em; }
+
+/* ---- Primary buttons: blue -> pink, modern ---- */
+.ssl-zen-content-container .primary,
+.ssl-zen-copy-certs-container .primary,
+.ssl-zen-content-container a.next{
+  background-color:var(--sz-pink) !important;
+  border:none !important;
+  border-radius:10px !important;
+  padding:11px 22px !important;
+  font-weight:700 !important;
+  box-shadow:0 2px 8px rgba(229,57,127,.25) !important;
+  transition:.15s ease !important;
+}
+.ssl-zen-content-container .primary:hover,
+.ssl-zen-copy-certs-container .primary:hover,
+.ssl-zen-content-container a.next:hover{
+  background-color:var(--sz-pink-dark) !important;
+  transform:translateY(-1px);
+}
+.ssl-zen-content-container .primary.disabled,
+.ssl-zen-content-container .primary:disabled{
+  background-color:#f1c6d9 !important; box-shadow:none !important; transform:none !important;
+}
+
+/* ---- Recolor every leftover blue accent to pink ---- */
+.ssl-zen-content-container a.download-status,
+.ssl-zen-content-container a.download-debug,
+.ssl-zen-content-container i.copy,
+.ssl-zen-content-container i.copy-clipboard{ color:var(--sz-pink) !important; }
+
+/* ---- Cards / panels: softer + rounded ---- */
+.ssl-zen-content-container div.message,
+.ssl-zen-steps-container,
+.ssl-zen-content-container table{
+  border-radius:var(--sz-radius) !important;
+}
+.ssl-zen-steps-container{ box-shadow:var(--sz-shadow); border:1px solid var(--sz-line); background:#fff; }
+
+/* Message states — keep meaning, modern surfaces */
+.ssl-zen-content-container div.message{ border-radius:10px !important; }
+.ssl-zen-content-container div.message.success{ background:#e7f7ee !important; color:#166534 !important; }
+.ssl-zen-content-container div.message.error{ background:#fdeaea !important; color:#991b1b !important; }
+.ssl-zen-content-container div.message.warning,
+.ssl-zen-content-container div.message.warning.yellow{ background:#fef3e2 !important; color:#92400e !important; }
+.ssl-zen-content-container div.message.info{ background:var(--sz-pink-soft) !important; color:var(--sz-pink-dark) !important; }
+
+/* Tables (TXT records, pricing) */
+.ssl-zen-content-container table th{ color:var(--sz-ink) !important; font-weight:700; }
+.ssl-zen-content-container table tr.grey{ background:#f7f8fb !important; }
+
+/* DNS/HTTP variant selection — pink when active */
+.ssl-zen-content-container .selected,
+.ssl-zen-content-container [class*="variant-selected"]{
+  border-color:var(--sz-pink) !important;
+}
+
+/* ---- Upgrade CTA: make it feel premium, not spammy ---- */
+.external-actions-container > a.upgrade{
+  background:linear-gradient(135deg,var(--sz-pink),var(--sz-pink-dark)) !important;
+  color:#fff !important; border-radius:10px !important; font-weight:700 !important;
+  border:none !important; box-shadow:0 2px 10px rgba(229,57,127,.3) !important;
+}
+.external-actions-container > a.upgrade:hover{ filter:brightness(.97); }
+
+/* Step-progress + verification headings: tighten + pink active accents */
+.ssl-zen-content-container [class*="step"] .active,
+.ssl-zen-content-container .active-step{ color:var(--sz-pink) !important; }
+.ssl-zen-steps-container p.starting-quote,
+.ssl-zen-steps-container p.verification-question{ color:var(--sz-ink); }
+
+/* Focus rings on inputs — accessible + on brand */
+.ssl-zen-content-container input:focus,
+.ssl-zen-content-container select:focus,
+.ssl-zen-content-container textarea:focus{
+  outline:none !important; border-color:var(--sz-pink) !important;
+  box-shadow:0 0 0 3px var(--sz-pink-soft) !important;
+}

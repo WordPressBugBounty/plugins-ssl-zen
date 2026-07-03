@@ -51,6 +51,12 @@
 		}
 		// Show message container
 		self::showMessage();
+
+		// v4.7.13: self-serve account controls (license re-sync + manage/cancel
+		// subscription) — deflects the two highest-volume support tickets.
+		if ( isset( $tab ) && $tab == 'settings' ) {
+			require SSL_ZEN_TEMPLATE_DIR . 'admin/self-serve.php';
+		}
 		?>
         <section class="ssl-zen-container">
 			<?php

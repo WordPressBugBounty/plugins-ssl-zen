@@ -353,14 +353,29 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                         ssl_zen_helper::deleteAll( ABSPATH . '.well-known/acme-challenge', true );
                         $result['message'] = __( 'Successfully verified', 'ssl-zen' );
                     } else {
-                        // If not succeeded and variant was DNS then store now+300 sec for next time to allow to check
+                        // v4.7.10: never dead-end. Give an actionable reason instead
+                        // of a generic "try again in 5 minutes" — distinguish
+                        // "record not visible yet (propagation)" from "record present
+                        // but value mismatch (needs re-copy)" with a quick local lookup,
+                        // and point to the guide. (Pairs with the 4.7.9 fix that stops
+                        // premature challenge submission.)
                         if ( $variant == 'dns' ) {
                             $fiveMinutes = 300;
                             update_option( 'ssl_zen_dns_check_activation', time() + $fiveMinutes );
                             $result['time'] = $fiveMinutes;
-                            $result['message'] = esc_html__( 'We couldn\'t find your verification token in your domain\'s TXT records.', 'ssl-zen' ) . ' ' . esc_html__( 'Please try again in 5 minutes', 'ssl-zen' ) . ' ' . esc_html__( 'or try http variant.', 'ssl-zen' );
+                            $baseDomain = get_option( 'ssl_zen_base_domain', '' );
+                            $host = preg_replace( '#^https?://#', '', (string) $baseDomain );
+                            $host = preg_replace( '#^www\.#', '', trim( $host, '/' ) );
+                            $existing = @dns_get_record( '_acme-challenge.' . $host, DNS_TXT );
+                            if ( empty( $existing ) ) {
+                                $result['message'] = esc_html__( 'Your verification TXT record isn\'t visible yet. DNS changes can take from a few minutes up to about an hour to propagate — we\'ll keep checking automatically. Double-check the record name is exactly "_acme-challenge" and the value matches the one shown below.', 'ssl-zen' );
+                            } else {
+                                $result['message'] = esc_html__( 'We found a TXT record for _acme-challenge, but the value doesn\'t match yet. Re-copy the exact value shown below into your DNS record (replace any older value), save, then check again — propagation can take a little time.', 'ssl-zen' );
+                            }
+                            $result['docs'] = 'https://sslzen.com/docs';
                         } else {
-                            $result['message'] = __( 'Verification failed, try dns variant.', 'ssl-zen' );
+                            $result['message'] = esc_html__( 'HTTP verification hasn\'t passed yet. Make sure the verification file is reachable over http, or switch to the DNS method below.', 'ssl-zen' );
+                            $result['docs'] = 'https://sslzen.com/docs';
                         }
                     }
                     $result['status'] = $isValid;

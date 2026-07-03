@@ -1,14 +1,14 @@
 === SSL Zen — SSL Certificate Installer & HTTPS Redirects ===
 Contributors: sslzen, sslzensupport
 Donate link: https://paypal.me/sagarspatil
-Tags: ssl,free ssl,free ssl certificate,https,mixed content
+Tags: ssl,ssl certificate,free ssl,force ssl,mixed content
 Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.8
+Stable tag: 4.7.13
 
-Helps install a free Let's Encrypt SSL certificate, redirects HTTP to HTTPS and forces SSL on all pages.
+Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
 == Description ==
 
@@ -197,6 +197,24 @@ You can get the help of your hosting provider to install your WordPress in the r
 7. Settings to enable 301 redirection the settings page.
 
 == Changelog ==
+
+= 4.7.13 =
+* New: self-serve account controls on the Settings screen — re-check your license in one click if you upgraded but the plugin still shows "Free", and manage or cancel your subscription (including turning off auto-renewal) yourself, without contacting support.
+
+= 4.7.12 =
+* Fixed: the version shown on the SSL Zen screen was stale (an internal version number wasn't updated with releases). It now always reflects the installed version, and plugin styles/scripts refresh correctly on update.
+* New: a redesigned success screen after your certificate installs — it confirms your site is secured with a one-click verify link, and only asks happy users for a WordPress.org review (users who hit a snag are routed straight to help instead).
+* New: a friendlier, SSL Zen-branded in-plugin help widget that searches our full guide library for instant answers, and — when you message us — automatically attaches your site details so we can help faster.
+
+= 4.7.11 =
+* Fix: users could get stuck on Step 2 (Domain Verification) with a permanently disabled "Scan DNS Record" button and no way to retry, if a verification attempt failed at Let's Encrypt. The plugin now automatically starts a fresh verification (with a new record to add) instead of dead-ending, so you can always continue.
+
+= 4.7.10 =
+* Improved: domain verification now gives a clear, specific reason when it can't verify yet — it tells you whether the DNS record simply hasn't propagated (just wait) or is present but doesn't match (re-copy the value) — instead of a generic "try again" message, and links to the setup guide.
+* Includes the 4.7.9 verification fix.
+
+= 4.7.9 =
+* Fix: DNS and HTTP domain verification could get stuck in an endless "we couldn't find your verification token, try again in 5 minutes" loop even when the record was correct. The verification token is now confirmed locally before the challenge is submitted to Let's Encrypt, so a DNS propagation delay no longer permanently invalidates the authorization — verification succeeds once the record propagates.
 
 = 4.7.8 =
 * Critical fix: setup wizard fatal error on Step 2 (and Step 4 / Settings) caused by a malformed esc_html_e() call — this was breaking SSL certificate installation for free-tier users on PHP 8+
