@@ -682,17 +682,12 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 </header>
                 <?php
             // Pro upgrade bar — rendered at the TOP (above the steps navigation) for
-            // free users on the setup-step pages. Unified $29 Pro checkout (plan 7397);
-            // the old non-cPanel branch pointed at retired hidden plan 10884 (dead-end).
-            if ( ssl_zen_helper::showLayoutPart( $tab, self::$allowedTabs, 'footer' ) && !sz_fs()->is_premium() ) {
-                $upgradeUrl = add_query_arg( array(
-                    'checkout'      => 'true',
-                    'plan_id'       => 7397,
-                    'plan_name'     => 'pro',
-                    'billing_cycle' => 'annual',
-                    'pricing_id'    => 7115,
-                    'currency'      => 'usd',
-                ), sz_fs()->get_upgrade_url() );
+            // free users on the setup-step pages. Sends to our own pricing screen
+            // (comparison table + social proof) to pre-sell before the Freemius
+            // checkout, rather than dropping people cold into checkout — the
+            // pricing screen's own buttons hand off to Freemius (plan 7397).
+            if ( ssl_zen_helper::showLayoutPart( $tab, self::$allowedTabs, 'footer' ) && sz_fs()->is_free_plan() ) {
+                $upgradeUrl = admin_url( 'admin.php?page=ssl_zen&tab=pricing' );
                 ?>
                     <div class="ssl-zen-footer ssl-zen-probar container">
                         <a href="<?php echo esc_url( $upgradeUrl ); ?>">

@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.33
+Stable tag: 4.7.36
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -81,6 +81,12 @@ To install this plugin:
 6. You will now see an SSL Zen icon on your left navigation bar. Click on it and follow the step-by-step guide.
 
 == Frequently Asked Questions ==
+
+= How do I get a free SSL certificate for WordPress? =
+Install the free SSL Zen plugin, enter your domain and email, verify domain ownership with a one-time DNS record or file upload, then install and activate the free Let's Encrypt® SSL certificate — no coding required. Your WordPress site will be served over HTTPS with a valid padlock in minutes, and SSL Zen fixes mixed-content warnings and redirects HTTP to HTTPS for you.
+
+= How do I fix "Not Secure" or mixed content warnings in WordPress? =
+SSL Zen installs a free SSL certificate, forces HTTPS on every page, and automatically rewrites insecure HTTP resources to HTTPS so the "Not Secure" warning and mixed-content errors disappear. No manual code edits needed.
 
 = What is an SSL Certificate? =
 An SSL (Secure Sockets Layer) certificate is a digital certificate that authenticates the identity of a website and encrypts information sent to the server using SSL technology.
@@ -169,19 +175,28 @@ You can get the help of your hosting provider to install your WordPress in the r
 
 
 == Screenshots ==
-1. How it works
-2. Agree to Let's Encrypt ® TOS
-3. Verify domain ownership by uploading files on your server
-4. Install SSL certificate on your web server
-5. Redirect http to https
-6. Renew SSL certificate
-7. Settings to enable 301 redirection the settings page.
+1. Your WordPress site secured with a free Let's Encrypt SSL certificate — HTTPS enforced, mixed content fixed, and a valid padlock in every browser.
+2. Get a free SSL certificate in minutes — no coding required, just enter your domain and email address.
+3. Verify domain ownership with a simple one-time DNS TXT record or HTTP file upload — no technical skills needed.
+4. Download your free Let's Encrypt SSL certificate with step-by-step install guides for Apache, NGINX, cPanel, Plesk, AWS and more.
+5. Built-in status and debug tools to troubleshoot your free SSL certificate installation fast.
 
 == Changelog ==
+
+= 4.7.36 =
+* Fixed a gap between the HTTP verification tab and its card (only DNS connected before)
+* Paying customers no longer see the 'Upgrade to Pro' bar (gated on the license, matching the plan badge)
+
+= 4.7.35 =
+* Step 1 now sits in a card that matches the rest of the setup flow
+
+= 4.7.34 =
+* The Upgrade bar now opens the plan comparison page first (instead of jumping straight to checkout), so you can see what Pro includes before deciding
 
 = 4.7.33 =
 * Step 2: the HTTP/DNS tabs now connect flush to the verification card instead of floating above it
 * Tidied the Debug log box and the Download button spacing/alignment
+* The Upgrade bar now opens the pricing/comparison page (which explains the plan first) instead of jumping straight to checkout
 
 = 4.7.32 =
 * Fixed the Step 1 consent checkboxes: they now tick reliably (the opt-in box could select the label text instead of ticking) and align neatly with their labels

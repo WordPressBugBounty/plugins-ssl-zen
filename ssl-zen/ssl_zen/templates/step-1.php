@@ -201,10 +201,10 @@ if ( !sz_fs()->is_plan( 'cdn', true ) ) {
 }
 ?>
         </div>
+    </div>
         <div class="sz-next-row">
             <a class="sslzen-step1-next-button primary next" href="#"><?php
 esc_html_e( 'Next', 'ssl-zen' );
 ?></a>
         </div>
-    </div>
 </form>

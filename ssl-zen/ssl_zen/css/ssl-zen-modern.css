@@ -561,3 +561,30 @@
 .ssl-zen-content-container .debug-container .table a.download-debug,
 .ssl-zen-content-container .debug-container .table a.download-status{ display:inline-block !important; margin:20px 0 8px !important; }
 .ssl-zen-content-container .debug-container .table .mini-message{ display:block !important; margin:0 !important; }
+
+/* --- v4.7.35: Step 1 form in a white card, matching Steps 2-4 --- */
+#frmstep1 .ssl-zen-steps-container{ background:#fff; border:1px solid #EEE8EF; border-radius:16px; padding:28px 34px; box-shadow:0 1px 3px rgba(27,22,32,.05); }
+#frmstep1 .sz-next-row{ margin-top:22px; }
+
+/* --- v4.7.36: HTTP verification card gap fix ---
+   The card wrapper only got p-0 (zero padding) for the DNS variant, so the HTTP
+   card floated ~31px below its tab. Zero it for both so HTTP connects like DNS. */
+#frmstep2 .ssl-zen-steps-container.custom-round{ padding:0 !important; }
+
+/* --- v4.7.36: vertically center button labels ---
+   line-height (24px) in a 40px padded button pushed the text ~6px low.
+   Flex-centering the label balances it (was 14px above / 8px below -> 11/11). */
+.ssl-zen-steps-container .primary,
+.ssl-zen-steps-container a.next,
+.ssl-zen-steps-container button.primary,
+.sslzen-step1-next-button,
+a.primary.next,
+.next.primary{ display:inline-flex !important; align-items:center !important; justify-content:center !important; line-height:1 !important; }
+
+/* --- v4.7.36: Step 1 form cleanup ---
+   Drop the redundant 'Domain Details'/'Contact Details' section labels and make
+   the fields a clean full-width single column, consistent with the other steps. */
+#frmstep1 .ssl-zen-steps-container .row.align-items-center .col-sm-3{ display:none !important; }
+#frmstep1 .ssl-zen-steps-container .row.align-items-center .col-sm-9{ flex:0 0 100% !important; max-width:100% !important; padding-top:6px !important; padding-bottom:10px !important; }
+#frmstep1 .ssl-zen-steps-container .row.align-items-center label{ font-weight:600; font-size:14px; color:#1a1d24; }
+#frmstep1 .ssl-zen-steps-container .row.align-items-center input[type=email]{ max-width:520px; }
