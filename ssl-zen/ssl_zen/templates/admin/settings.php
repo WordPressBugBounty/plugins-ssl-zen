@@ -24,9 +24,18 @@
 							<?php esc_html_e( 'Settings', 'ssl-zen' ); ?>
                         </a>
 					<?php }
-					if ( ssl_zen_helper::isTabAvailableAtThisStage( $tab, 'upgrade', ssl_zen_admin::$allowedTabs ) && SSLZenCPanel::detect_cpanel() ) { ?>
-                        <a class="upgrade" href="https://checkout.freemius.com/mode/dialog/plugin/4586/plan/7397/licenses/1/">
-							<?php esc_html_e( 'Upgrade', 'ssl-zen' ); ?>
+					if ( ssl_zen_helper::isTabAvailableAtThisStage( $tab, 'upgrade', ssl_zen_admin::$allowedTabs ) && ! sz_fs()->is_premium() ) {
+						$szHeaderUpgradeUrl = add_query_arg( array(
+							'checkout'      => 'true',
+							'plan_id'       => 7397,
+							'plan_name'     => 'pro',
+							'billing_cycle' => 'annual',
+							'pricing_id'    => 7115,
+							'currency'      => 'usd',
+						), sz_fs()->get_upgrade_url() ); ?>
+                        <a class="upgrade sz-upgrade" href="<?php echo esc_url( $szHeaderUpgradeUrl ); ?>">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>
+							<?php esc_html_e( 'Upgrade to Pro', 'ssl-zen' ); ?>
                         </a>
 					<?php }
 					if ( $stage !== 'settings' ) { ?>
@@ -81,21 +90,16 @@
 		), sz_fs()->get_upgrade_url() );
 		?>
         <footer class="ssl-zen-footer container">
-            <a href="<?php echo esc_url( $upgradeUrl ); ?>">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
-                        <h4><?php esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' ); ?></h4>
-                        <p class="mt-1"><?php esc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
-                    </div>
-                    <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
-                        <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' ); ?></span>
-                        <span><?php esc_html_e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' ); ?></span>
-                        <span><?php esc_html_e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' ); ?></span>
-                    </div>
-                    <div class="col-lg-2 text-center text-lg-right mt-4 mt-lg-0 align ssl-zen-pro-upgrade">
-                        <button><?php esc_html_e( 'UPGRADE', 'ssl-zen' ); ?></button>
-                    </div>
-                </div>
+            <a class="sz-upbar" href="<?php echo esc_url( $upgradeUrl ); ?>">
+                <span class="sz-upbar-ic">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="szub" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F871A0"/><stop offset="1" stop-color="#E6447D"/></linearGradient></defs><path d="M25.96 10.25 A11.5 11.5 0 1 1 18 4.67" stroke="url(#szub)" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="16" cy="14.6" r="3" fill="url(#szub)"/><rect x="14.9" y="16.4" width="2.2" height="5.6" rx="1.1" fill="url(#szub)"/></svg>
+                </span>
+                <span class="sz-upbar-txt">
+                    <strong><?php esc_html_e( 'Go hands-off with SSL Zen Pro', 'ssl-zen' ); ?></strong>
+                    <span><?php esc_html_e( 'Automatic domain verification, installation & renewal — your site never slips back to “Not Secure”.', 'ssl-zen' ); ?></span>
+                </span>
+                <span class="sz-upbar-price"><b>$29</b>/yr &middot; <?php esc_html_e( '14-day money-back', 'ssl-zen' ); ?></span>
+                <span class="sz-upbar-btn"><?php esc_html_e( 'Upgrade to Pro', 'ssl-zen' ); ?></span>
             </a>
         </footer>
 	<?php } ?>

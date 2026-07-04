@@ -4,6 +4,7 @@
  *
  * @var string $selectedVariant
  * @var boolean $cPanel
+ * @var boolean $httpRisky
  */
 ?>
 <form name="frmstep2" id="frmstep2" action="" method="post">
@@ -11,10 +12,13 @@
 	wp_nonce_field( 'ssl_zen_verify', 'ssl_zen_verify_nonce' );
 	if ( empty( $selectedVariant ) ) :
 		$showNextButton = true;
+		// On subfolder / non-web-root installs the HTTP file check can't be
+		// reached at the domain root, so default to (and recommend) DNS.
+		$defaultVariant = ! empty( $httpRisky ) ? 'dns' : 'http';
 		?>
         <input type="hidden" id="ssl_zen_domain_verification"
                name="ssl_zen_domain_verification"
-               value="http">
+               value="<?php echo esc_attr( $defaultVariant ); ?>">
         <input type="hidden" id="ssl_zen_sub_step"
                name="ssl_zen_sub_step" value="1">
         <div class="ssl-zen-steps-container mb-4">
@@ -23,9 +27,14 @@
                     <p class="verification-question">
 						<?php esc_html_e( 'Which domain verification process would you like to use?', 'ssl-zen' ); ?>
                     </p>
+					<?php if ( ! empty( $httpRisky ) ) : ?>
+                        <div class="message info mt-3">
+							<?php esc_html_e( 'Heads up: WordPress looks like it runs from a subfolder or a directory that isn’t your domain’s web root. The HTTP (file upload) method usually fails on setups like this, so we’ve selected DNS verification for you — it verifies through a DNS record and doesn’t depend on where files are placed.', 'ssl-zen' ); ?>
+                        </div>
+					<?php endif; ?>
                 </div>
                 <div class="col-md-6">
-                    <div class="ssl-zen-domain-verification-variant-container http <?php echo esc_attr( $selectedVariant == 'http' || $selectedVariant == '' ? 'selected' : '' ); ?> p-4">
+                    <div class="ssl-zen-domain-verification-variant-container http <?php echo esc_attr( $selectedVariant == 'http' || ( $selectedVariant == '' && empty( $httpRisky ) ) ? 'selected' : '' ); ?> p-4">
                         <div class="d-flex justify-content-between mb-5">
                             <div>
                                 <span class="font-weight-bold http">HTTP</span>
@@ -45,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="ssl-zen-domain-verification-variant-container <?php echo esc_attr( $selectedVariant == 'dns' ? 'selected' : '' ); ?> p-4">
+                    <div class="ssl-zen-domain-verification-variant-container <?php echo esc_attr( $selectedVariant == 'dns' || ( $selectedVariant == '' && ! empty( $httpRisky ) ) ? 'selected' : '' ); ?> p-4">
                         <div class="d-flex justify-content-between mb-5">
                             <div>
                                 <span class="font-weight-bold dns">DNS</span>
@@ -133,9 +142,10 @@
                                         </h4>
                                     </div>
                                 </div>
+                                <p class="szv-intro"><?php esc_html_e( 'A quick one-time step to prove you own this site: download the file below, upload it to your website inside the .well-known/acme-challenge folder shown, then click Verify. Prefer we do it automatically? That is what Pro is for.', 'ssl-zen' ); ?></p>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h5><?php esc_html_e( 'STEP 1', 'ssl-zen' ); ?></h5>
+                                        <h5><span class="szv-num">1</span><?php esc_html_e( 'STEP 1', 'ssl-zen' ); ?></h5>
                                         <p><?php esc_html_e( 'Create a folder to upload verification files', 'ssl-zen' ); ?></p>
                                     </div>
                                     <div class="col-md-8">
@@ -151,8 +161,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mt-5">
-                            <h5><?php esc_html_e( 'STEP 2', 'ssl-zen' ); ?></h5>
-                            <p><?php esc_html_e( 'Upload the verification file(s)', 'ssl-zen' ); ?></p>
+                            <h5><span class="szv-num">2</span><?php esc_html_e( 'STEP 2', 'ssl-zen' ); ?></h5>
+                            <p><?php esc_html_e( 'Upload the verification file(s), then verify', 'ssl-zen' ); ?></p>
                         </div>
                         <div class="col-md-8 mt-5">
                             <span><?php esc_html_e( 'Download the file(s) below on your local computer and', 'ssl-zen' ); ?></span>
@@ -171,7 +181,7 @@
 									) {
 										?>
                                         <a href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=step2&download=' . $index ); ?>"
-                                           class="download-file primary mr-3"><?php echo esc_html( __( 'File', 'ssl-zen' ) . ' ' . ( $index + 1 ) ); ?>
+                                           class="download-file primary mr-3"><?php echo esc_html( __( 'Download file', 'ssl-zen' ) . ' ' . ( $index + 1 ) ); ?>
                                         </a>
 										<?php
 									}

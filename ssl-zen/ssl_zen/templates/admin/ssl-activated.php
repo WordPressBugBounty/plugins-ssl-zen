@@ -83,6 +83,8 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
                         <button type="button" class="review primary mt-2 mb-2" id="szv-open-help"><?php esc_html_e( 'GET HELP NOW', 'ssl-zen' ); ?></button>
                     </div>
 
+					<?php require SSL_ZEN_TEMPLATE_DIR . 'admin/recommendations.php'; ?>
+
                 </div>
             </div>
         </div>

@@ -401,10 +401,10 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                             } else {
                                 $result['message'] = esc_html__( 'We found a TXT record for _acme-challenge, but the value doesn\'t match yet. Re-copy the exact value shown below into your DNS record (replace any older value), save, then check again — propagation can take a little time.', 'ssl-zen' );
                             }
-                            $result['docs'] = 'https://sslzen.com/docs';
+                            $result['docs'] = 'https://docs.sslzen.com/';
                         } else {
                             $result['message'] = esc_html__( 'HTTP verification hasn\'t passed yet. Make sure the verification file is reachable over http, or switch to the DNS method below.', 'ssl-zen' );
-                            $result['docs'] = 'https://sslzen.com/docs';
+                            $result['docs'] = 'https://docs.sslzen.com/';
                         }
                     }
                     $result['status'] = $isValid;
@@ -680,6 +680,41 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                         </div>
                     </div>
                 </header>
+                <?php
+            // Pro upgrade bar — rendered at the TOP (above the steps navigation) for
+            // free users on the setup-step pages. Unified $29 Pro checkout (plan 7397);
+            // the old non-cPanel branch pointed at retired hidden plan 10884 (dead-end).
+            if ( ssl_zen_helper::showLayoutPart( $tab, self::$allowedTabs, 'footer' ) && !sz_fs()->is_premium() ) {
+                $upgradeUrl = add_query_arg( array(
+                    'checkout'      => 'true',
+                    'plan_id'       => 7397,
+                    'plan_name'     => 'pro',
+                    'billing_cycle' => 'annual',
+                    'pricing_id'    => 7115,
+                    'currency'      => 'usd',
+                ), sz_fs()->get_upgrade_url() );
+                ?>
+                    <div class="ssl-zen-footer ssl-zen-probar container">
+                        <a href="<?php echo esc_url( $upgradeUrl ); ?>">
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
+                                    <h4><?php esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' ); ?></h4>
+                                    <p class="mt-1"><?php esc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' ); ?></p>
+                                </div>
+                                <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
+                                    <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' ); ?></span>
+                                    <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'SSL INSTALLATION', 'ssl-zen' ); ?></span>
+                                    <span><?php esc_html_e( 'AUTOMATIC', 'ssl-zen' ); ?><br><?php esc_html_e( 'SSL RENEWAL', 'ssl-zen' ); ?></span>
+                                </div>
+                                <div class="col-lg-2 text-center text-lg-right mt-4 mt-lg-0 align ssl-zen-pro-upgrade">
+                                    <button><?php esc_html_e( 'UPGRADE', 'ssl-zen' ); ?></button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <?php
+            }
+            ?>
                 <div class="container mt-5">
                     <?php 
             // Check weather to show steps navigation
@@ -701,75 +736,6 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             ?>
                     </section>
                 </div>
-                <?php 
-            if ( ssl_zen_helper::showLayoutPart( $tab, self::$allowedTabs, 'footer' ) && !sz_fs()->is_premium() ) {
-                $upgradeUrl = add_query_arg( array(
-                    'checkout'      => 'true',
-                    'plan_id'       => 10884,
-                    'plan_name'     => 'cdn',
-                    'billing_cycle' => 'annual',
-                    'pricing_id'    => 11089,
-                    'currency'      => 'usd',
-                ), sz_fs()->get_upgrade_url() );
-                if ( SSLZenCPanel::detect_cpanel() ) {
-                    $upgradeUrl = add_query_arg( array(
-                        'checkout'      => 'true',
-                        'plan_id'       => 7397,
-                        'plan_name'     => 'pro',
-                        'billing_cycle' => 'annual',
-                        'pricing_id'    => 7115,
-                        'currency'      => 'usd',
-                    ), sz_fs()->get_upgrade_url() );
-                }
-                ?>
-                    <footer class="ssl-zen-footer container">
-                        <a href="<?php 
-                echo esc_url( $upgradeUrl );
-                ?>">
-                            <div class="row align-items-center">
-                                <div class="col-lg-3 text-center text-lg-left ssl-zen-pro-quote">
-                                    <h4>
-                                        <?php 
-                esc_html_e( 'Never Pay for SSL Again!', 'ssl-zen' );
-                ?>
-                                    </h4>
-                                    <p class="mt-1">
-                                        <?php 
-                esc_html_e( 'Upgrade to our Pro Plan', 'ssl-zen' );
-                ?>
-                                    </p>
-                                </div>
-                                <div class="col-lg-7 ssl-zen-pro-features mt-4 mt-lg-0">
-                                <span>
-                                    <?php 
-                esc_html_e( 'AUTOMATIC', 'ssl-zen' );
-                ?><br>
-                                    <?php 
-                esc_html_e( 'DOMAIN VERIFICATION', 'ssl-zen' );
-                ?>
-                                </span>
-                                    <span>
-                                    <?php 
-                esc_html_e( 'AUTOMATIC SSL INSTALLATION', 'ssl-zen' );
-                ?>
-                                </span>
-                                    <span>
-                                    <?php 
-                esc_html_e( 'AUTOMATIC SSL RENEWAL', 'ssl-zen' );
-                ?>
-                                </span>
-                                </div>
-                                <div class="col-lg-2 text-center text-lg-right mt-4 mt-lg-0 align ssl-zen-pro-upgrade">
-                                    <button><?php 
-                esc_html_e( 'UPGRADE', 'ssl-zen' );
-                ?></button>
-                                </div>
-                            </div>
-                        </a>
-                    </footer>
-                <?php 
-            }
-            ?>
             </div>
             <?php 
         }
@@ -1306,6 +1272,9 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             // Get existing option for selected variant
             $selectedVariant = get_option( 'ssl_zen_domain_verification_variant', '' );
             $cPanel = SSLZenCPanel::detect_cpanel();
+            // Detect subfolder / non-web-root installs where the HTTP file check
+            // would fail — used to steer the user to DNS verification instead.
+            $httpRisky = ssl_zen_helper::isHttpChallengeRisky();
             require SSL_ZEN_TEMPLATE_DIR . 'step-2.php';
         }
 
@@ -1762,6 +1731,26 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             update_option( 'ssl_zen_domains', $arrDomains );
             update_option( 'ssl_zen_base_domain', $baseDomain );
             update_option( 'ssl_zen_email', $email );
+            // v4.7.22: optional marketing opt-in. Only fires with explicit consent (box is
+            // unticked by default). Fire-and-forget (blocking=false) so SSL setup is never
+            // delayed or blocked if the endpoint is unreachable. Sent once per install.
+            $sz_optin = ( ! empty( $_POST['marketing_optin'] ) ) ? 1 : 0;
+            update_option( 'ssl_zen_marketing_optin', $sz_optin );
+            if ( $sz_optin && is_email( $email ) && ! get_option( 'ssl_zen_optin_sent' ) ) {
+                wp_remote_post( 'https://support.sslzen.com/api/subscribe', array(
+                    'timeout'  => 4,
+                    'blocking' => false,
+                    'headers'  => array( 'Content-Type' => 'application/x-www-form-urlencoded' ),
+                    'body'     => array(
+                        'email'      => $email,
+                        'domain'     => $baseDomain,
+                        'consent'    => 1,
+                        'source'     => 'sslzen_step1',
+                        'plugin_ver' => SSL_ZEN_PLUGIN_VERSION,
+                    ),
+                ) );
+                update_option( 'ssl_zen_optin_sent', 1 );
+            }
             if ( !sz_fs()->is_plan( 'cdn', true ) ) {
                 // Check with lets debug
                 ssl_zen_certificate::debugLetsEncrypt( $baseDomain );

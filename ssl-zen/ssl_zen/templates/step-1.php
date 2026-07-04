@@ -177,10 +177,8 @@ if ( !sz_fs()->is_plan( 'cdn', true ) ) {
     ?>
                 <div class="col-sm-3 mt-4"></div>
                 <div class="col-sm-9 mt-4">
-                    <div class="checkbox checkbox-success checkbox-circle terms-checkbox">
-                        <input type="checkbox" class="styled"
-                               name="terms" id="terms" value="1"
-                               required>
+                    <div class="sz-check">
+                        <input type="checkbox" name="terms" id="terms" value="1" required>
                         <label for="terms">
 							<?php 
     echo sprintf( 
@@ -192,15 +190,21 @@ if ( !sz_fs()->is_plan( 'cdn', true ) ) {
     ?>
                         </label>
                     </div>
+                    <div class="sz-check">
+                        <input type="checkbox" name="marketing_optin" id="marketing_optin" value="1">
+                        <label for="marketing_optin">
+							<?php esc_html_e( 'Receive occasional product updates and SSL security tips from Zen Plugins. Unsubscribe anytime.', 'ssl-zen' ); ?>
+                        </label>
+                    </div>
                 </div>
 			<?php 
 }
 ?>
         </div>
-    </div>
-    <div class="text-right mb-4">
-        <a class="sslzen-step1-next-button primary next" href="#"><?php 
+        <div class="sz-next-row">
+            <a class="sslzen-step1-next-button primary next" href="#"><?php
 esc_html_e( 'Next', 'ssl-zen' );
 ?></a>
+        </div>
     </div>
 </form>

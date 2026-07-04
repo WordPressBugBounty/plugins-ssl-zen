@@ -343,5 +343,45 @@ if (!class_exists('ssl_zen_helper')) {
             return (isset($urlInfo['host']) ? $urlInfo['host'] : '');
         }
 
+        /**
+         * Detects whether the HTTP-01 (file upload) domain-verification method is
+         * likely to fail on this install. It fails when the folder WordPress runs
+         * from (ABSPATH) is NOT the domain's public web root — e.g. WordPress in a
+         * subdirectory, an add-on / subfolder domain, or home_url() pointing at a
+         * sub-path. In those cases the ".well-known/acme-challenge" file the plugin
+         * writes under ABSPATH is not reachable at http://domain/.well-known/…,
+         * which surfaces to the user as the opaque "Not all authorizations are
+         * valid." error. When this returns true we steer the user to DNS
+         * verification, which does not depend on file placement.
+         *
+         * @return bool
+         */
+        public static function isHttpChallengeRisky()
+        {
+            // 1) Site served from a sub-path (e.g. https://example.com/blog)
+            $homePath = trim( (string) parse_url( home_url(), PHP_URL_PATH ), '/' );
+            if ( $homePath !== '' ) {
+                return true;
+            }
+
+            // 2) WordPress core lives in a different directory than the site root
+            //    ("Giving WordPress its own directory") — home_url() !== site_url().
+            if ( untrailingslashit( home_url() ) !== untrailingslashit( site_url() ) ) {
+                return true;
+            }
+
+            // 3) ABSPATH is not the web server's document root (add-on / subfolder
+            //    domain). Only trust this signal when DOCUMENT_ROOT is available.
+            if ( ! empty( $_SERVER['DOCUMENT_ROOT'] ) ) {
+                $docRoot = @realpath( sanitize_text_field( wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) );
+                $absPath = @realpath( ABSPATH );
+                if ( $docRoot && $absPath && untrailingslashit( $docRoot ) !== untrailingslashit( $absPath ) ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

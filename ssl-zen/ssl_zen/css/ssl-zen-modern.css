@@ -1,97 +1,563 @@
 /* ============================================================================
-   SSL Zen — Modern admin UI layer (v4.7.10)
-   Additive override, enqueued AFTER style.css so it refines the existing
-   wizard WITHOUT touching structure/PHP. Goals (from the competitor study of
-   Really Simple Security + WP Encryption): a calm, premium, on-brand look —
-   SSL Zen pink instead of the old generic blue, softer cards, cleaner buttons
-   and typography, clearer upgrade path. Low-risk, reversible.
+   SSL Zen — Modern admin UI layer (v4.7.15)
+   Additive override, enqueued AFTER style.css. Rebuilds the in-plugin admin
+   into a calm, premium, on-brand experience (matching the approved mockups and
+   the new sslzen.com homepage). Pure CSS on top of the existing markup — no
+   PHP structure changes here, fully reversible. Brand = ensō keyhole pink.
+   Reference goal: Really Simple Security-grade clarity, SSL Zen identity.
    ============================================================================ */
 :root{
-  --sz-pink:#e5397f; --sz-pink-dark:#c72d6c; --sz-pink-soft:#fdeef4;
-  --sz-ink:#141726; --sz-body:#4a4f5e; --sz-line:#e9ebf2;
-  --sz-radius:12px; --sz-shadow:0 4px 20px rgba(20,23,38,.06),0 1px 3px rgba(20,23,38,.05);
+  --sz-brand:#EC4A8B; --sz-brand2:#E6447D; --sz-brand-soft:#FDEEF4;
+  --sz-grad:linear-gradient(135deg,#F871A0 0%,#E6447D 100%);
+  --sz-ink:#1B1620; --sz-body:#5B5560; --sz-muted:#948D99;
+  --sz-line:#EEE8EF; --sz-bg:#F7F6F9; --sz-green:#1FA971; --sz-green-soft:#E7F7EE;
+  --sz-radius:16px; --sz-radius-sm:11px;
+  --sz-shadow:0 6px 24px rgba(27,22,32,.06),0 1px 3px rgba(27,22,32,.05);
+  --sz-font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,Inter,sans-serif;
 }
 
-/* Page canvas + base type */
-.toplevel_page_ssl_zen #wpwrap{ background:#f7f8fb; }
-.ssl-zen-content-container{ font-size:16px; color:var(--sz-body); }
-.ssl-zen-content-container h1,
-.ssl-zen-content-container h2,
-.ssl-zen-content-container h3{ color:var(--sz-ink); letter-spacing:-.01em; }
+/* ---------- Page canvas & base type ---------- */
+.toplevel_page_ssl_zen #wpcontent,
+.toplevel_page_ssl_zen #wpbody-content{ background:var(--sz-bg); }
+.ssl-zen-content-container{ font-family:var(--sz-font); font-size:15px; color:var(--sz-body); max-width:1440px; margin-left:auto; margin-right:auto; }
+.ssl-zen-content-container h1,.ssl-zen-content-container h2,
+.ssl-zen-content-container h3,.ssl-zen-content-container h4{ color:var(--sz-ink); letter-spacing:-.02em; font-family:var(--sz-font); }
 
-/* ---- Primary buttons: blue -> pink, modern ---- */
+/* ---------- Header: clean product topbar ---------- */
+.ssl-zen-content-container .header{
+  background:#fff; border:1px solid var(--sz-line); border-radius:var(--sz-radius);
+  box-shadow:var(--sz-shadow); padding:16px 22px; margin-top:14px;
+}
+.ssl-zen-content-container .header .logo img{ height:30px; width:auto; vertical-align:middle; }
+.ssl-zen-content-container .header .logo span{
+  display:inline-block; vertical-align:middle; margin-left:8px;
+  font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--sz-muted); background:var(--sz-bg); border:1px solid var(--sz-line);
+  padding:3px 9px; border-radius:999px;
+}
+.ssl-zen-content-container .header .logo span:last-child{ color:var(--sz-brand2); background:var(--sz-brand-soft); border-color:#F7D3E2; }
+.external-actions-container{ display:flex; gap:8px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
+.external-actions-container > a{
+  display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600;
+  color:var(--sz-body); background:#fff; border:1px solid var(--sz-line);
+  border-radius:10px; padding:9px 15px; text-decoration:none; transition:.14s ease; line-height:1;
+}
+.external-actions-container > a:hover{ color:var(--sz-ink); border-color:#DED7E1; background:#FBFAFC; }
+/* v4.7.16: kill the leftover tiled icon backgrounds from style.css on the flat pill buttons */
+.external-actions-container > a.settings,
+.external-actions-container > a.support{ background-image:none !important; background:#fff !important; }
+.external-actions-container > a.settings:hover,
+.external-actions-container > a.support:hover{ background:#FBFAFC !important; }
+.external-actions-container > a.upgrade,
+.external-actions-container > a.sz-upgrade{
+  background:var(--sz-grad) !important; color:#fff !important; border:none !important;
+  box-shadow:0 3px 12px rgba(230,68,125,.32) !important; padding:9px 18px !important;
+}
+.external-actions-container > a.upgrade:hover,
+.external-actions-container > a.sz-upgrade:hover{ filter:brightness(.97); transform:translateY(-1px); }
+
+/* ---------- Onboarding step progress ---------- */
+.ssl-zen-content-container .controls .progress-list li a{ font-weight:700; }
+.ssl-zen-content-container .controls .progress-list li.active a{ background:var(--sz-brand) !important; border-color:var(--sz-brand) !important; color:#fff !important; box-shadow:0 2px 8px rgba(236,74,139,.3); }
+.ssl-zen-content-container .controls .progress-list li a.passed{ background:var(--sz-green) !important; border-color:var(--sz-green) !important; }
+.ssl-zen-content-container .controls .progress-list li.active span{ color:var(--sz-ink) !important; }
+
+/* ---------- Settings tabs (Advanced / Status / Debug) ---------- */
+.ssl-zen-settings-tab-container{ gap:4px; background:#fff; border:1px solid var(--sz-line); border-radius:12px; padding:5px; box-shadow:var(--sz-shadow); display:inline-flex !important; }
+.ssl-zen-settings-tab-container li{
+  list-style:none; cursor:pointer; font-weight:600; font-size:14px; color:var(--sz-body);
+  padding:8px 18px; border-radius:8px; border:none !important; background:transparent !important; transition:.14s;
+}
+.ssl-zen-settings-tab-container li:hover{ color:var(--sz-ink); background:var(--sz-bg) !important; }
+.ssl-zen-settings-tab-container li.active{ color:var(--sz-brand2) !important; background:var(--sz-brand-soft) !important; }
+
+/* ---------- Cards / panels ---------- */
+.ssl-zen-steps-container{ background:transparent; border:none; box-shadow:none; }
+.ssl-zen-content-container .table{
+  background:#fff; border:1px solid var(--sz-line) !important; border-radius:var(--sz-radius) !important;
+  box-shadow:var(--sz-shadow); overflow:hidden;
+}
+.ssl-zen-content-container .table .head{
+  background:#fff !important; color:var(--sz-ink) !important; font-weight:700 !important; font-size:15px !important;
+  padding:16px 20px !important; border-bottom:1px solid var(--sz-line) !important; letter-spacing:-.01em;
+}
+.ssl-zen-content-container .table .body{ padding:18px 20px !important; }
+.ssl-zen-content-container .table .body .title,
+.ssl-zen-content-container .table .body li .title{ color:var(--sz-muted) !important; font-size:12px !important; font-weight:600 !important; text-transform:uppercase; letter-spacing:.03em; }
+.ssl-zen-content-container .table .body li > span.d-block:not(.title){ color:var(--sz-ink); font-size:15px; }
+.ssl-zen-content-container .table .body .line{ border-bottom:1px solid var(--sz-line); padding-bottom:16px; }
+
+/* Certificate validity ring */
+.ssl-zen-content-container .days-num span:first-child{ color:var(--sz-ink) !important; font-weight:700; }
+.ssl-zen-content-container .days-num span:last-child{ color:var(--sz-muted) !important; }
+
+/* ---------- Toggles / advanced settings ---------- */
+.ssl-zen-content-container .toggle.btn{ border-radius:999px !important; }
+.ssl-zen-content-container .toggle.btn.off{ background:#EBE7EE !important; }
+.ssl-zen-content-container .toggle-on{ background:var(--sz-brand) !important; }
+.ssl-zen-content-container .advanced-container label.title{ text-transform:none !important; font-size:15px !important; color:var(--sz-ink) !important; font-weight:600 !important; letter-spacing:0; }
+.ssl-zen-content-container .advanced-container li span{ color:var(--sz-body); font-size:13.5px; }
+
+/* ---------- Buttons ---------- */
 .ssl-zen-content-container .primary,
-.ssl-zen-copy-certs-container .primary,
-.ssl-zen-content-container a.next{
-  background-color:var(--sz-pink) !important;
-  border:none !important;
-  border-radius:10px !important;
-  padding:11px 22px !important;
-  font-weight:700 !important;
-  box-shadow:0 2px 8px rgba(229,57,127,.25) !important;
-  transition:.15s ease !important;
+.ssl-zen-content-container a.next,
+.ssl-zen-content-container a.renew{
+  background:var(--sz-brand) !important; border:none !important; border-radius:10px !important;
+  padding:11px 22px !important; font-weight:700 !important; color:#fff !important; letter-spacing:.01em;
+  box-shadow:0 3px 10px rgba(236,74,139,.28) !important; transition:.15s ease !important;
 }
 .ssl-zen-content-container .primary:hover,
-.ssl-zen-copy-certs-container .primary:hover,
-.ssl-zen-content-container a.next:hover{
-  background-color:var(--sz-pink-dark) !important;
-  transform:translateY(-1px);
-}
+.ssl-zen-content-container a.next:hover,
+.ssl-zen-content-container a.renew:hover{ background:var(--sz-brand2) !important; transform:translateY(-1px); }
 .ssl-zen-content-container .primary.disabled,
-.ssl-zen-content-container .primary:disabled{
-  background-color:#f1c6d9 !important; box-shadow:none !important; transform:none !important;
-}
+.ssl-zen-content-container .primary:disabled,
+.ssl-zen-content-container a.renew.disabled{ background:#F2CFDF !important; box-shadow:none !important; transform:none !important; cursor:not-allowed; }
+.ssl-zen-content-container a.deactivate,
+.ssl-zen-content-container .stackpath-reset{ background:#fff !important; color:var(--sz-body) !important; border:1px solid var(--sz-line) !important; box-shadow:none !important; }
+.ssl-zen-content-container a.deactivate:hover{ border-color:#E6B4C6 !important; color:var(--sz-brand2) !important; }
+.ssl-zen-content-container .mini-message{ color:var(--sz-muted) !important; font-size:12.5px !important; }
 
-/* ---- Recolor every leftover blue accent to pink ---- */
-.ssl-zen-content-container a.download-status,
-.ssl-zen-content-container a.download-debug,
-.ssl-zen-content-container i.copy,
-.ssl-zen-content-container i.copy-clipboard{ color:var(--sz-pink) !important; }
+/* Recolor leftover blue accents */
+.ssl-zen-content-container i.copy,.ssl-zen-content-container i.copy-clipboard{ color:var(--sz-brand) !important; }
+/* v4.7.18: download-status/download-debug are .primary FILLED pink buttons — force white text
+   (a prior pink recolor made them pink-on-pink = invisible label) */
+.ssl-zen-content-container a.primary.download-status,
+.ssl-zen-content-container a.primary.download-debug{ color:#fff !important; }
 
-/* ---- Cards / panels: softer + rounded ---- */
-.ssl-zen-content-container div.message,
-.ssl-zen-steps-container,
-.ssl-zen-content-container table{
-  border-radius:var(--sz-radius) !important;
-}
-.ssl-zen-steps-container{ box-shadow:var(--sz-shadow); border:1px solid var(--sz-line); background:#fff; }
-
-/* Message states — keep meaning, modern surfaces */
-.ssl-zen-content-container div.message{ border-radius:10px !important; }
-.ssl-zen-content-container div.message.success{ background:#e7f7ee !important; color:#166534 !important; }
-.ssl-zen-content-container div.message.error{ background:#fdeaea !important; color:#991b1b !important; }
+/* ---------- Message states ---------- */
+.ssl-zen-content-container div.message{ border-radius:11px !important; font-weight:600; }
+.ssl-zen-content-container div.message.success{ background:var(--sz-green-soft) !important; color:#0F7A4E !important; }
+.ssl-zen-content-container div.message.error{ background:#FDEAEA !important; color:#B4232B !important; }
 .ssl-zen-content-container div.message.warning,
-.ssl-zen-content-container div.message.warning.yellow{ background:#fef3e2 !important; color:#92400e !important; }
-.ssl-zen-content-container div.message.info{ background:var(--sz-pink-soft) !important; color:var(--sz-pink-dark) !important; }
+.ssl-zen-content-container div.message.warning.yellow{ background:#FEF3E2 !important; color:#92400E !important; }
+.ssl-zen-content-container div.message.info{ background:var(--sz-brand-soft) !important; color:var(--sz-brand2) !important; }
 
-/* Tables (TXT records, pricing) */
-.ssl-zen-content-container table th{ color:var(--sz-ink) !important; font-weight:700; }
-.ssl-zen-content-container table tr.grey{ background:#f7f8fb !important; }
-
-/* DNS/HTTP variant selection — pink when active */
-.ssl-zen-content-container .selected,
-.ssl-zen-content-container [class*="variant-selected"]{
-  border-color:var(--sz-pink) !important;
+/* Inputs / focus */
+.ssl-zen-content-container input:focus,.ssl-zen-content-container select:focus,.ssl-zen-content-container textarea:focus{
+  outline:none !important; border-color:var(--sz-brand) !important; box-shadow:0 0 0 3px var(--sz-brand-soft) !important;
 }
 
-/* ---- Upgrade CTA: make it feel premium, not spammy ---- */
-.external-actions-container > a.upgrade{
-  background:linear-gradient(135deg,var(--sz-pink),var(--sz-pink-dark)) !important;
-  color:#fff !important; border-radius:10px !important; font-weight:700 !important;
-  border:none !important; box-shadow:0 2px 10px rgba(229,57,127,.3) !important;
+/* ============================================================================
+   Compact upgrade bar (footer) — replaces the dated purple block.
+   Markup in templates/admin/settings.php now uses .sz-upbar.
+   ============================================================================ */
+.ssl-zen-footer{ margin:26px 0 8px; padding:0; }
+/* v4.7.16: bring the legacy "Never Pay for SSL Again" footer bar on-brand (was indigo/purple) */
+.ssl-zen-footer > a{ display:block; text-decoration:none !important; background:var(--sz-brand-soft) !important; border:1px solid #F7D3E2 !important; border-radius:var(--sz-radius) !important; padding:20px 26px !important; box-shadow:var(--sz-shadow) !important; transition:.15s ease; }
+.ssl-zen-footer > a:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(230,68,125,.15) !important; }
+.ssl-zen-pro-quote{ padding-left:0 !important; }
+.ssl-zen-pro-quote > h4{ color:var(--sz-ink) !important; font-weight:800 !important; font-size:18px !important; letter-spacing:-.02em !important; }
+.ssl-zen-pro-quote > p{ color:var(--sz-brand2) !important; font-weight:600 !important; font-size:14px !important; margin-top:2px !important; }
+.ssl-zen-pro-features > span{ color:var(--sz-body) !important; font-style:normal !important; font-weight:600 !important; }
+.ssl-zen-pro-upgrade > button{ background:var(--sz-grad) !important; border:none !important; border-radius:11px !important; width:auto !important; min-width:150px; padding:12px 28px !important; font-weight:700 !important; color:#fff !important; box-shadow:0 3px 12px rgba(230,68,125,.32) !important; cursor:pointer; transition:.15s; }
+.ssl-zen-pro-upgrade > button:hover{ filter:brightness(.97); transform:translateY(-1px); }
+.sz-upbar{
+  display:flex; align-items:center; gap:18px; background:#fff; border:1px solid var(--sz-line);
+  border-radius:var(--sz-radius); box-shadow:var(--sz-shadow); padding:16px 20px; position:relative; overflow:hidden;
+  text-decoration:none;
 }
-.external-actions-container > a.upgrade:hover{ filter:brightness(.97); }
+.sz-upbar::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--sz-grad); }
+.sz-upbar-ic{ flex:none; width:44px; height:44px; border-radius:12px; background:var(--sz-brand-soft); display:flex; align-items:center; justify-content:center; }
+.sz-upbar-ic svg{ width:24px; height:24px; }
+.sz-upbar-txt{ flex:1; min-width:200px; }
+.sz-upbar-txt strong{ display:block; color:var(--sz-ink); font-size:15px; font-weight:700; letter-spacing:-.01em; }
+.sz-upbar-txt span{ color:var(--sz-body); font-size:13px; }
+.sz-upbar-price{ color:var(--sz-muted); font-size:13px; font-weight:600; white-space:nowrap; }
+.sz-upbar-price b{ color:var(--sz-ink); }
+.sz-upbar-btn{ flex:none; background:var(--sz-grad); color:#fff !important; font-weight:700; font-size:14px; padding:11px 20px; border-radius:10px; white-space:nowrap; box-shadow:0 3px 12px rgba(230,68,125,.3); transition:.15s; }
+.sz-upbar:hover .sz-upbar-btn{ filter:brightness(.97); transform:translateY(-1px); }
 
-/* Step-progress + verification headings: tighten + pink active accents */
-.ssl-zen-content-container [class*="step"] .active,
-.ssl-zen-content-container .active-step{ color:var(--sz-pink) !important; }
-.ssl-zen-steps-container p.starting-quote,
-.ssl-zen-steps-container p.verification-question{ color:var(--sz-ink); }
+/* ============================================================================
+   Pricing / upgrade screen — clean plan cards + social proof band
+   ============================================================================ */
+.ssl-zen-pricing-header-banner h1{ font-size:30px !important; line-height:1.15; }
+.ssl-zen-pricing-header-banner p{ color:var(--sz-body); font-size:15px; }
+.ssl-zen-pricing-container table{ border:none !important; }
+.ssl-zen-pricing-container table td{ border-color:var(--sz-line) !important; vertical-align:middle; }
+.ssl-zen-pricing-container .amount.premium{ background:var(--sz-brand-soft) !important; }
+.ssl-zen-pricing-container .amount h3{ font-size:16px; }
+.ssl-zen-pricing-container .amount.premium span:not(.perioud){ color:var(--sz-brand2) !important; font-weight:800; }
+.ssl-zen-pricing-container tr.grey td{ background:#FBFAFC !important; }
+.ssl-zen-pricing-container .price.premium .primary{ background:var(--sz-grad) !important; }
 
-/* Focus rings on inputs — accessible + on brand */
-.ssl-zen-content-container input:focus,
-.ssl-zen-content-container select:focus,
-.ssl-zen-content-container textarea:focus{
-  outline:none !important; border-color:var(--sz-pink) !important;
-  box-shadow:0 0 0 3px var(--sz-pink-soft) !important;
+/* Social proof band (added via ssl_zen_social_proof()) */
+.sz-proof{ margin:26px 0 6px; }
+.sz-proof-stats{ display:flex; flex-wrap:wrap; gap:12px; }
+.sz-proof-stat{ flex:1; min-width:150px; background:#fff; border:1px solid var(--sz-line); border-radius:var(--sz-radius); box-shadow:var(--sz-shadow); padding:18px 20px; text-align:center; }
+.sz-proof-stat b{ display:block; font-size:24px; color:var(--sz-ink); font-weight:800; letter-spacing:-.02em; }
+.sz-proof-stat span{ color:var(--sz-muted); font-size:12.5px; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+.sz-proof-stat .sz-stars{ color:var(--sz-brand); letter-spacing:2px; }
+.sz-proof-quotes{ display:flex; flex-wrap:wrap; gap:14px; margin-top:14px; }
+.sz-proof-q{ flex:1; min-width:230px; background:#fff; border:1px solid var(--sz-line); border-radius:var(--sz-radius); box-shadow:var(--sz-shadow); padding:18px 20px; }
+.sz-proof-q p{ color:var(--sz-ink); font-size:14px; line-height:1.55; margin:0 0 10px; }
+.sz-proof-q cite{ color:var(--sz-muted); font-size:12.5px; font-style:normal; font-weight:600; }
+.sz-proof-guarantee{ margin-top:14px; text-align:center; color:var(--sz-body); font-size:13.5px; }
+.sz-proof-guarantee b{ color:var(--sz-green); }
+
+/* v4.7.17: Step 2 — professional verification-method selection cards
+   (old style.css used bootstrap-blue #1890FF for BOTH :hover and .selected,
+   so hovering one card made both look chosen; also fully unstyled otherwise) */
+.ssl-zen-steps-container p.verification-question{ color:var(--sz-ink) !important; font-size:18px !important; font-weight:700 !important; letter-spacing:-.01em; }
+.ssl-zen-domain-verification-variant-container{
+  background:#fff !important; border:1.5px solid var(--sz-line) !important; border-radius:var(--sz-radius) !important;
+  box-shadow:var(--sz-shadow) !important; cursor:pointer; transition:.16s ease; height:100%;
 }
+.ssl-zen-domain-verification-variant-container:hover{ border-color:#D8CFDD !important; transform:translateY(-2px); box-shadow:0 10px 26px rgba(27,22,32,.09) !important; }
+.ssl-zen-domain-verification-variant-container.selected{
+  border-color:var(--sz-brand) !important; background:var(--sz-brand-soft) !important;
+  box-shadow:0 0 0 3px rgba(236,74,139,.13), 0 10px 26px rgba(236,74,139,.14) !important; transform:none;
+}
+.ssl-zen-domain-verification-variant-container.selected:hover{ border-color:var(--sz-brand) !important; transform:none; }
+.ssl-zen-domain-verification-variant-container .d-flex.justify-content-between.mb-5{
+  margin-bottom:18px !important; align-items:center !important; padding-bottom:15px; border-bottom:1px solid var(--sz-line);
+}
+.ssl-zen-domain-verification-variant-container.selected .d-flex.justify-content-between.mb-5{ border-bottom-color:#F3D3E1; }
+.ssl-zen-domain-verification-variant-container .http,
+.ssl-zen-domain-verification-variant-container .dns{ font-size:17px !important; font-weight:800 !important; color:var(--sz-ink) !important; letter-spacing:-.01em; }
+.ssl-zen-domain-verification-variant-container .minute{
+  font-size:12px !important; font-weight:600 !important; color:var(--sz-muted) !important;
+  background-color:var(--sz-bg) !important; border:1px solid var(--sz-line); border-radius:999px;
+  padding:4px 11px 4px 28px !important; background-position:9px center !important; background-size:13px auto !important;
+}
+.ssl-zen-domain-verification-variant-container.selected .minute{ background-color:#fff !important; }
+.ssl-zen-domain-verification-variant-container h5{
+  font-size:11px !important; font-weight:700 !important; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--sz-brand2) !important; margin:0 0 3px !important;
+}
+.ssl-zen-domain-verification-variant-container p{ color:var(--sz-body) !important; font-size:14.5px !important; margin:0 !important; line-height:1.5; }
+.ssl-zen-domain-verification-variant-container .mb-4{ margin-bottom:16px !important; }
+
+/* v4.7.19: spacing/density polish — kill the oversized empty space that reads as unfinished */
+/* 1. Debug Log textarea was a huge empty box swallowing the screen (min-height:300px + stretch) */
+.ssl-zen-content-container .table .body textarea{ min-height:140px !important; height:180px !important; max-height:340px; resize:vertical; box-sizing:border-box; }
+/* 2. tighten the big top gap between the product header and page content */
+.ssl-zen-content-container .container.mt-5{ margin-top:22px !important; }
+/* 3. tighten step wrapper bottom gaps */
+.ssl-zen-content-container .ssl-zen-steps-container.mb-4{ margin-bottom:20px !important; }
+/* 4. Step-2 verification cards: hug their content, less dead space; equal height retained */
+.ssl-zen-domain-verification-variant-container.p-4{ padding:22px 24px !important; }
+.ssl-zen-domain-verification-variant-container .mb-4{ margin-bottom:14px !important; }
+.ssl-zen-domain-verification-variant-container .d-flex.justify-content-between.mb-5{ margin-bottom:16px !important; padding-bottom:14px; }
+/* 5. general: trim the giant default bottom gaps bootstrap adds on the step cards */
+.ssl-zen-content-container .row.align-items-center + .row,
+.ssl-zen-content-container .mt-5{ margin-top:22px !important; }
+
+/* v4.7.20: compress the airy Step-1/form rows (p-4 + pt-4 pb-4 stacked into huge vertical gaps
+   that pushed the upgrade bar off-screen). Scoped to form rows only — NOT the step-2 cards. */
+.ssl-zen-steps-container .row.align-items-center.p-4{ padding-top:12px !important; padding-bottom:12px !important; }
+.ssl-zen-steps-container .col-sm-9.pt-4.pb-4{ padding-top:8px !important; padding-bottom:8px !important; }
+.ssl-zen-steps-container .col-sm-3.mt-4,.ssl-zen-steps-container .col-sm-9.mt-4{ margin-top:14px !important; }
+.ssl-zen-steps-container p.starting-quote{ margin-bottom:18px !important; }
+
+/* v4.7.21: "Recommended for your site" cross-sell card (reusable across the studio) */
+.sz-recs{ margin:26px 0 4px; border-top:1px solid var(--sz-line); padding-top:20px; }
+.sz-recs-head{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+.sz-recs-head strong{ color:var(--sz-ink); font-size:15px; font-weight:700; }
+.sz-recs-disc{ color:var(--sz-muted); font-size:12px; flex:1; min-width:180px; }
+.sz-recs-x{ background:none; border:none; color:var(--sz-muted); font-size:20px; line-height:1; cursor:pointer; padding:2px 6px; border-radius:8px; }
+.sz-recs-x:hover{ color:var(--sz-ink); background:var(--sz-bg); }
+.sz-recs-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.sz-rec{ border:1px solid var(--sz-line); border-radius:14px; padding:16px; display:flex; flex-direction:column; background:#fff; }
+.sz-rec.own{ border-color:#F7D3E2; background:var(--sz-brand-soft); }
+.sz-rec-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.sz-rec-ic{ width:38px; height:38px; border-radius:10px; background:var(--sz-bg); display:flex; align-items:center; justify-content:center; font-size:19px; }
+.sz-rec.own .sz-rec-ic{ background:#fff; }
+.sz-rec-tag{ font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:3px 9px; border-radius:999px; }
+.sz-rec-tag.family{ color:var(--sz-brand2); background:#fff; border:1px solid #F7D3E2; }
+.sz-rec-tag.spon{ color:var(--sz-muted); background:var(--sz-bg); border:1px solid var(--sz-line); }
+.sz-rec h5{ color:var(--sz-ink) !important; margin:0 0 4px; font-size:15px; font-weight:700; letter-spacing:-.01em; }
+.sz-rec p{ color:var(--sz-body); font-size:13px; margin:0 0 14px; line-height:1.5; flex:1; }
+.sz-rec-cta{ align-self:flex-start; font-size:13px; font-weight:700; text-decoration:none; padding:8px 15px; border-radius:9px; transition:.15s; }
+.sz-rec-cta.grad{ background:var(--sz-grad); color:#fff; box-shadow:0 3px 12px rgba(230,68,125,.28); }
+.sz-rec-cta.grad:hover{ filter:brightness(.97); }
+.sz-rec-cta.ghost{ color:var(--sz-brand2); background:#fff; border:1px solid #F1CBDC; }
+.sz-rec-cta.ghost:hover{ background:var(--sz-brand-soft); }
+@media(max-width:820px){ .sz-recs-grid{ grid-template-columns:1fr; } }
+
+/* v4.7.23: the single-column setup forms (Step 1, install, activate, success)
+   sprawled across the wide 1440px container on big monitors — labels pinned far
+   left, fields floating center, Next button way out right. Constrain + center
+   them into a focused column. Step 2 (#frmstep2, side-by-side cards) is left wide. */
+#frmstep1, #frmstep3, #frmstep4, #frmReview{ max-width:900px; margin-left:auto; margin-right:auto; }
+#frmstep1 .row.align-items-center.p-4{ padding-left:0 !important; padding-right:0 !important; }
+
+/* v4.7.24: fix the "Never Pay for SSL Again" footer bar alignment. It used a
+   float-based layout → uneven feature heights/widths, nothing vertically centered,
+   button not aligned. Rebuild it as a clean flex row: equal feature columns, all
+   items vertically centered. */
+.ssl-zen-footer > a > .row.align-items-center{ display:flex !important; align-items:center !important; flex-wrap:nowrap; gap:8px; }
+.ssl-zen-footer .ssl-zen-pro-quote{ display:flex; flex-direction:column; justify-content:center; padding-left:4px !important; }
+.ssl-zen-footer .ssl-zen-pro-quote > h4{ margin:0 !important; }
+.ssl-zen-footer .ssl-zen-pro-quote > p{ margin:2px 0 0 !important; }
+.ssl-zen-footer .ssl-zen-pro-features{ display:flex !important; align-items:center; gap:18px; overflow:hidden; }
+.ssl-zen-footer .ssl-zen-pro-features > span{
+  float:none !important; max-width:none !important; margin:0 !important; flex:1 1 0;
+  display:flex !important; align-items:center; min-height:42px; line-height:1.3;
+  background-position:left center !important;
+}
+.ssl-zen-footer .ssl-zen-pro-upgrade{ display:flex !important; align-items:center; justify-content:flex-end; }
+.ssl-zen-footer .ssl-zen-pro-upgrade > button{ margin:0 !important; }
+
+/* v4.7.24: redesigned upgrade/pricing screen (tab=pricing). Slim header,
+   benefit-driven Free-vs-Pro comparison, compact Done-For-You strip. */
+.sz-up{ max-width:900px; margin-left:auto; margin-right:auto; }
+.sz-up-hero{ display:flex; align-items:center; gap:16px; background:#fff; border:1px solid #ECE7EF;
+  border-radius:14px; padding:18px 22px; margin-bottom:16px; }
+.sz-up-hero-icon{ width:46px; height:46px; border-radius:11px; background:#FDEEF4; color:#E6447D;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.sz-up-hero-text{ flex:1; }
+.sz-up-hero-text h1{ font-size:19px; line-height:1.3; font-weight:700; color:#1B1620; margin:0; }
+.sz-up-hero-text p{ font-size:13.5px; color:#6B6572; margin:4px 0 0; }
+.sz-up-hero-price{ text-align:right; flex-shrink:0; white-space:nowrap; }
+.sz-up-hero-price b{ font-size:26px; font-weight:700; color:#1B1620; }
+.sz-up-hero-price span{ font-size:13px; color:#948D99; }
+
+.sz-up-compare{ background:#fff; border:1px solid #ECE7EF; border-radius:14px; overflow:hidden; }
+.sz-up-row{ display:grid; grid-template-columns:1.5fr 1fr 1fr; align-items:stretch; }
+.sz-up-row + .sz-up-row{ border-top:1px solid #F0ECF1; }
+.sz-up-feat{ padding:14px 20px; display:flex; flex-direction:column; justify-content:center; }
+.sz-up-feat-name{ font-size:14px; font-weight:600; color:#1B1620; }
+.sz-up-feat-sub{ font-size:12px; color:#948D99; margin-top:2px; }
+.sz-up-free, .sz-up-pro{ padding:14px 16px; display:flex; align-items:center; justify-content:center;
+  text-align:center; font-size:13px; }
+.sz-up-free{ color:#6B6572; border-left:1px solid #F0ECF1; }
+.sz-up-pro{ color:#B5285F; font-weight:600; background:#FDF4F8; border-left:2px solid #EC4A8B; gap:5px; }
+.sz-up-pro .sz-up-ic{ color:#E6447D; flex-shrink:0; }
+.sz-up-free.sz-warn{ color:#C0392B; }
+.sz-up-head .sz-up-free, .sz-up-head .sz-up-pro{ flex-direction:column; gap:0; padding:14px; }
+.sz-up-head .sz-up-free b, .sz-up-head .sz-up-pro b{ font-size:14px; }
+.sz-up-head .sz-up-free b{ color:#5B5560; }
+.sz-up-head .sz-up-pro b{ color:#E6447D; }
+.sz-up-head .sz-up-free span, .sz-up-head .sz-up-pro span{ font-size:16px; font-weight:700; color:#1B1620; }
+.sz-up-head .sz-up-pro span{ color:#B5285F; }
+.sz-up-current{ font-size:12.5px; color:#948D99; }
+.sz-up-btn{ display:inline-block; background:#EC4A8B; color:#fff !important; font-size:13px; font-weight:700;
+  padding:9px 22px; border-radius:8px; text-decoration:none; transition:background .15s; }
+.sz-up-btn:hover{ background:#E6447D; color:#fff !important; }
+
+.sz-up-dfy{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  background:#FAF8FB; border:1px solid #ECE7EF; border-radius:12px; padding:14px 20px; margin-top:16px; }
+.sz-up-dfy-text{ font-size:13px; color:#5B5560; }
+.sz-up-dfy-text b{ color:#1B1620; }
+.sz-up-dfy-btn{ flex-shrink:0; display:inline-block; background:#fff; border:1px solid #EC4A8B; color:#E6447D !important;
+  font-size:12.5px; font-weight:700; padding:8px 18px; border-radius:8px; text-decoration:none; white-space:nowrap; }
+.sz-up-dfy-btn:hover{ background:#FDEEF4; color:#E6447D !important; }
+
+@media (max-width:600px){
+  .sz-up-hero{ flex-wrap:wrap; }
+  .sz-up-row{ grid-template-columns:1.4fr 1fr 1fr; }
+  .sz-up-feat-sub{ display:none; }
+}
+
+/* v4.7.25: upgrade bar moved to TOP (above steps nav) + Next button aligned + anchor price */
+.ssl-zen-probar{ margin-top:18px !important; margin-bottom:6px !important; }
+/* the bar is no longer a page footer; ensure it reads as a top banner card */
+.ssl-zen-footer.ssl-zen-probar{ padding-top:0; padding-bottom:0; }
+/* Next button: sits inside the form container now, aligned to the field edge, with a divider */
+.sz-next-row{ margin-top:6px; padding-top:16px; border-top:1px solid #EFEAF0; display:flex; justify-content:flex-end; }
+#frmstep1 .sz-next-row .primary.next,
+.sz-next-row .primary.next{ min-width:150px; text-align:center; padding-left:34px; padding-right:34px; }
+/* anchor pricing: struck-through $69 before $29 + save badge */
+.sz-up-hero-price s{ color:#B4ADBA; font-weight:500; font-size:18px; margin-right:8px; text-decoration:line-through; }
+.sz-up-hero-price em.sz-up-save{ display:inline-block; font-style:normal; margin-left:10px; background:#E7F7EF; color:#12885E;
+  font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; vertical-align:middle; }
+.sz-up-head .sz-up-pro span s{ color:#C79BB0; font-weight:500; font-size:13px; margin-right:3px; text-decoration:line-through; }
+
+/* v4.7.26: post-setup DASHBOARD redesign (matches the approved mockup) */
+.szdash{ max-width:1080px; margin:0 auto; }
+.szdash-hero{ display:flex; align-items:center; gap:22px; background:linear-gradient(180deg,#fff,#FEFAFC);
+  border:1px solid #EEE8EF; border-radius:14px; padding:22px 24px; box-shadow:0 1px 2px rgba(27,22,32,.04); margin-bottom:20px; }
+.szdash-shield{ width:56px; height:56px; border-radius:14px; background:#E9F8EF; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+.szdash-shield svg{ width:30px; height:30px; }
+.szdash-hero-txt{ flex:1; }
+.szdash-hero-t1{ font-size:19px; font-weight:700; letter-spacing:-.02em; color:#1B1620; }
+.szdash-hero-t2{ font-size:13.5px; color:#5B5560; margin-top:3px; }
+.szdash-hero-pill{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; text-align:right; }
+.szdash-chip{ font-size:12px; font-weight:700; padding:5px 11px; border-radius:999px; background:#E9F8EF; color:#158a58; white-space:nowrap; }
+.szdash-hero-note{ font-size:11.5px; color:#948D99; }
+
+.szdash-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:18px; }
+.szdash-g2{ display:grid; grid-template-columns:1.4fr 1fr; gap:18px; }
+.szdash-card{ background:#fff; border:1px solid #EEE8EF; border-radius:14px; padding:22px; box-shadow:0 1px 2px rgba(27,22,32,.04); }
+.szdash-card h3{ font-size:15px; font-weight:700; letter-spacing:-.01em; margin:0 0 2px; color:#1B1620; }
+.szdash-sub{ font-size:12.5px; color:#948D99; margin-bottom:16px; }
+.szdash-cert{ display:flex; flex-direction:column; align-items:center; text-align:center; }
+.szdash-cert h3, .szdash-cert .szdash-sub{ align-self:flex-start; }
+.szdash-ring{ position:relative; width:104px; height:104px; margin:4px 0 6px; }
+.szdash-ring-v{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.szdash-ring-v b{ font-size:26px; font-weight:700; line-height:1; color:#1B1620; }
+.szdash-ring-v span{ font-size:11px; color:#948D99; text-transform:uppercase; letter-spacing:.08em; }
+
+.szdash-st{ display:flex; align-items:center; gap:10px; padding:11px 0; border-top:1px solid #EEE8EF; font-size:13.5px; color:#1B1620; }
+.szdash-st:first-of-type{ border-top:0; }
+.szdash-dot{ width:9px; height:9px; border-radius:50%; flex:0 0 auto; }
+.szdash-dot.g{ background:#1FA971; } .szdash-dot.a{ background:#E0A03F; }
+.szdash-r{ margin-left:auto; color:#948D99; font-weight:600; font-size:12.5px; }
+
+.szdash-row{ display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-top:1px solid #EEE8EF; }
+.szdash-row:first-of-type{ border-top:0; }
+.szdash-rt{ font-size:14px; font-weight:600; color:#1B1620; } .szdash-rd{ font-size:12.5px; color:#948D99; margin-top:2px; max-width:520px; }
+.szdash-sw{ position:relative; display:inline-block; width:40px; height:23px; flex:0 0 auto; margin-top:2px; cursor:pointer; }
+.szdash-sw input{ position:absolute; opacity:0; width:0; height:0; }
+.szdash-sw-t{ position:absolute; inset:0; background:#E4DEE6; border-radius:999px; transition:.15s; }
+.szdash-sw-t:before{ content:""; position:absolute; top:2px; left:2px; width:19px; height:19px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); transition:.15s; }
+.szdash-sw input:checked + .szdash-sw-t{ background:#EC4A8B; }
+.szdash-sw input:checked + .szdash-sw-t:before{ left:19px; }
+
+.szdash-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:600; font-size:14px; border:0; border-radius:10px; padding:11px 20px; cursor:pointer; text-decoration:none; }
+.szdash-btn.grad{ background:linear-gradient(135deg,#F871A0,#E6447D); color:#fff !important; box-shadow:0 8px 20px -8px rgba(230,68,125,.6); }
+.szdash-btn.ghost{ background:#fff; color:#1B1620 !important; border:1px solid #EEE8EF; }
+.szdash-btn.ghost.danger{ color:#BE185D !important; border-color:#F1D9E6; }
+.szdash-btn.block{ width:100%; }
+.szdash-btn.disabled{ opacity:.5; pointer-events:none; }
+.szdash-actions{ display:flex; gap:12px; margin-top:18px; }
+.szdash-mini{ font-size:11.5px; color:#948D99; display:block; margin-top:8px; }
+.szdash-mini a{ color:#E6447D; }
+
+.szdash-up{ position:relative; overflow:hidden; background:linear-gradient(135deg,#2A2140,#3C2E57); color:#fff; border-radius:14px; padding:24px; }
+.szdash-up-halo{ position:absolute; right:-40px; top:-40px; width:200px; height:200px; background:radial-gradient(circle,rgba(236,74,139,.55),transparent 70%); }
+.szdash-up h3{ color:#fff; font-size:17px; margin:0; position:relative; }
+.szdash-up p{ color:#D9D3E6; font-size:13px; margin:6px 0 16px; position:relative; }
+.szdash-up ul{ list-style:none; display:grid; gap:9px; margin:0 0 18px; padding:0; position:relative; }
+.szdash-up li{ display:flex; gap:9px; align-items:center; font-size:13.5px; color:#EFEAF7; }
+.szdash-up li:before{ content:"✓"; color:#F871A0; font-weight:700; flex:0 0 auto; }
+.szdash-up-price{ font-size:13px; color:#CFC7E0; margin-top:10px; position:relative; }
+.szdash-up-price b{ color:#fff; font-size:16px; }
+
+@media (max-width:900px){ .szdash-cards{ grid-template-columns:1fr; } .szdash-g2{ grid-template-columns:1fr; } .szdash-hero{ flex-wrap:wrap; } }
+
+/* v4.7.26: anchor price on dashboard Pro panel + cross-promo cards */
+.szdash-up-price s{ color:#B7ADD0; text-decoration:line-through; margin-right:1px; }
+.szdash-xp{ margin-top:18px; }
+.szdash-xp-head{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#948D99; margin-bottom:12px; }
+.szdash-xp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.szdash-xp-card{ display:block; background:#fff; border:1px solid #EEE8EF; border-radius:14px; padding:18px 20px; text-decoration:none; transition:border-color .15s, box-shadow .15s; }
+.szdash-xp-card:hover{ border-color:#F1D9E6; box-shadow:0 6px 18px -12px rgba(230,68,125,.4); }
+.szdash-xp-name{ font-size:15px; font-weight:700; color:#1B1620; display:flex; align-items:center; gap:8px; }
+.szdash-xp-tag{ font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:#BE185D; background:#FCE7F3; padding:2px 8px; border-radius:999px; }
+.szdash-xp-desc{ font-size:12.5px; color:#5B5560; margin:6px 0 10px; line-height:1.5; }
+.szdash-xp-cta{ font-size:13px; font-weight:600; color:#E6447D; }
+@media (max-width:900px){ .szdash-xp-grid{ grid-template-columns:1fr; } }
+
+/* v4.7.26b: cross-promo card polish — logos, amber "missing" flag, trust line, stronger CTA */
+.szdash-xp-head{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+.szdash-xp-trust{ font-size:11px; font-weight:600; text-transform:none; letter-spacing:0; color:#948D99; }
+.szdash-xp-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.szdash-xp-logo{ width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+.szdash-xp-logo svg{ width:22px; height:22px; }
+.szdash-xp-logo.lg{ background:linear-gradient(135deg,#FB923C,#EA580C); }
+.szdash-xp-logo.rz{ background:#6366F1; }
+.szdash-xp-flag{ font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:#B4770B; background:#FAEEDA; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+.szdash-xp-cta{ font-size:13px; font-weight:700; color:#E6447D; }
+.szdash-xp-card:hover .szdash-xp-cta{ text-decoration:underline; }
+
+/* v4.7.27: consistent, centered action buttons across all setup steps */
+#frmstep1 .sz-next-row{ justify-content:center !important; }
+#frmstep2 .text-right, #frmstep3 .text-right, #frmstep4 .text-right, #frmReview .text-right{ text-align:center !important; }
+#frmstep2 .row.justify-content-end{ justify-content:center !important; }
+#frmstep2 .row.justify-content-end > *{ float:none !important; }
+#frmstep2 .d-flex.justify-content-start{ justify-content:center !important; width:100%; }
+#frmstep2 .align-items-center.d-flex.mt-4{ justify-content:center !important; }
+/* uniform button sizing so they read as a set */
+.ssl-zen-content-container .primary.next{ min-width:160px; text-align:center; }
+.ssl-zen-content-container a.primary.download-file,
+.ssl-zen-content-container a.primary.scan-http,
+.ssl-zen-content-container a.primary.scan-dns{ min-width:120px; text-align:center; }
+
+/* v4.7.28: clearer Step-2 verification for newbies + preview switch */
+.szv-intro{ background:#FDF4F8; border:1px solid #F7D3E2; border-radius:12px; padding:13px 18px; font-size:13.5px; line-height:1.55; color:#5B5560; margin:0 0 22px; }
+#frmstep2 .ssl-zen-domain-verification-variant-tab-container{ background:#fff; border:1px solid #EEE8EF; border-radius:14px; padding:22px 26px; box-shadow:0 1px 3px rgba(27,22,32,.05); }
+.szv-num{ display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#EC4A8B; color:#fff; font-size:13px; font-weight:700; margin-right:9px; flex:0 0 auto; }
+#frmstep2 h5{ display:flex; align-items:center; }
+/* centre the action buttons + Next across the verification steps */
+#frmstep2 .row.justify-content-end{ justify-content:center !important; }
+#frmstep2 .row.justify-content-end .d-flex.justify-content-start{ justify-content:center !important; width:100%; gap:12px; }
+.ssl-zen-content-container form[id^="frmstep"] .text-right{ text-align:center !important; }
+#frmstep2 a.primary.download-file, #frmstep2 a.primary.scan-http, #frmstep2 a.primary.scan-dns{ min-width:150px; text-align:center; }
+
+/* v4.7.28: vertically center + balance the "Never Pay for SSL Again" bar */
+.ssl-zen-probar > a{ display:block; }
+.ssl-zen-probar .row.align-items-center{ display:flex !important; align-items:center !important; min-height:60px; }
+.ssl-zen-probar .ssl-zen-pro-quote{ display:flex; flex-direction:column; justify-content:center; }
+.ssl-zen-probar .ssl-zen-pro-features{ display:flex !important; align-items:center; justify-content:space-around; }
+.ssl-zen-probar .ssl-zen-pro-features > span{ display:flex; align-items:center; }
+.ssl-zen-probar .ssl-zen-pro-upgrade{ display:flex; align-items:center; justify-content:flex-end; }
+.ssl-zen-probar .ssl-zen-pro-upgrade > button{ margin:0 !important; }
+
+/* --- Pro (paid, hands-off) dashboard state — v4.7.30 --- */
+.szdash-pro-note{ color:#1FA971 !important; font-weight:600; }
+.szdash-autorenew{
+  display:inline-flex; align-items:center; gap:6px; margin-top:14px;
+  padding:9px 16px; border-radius:999px; font-weight:600; font-size:13px;
+  color:#1FA971; background:#E9F9F1; border:1px solid #BFEBD6;
+}
+.szdash-pro{
+  position:relative; overflow:hidden; border-radius:16px; padding:26px 24px;
+  color:#fff; background:linear-gradient(135deg,#1FA971 0%,#12805A 100%);
+  box-shadow:0 10px 30px rgba(18,128,90,.28);
+}
+.szdash-pro-halo{
+  position:absolute; top:-60px; right:-60px; width:180px; height:180px;
+  border-radius:50%; background:rgba(255,255,255,.12); pointer-events:none;
+}
+.szdash-pro-badge{
+  display:inline-flex; align-items:center; gap:6px; margin-bottom:12px;
+  padding:5px 12px; border-radius:999px; font-size:12px; font-weight:700;
+  letter-spacing:.02em; background:rgba(255,255,255,.18); color:#fff;
+}
+.szdash-pro h3{ color:#fff; margin:0 0 8px; font-size:20px; }
+.szdash-pro p{ color:rgba(255,255,255,.92); margin:0 0 16px; font-size:14px; line-height:1.5; }
+.szdash-pro ul{ list-style:none; margin:0 0 20px; padding:0; }
+.szdash-pro ul li{ padding:6px 0; font-size:14px; color:#fff; font-weight:500; }
+.szdash-pro .szdash-btn.ghost.block{
+  display:block; text-align:center; width:100%; background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.5); color:#fff;
+}
+.szdash-pro .szdash-btn.ghost.block:hover{ background:rgba(255,255,255,.24); }
+
+/* --- v4.7.31: FIX upgrade bar horizontal alignment ---
+   .ssl-zen-footer{margin:26px 0 8px} was zeroing the left/right margins of the
+   .container, pinning the bar ~61px left of every other block on the page.
+   Restore Bootstrap's auto side-margins + the standard container padding so the
+   bar lines up flush with the header card and step wizard. */
+.ssl-zen-footer.ssl-zen-probar{ margin-left:auto !important; margin-right:auto !important; padding-left:15px !important; padding-right:15px !important; }
+
+/* --- v4.7.32: Step-1 checkboxes rebuilt as reliable native controls ---
+   The old .checkbox/.styled theme pattern hid the real input (opacity:0) and
+   drew a fake box on the label — the opt-in one didn't toggle, so clicking just
+   selected the label text. These are clean native checkboxes: always toggle,
+   top-aligned with the first line of wrapping labels, pink accent, no text
+   selection. */
+.sz-check{ display:flex; align-items:flex-start; gap:10px; margin:12px 0; }
+.sz-check input[type=checkbox]{
+  -webkit-appearance:auto; appearance:auto; opacity:1 !important; position:static !important;
+  width:18px; height:18px; min-width:18px; margin:1px 0 0; flex:0 0 auto;
+  accent-color:#e5397f; cursor:pointer;
+}
+.sz-check label{ margin:0; font-weight:400; line-height:1.45; cursor:pointer; -webkit-user-select:none; user-select:none; }
+.sz-check label a{ font-weight:600; }
+.sz-next-row{ text-align:center !important; margin-top:8px; }
+
+/* --- v4.7.33: Step-2 tabs connect to the card + Debug box/button tidy --- */
+/* HTTP/DNS tabs were floating inset ~15px from the card; make them proper
+   folder tabs flush with the card's left edge, active tab merged into card. */
+#frmstep2 .ssl-zen-domain-verification-variant-tabs{ margin:0 0 -1px 0 !important; padding:0 !important; gap:6px; position:relative; z-index:2; border:none !important; }
+#frmstep2 .ssl-zen-domain-verification-variant-tabs > li{
+  list-style:none !important; margin:0 !important; padding:11px 22px !important;
+  background:#F4EEF6; color:#5b616e; font-weight:700; cursor:pointer;
+  border:1px solid #EEE8EF !important; border-bottom:none !important;
+  border-radius:12px 12px 0 0 !important; box-shadow:none !important;
+}
+#frmstep2 .ssl-zen-domain-verification-variant-tabs > li.active{ background:#fff !important; color:#1a1d24 !important; }
+#frmstep2 .row:has(> .ssl-zen-domain-verification-variant-tab-container){ margin-left:0 !important; margin-right:0 !important; }
+#frmstep2 .ssl-zen-domain-verification-variant-tab-container{ border-top-left-radius:0 !important; }
+/* Debug card used the theme's display:table on .table, throwing the download
+   button ~20px out of line + no bottom padding. Uniform card padding aligns
+   the textarea, button and note, with breathing room at the bottom. */
+.ssl-zen-content-container .debug-container .table{ display:block !important; padding:0 22px 20px !important; box-sizing:border-box; }
+.ssl-zen-content-container .debug-container .table .head{ margin:0 -22px !important; padding-left:22px !important; }
+.ssl-zen-content-container .debug-container .table .body{ display:block !important; padding:0 !important; }
+.ssl-zen-content-container .debug-container .table .body textarea{ margin:0 !important; width:100% !important; height:160px !important; }
+.ssl-zen-content-container .debug-container .table a.download-debug,
+.ssl-zen-content-container .debug-container .table a.download-status{ display:inline-block !important; margin:20px 0 8px !important; }
+.ssl-zen-content-container .debug-container .table .mini-message{ display:block !important; margin:0 !important; }

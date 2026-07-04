@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.14
+Stable tag: 4.7.33
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -67,6 +67,7 @@ When you add translations, get in touch with us as we will get you listed as a P
 - By downloading our plugin, You agree to [LEClient license terms](https://github.com/yourivw/LEClient/blob/master/LICENSE), a PHP LetsEncrypt client library to verify domain ownership and generate an SSL certificate for your website.
 - We use [Let's Debug](https://letsdebug.net/) API, a diagnostic tool to help figure out why you might not be able to issue a certificate for Let's Encrypt®.
 - We use [Freemius](https://freemius.com) to collect non-sensitive diagnostic data about your website should you opt-in.
+- **Optional email updates:** if you tick the optional "email me SSL tips and updates" box during setup, your email address and site domain are sent to SSL Zen (sslzen.com) to add you to our mailing list. This is entirely optional — leaving it unticked has no effect on the plugin, and you can unsubscribe from any email at any time. See our privacy policy at https://sslzen.com/privacy-policy/.
 
 Internet Security Research Group™, Let’s Encrypt®, ISRG™ are trademarks of the Internet Security Research Group. All rights reserved.
 
@@ -177,6 +178,64 @@ You can get the help of your hosting provider to install your WordPress in the r
 7. Settings to enable 301 redirection the settings page.
 
 == Changelog ==
+
+= 4.7.33 =
+* Step 2: the HTTP/DNS tabs now connect flush to the verification card instead of floating above it
+* Tidied the Debug log box and the Download button spacing/alignment
+
+= 4.7.32 =
+* Fixed the Step 1 consent checkboxes: they now tick reliably (the opt-in box could select the label text instead of ticking) and align neatly with their labels
+
+= 4.7.31 =
+* Fixed the upgrade bar sitting slightly left of the rest of the page — it now lines up flush with the header and setup steps
+
+= 4.7.30 =
+* New: post-upgrade Pro dashboard view (auto-renew status + hands-off summary for paying customers)
+* Refreshed store branding and modernized the listing
+
+= 4.7.29 =
+* Cache-bust for the centered upgrade bar styling
+
+= 4.7.28 =
+* Clearer Step 2 domain-verification screen (card, numbered steps, plain-language intro, 'Download file' labels); centered step buttons
+
+= 4.7.27 =
+* Centered + aligned the setup-step action buttons; refined the opt-in copy
+
+= 4.7.26 =
+* Redesigned the post-setup dashboard: 'site is secure' status, certificate / HTTPS / site-health cards, cleaner advanced settings
+
+= 4.7.25 =
+* Moved the Pro upgrade bar above the setup steps; aligned the Next button; anchored pricing ($69 -> $29)
+
+= 4.7.24 =
+* Fixed the upgrade footer bar alignment (even feature columns, vertically centered)
+
+= 4.7.23 =
+* Centered and constrained the setup forms so they no longer sprawl on wide screens
+
+= 4.7.22 =
+* New: optional email opt-in at Step 1 (unticked by default). If ticked, your email is sent to SSL Zen (sslzen.com) to join our mailing list; unsubscribe anytime. Leaving it unticked has no effect on the plugin.
+
+= 4.7.21 =
+* New: 'Recommended for your site' card on the success screen (LinkGuard cross-promo + optional partner tools), dismissible
+
+= 4.7.20 =
+* Fixed admin content being pinned to the left on wide screens (now centered, wider container)
+
+= 4.7.19 =
+* Tightened admin spacing/density: capped the oversized Debug Log box and removed large empty gaps across the setup screens
+
+= 4.7.18 =
+* Fixed the Debug/Status log download button showing no label (pink-on-pink text)
+
+= 4.7.17 =
+* Redesigned the Step 2 domain-verification method cards (clear selected state, on-brand)
+
+= 4.7.16 =
+* Fixed header Debug/Support buttons rendering with tiled leftover icon backgrounds
+* Restyled the upgrade footer bar to match the SSL Zen brand (was off-brand indigo/purple)
+
 
 = 4.7.14 =
 * Fixed: paying customers running the free build now correctly show as "Premium" and see a clear prompt to activate the Pro version — resolves the recurring "I upgraded but it still shows Free" issue.
