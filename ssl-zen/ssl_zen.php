@@ -7,7 +7,7 @@
  * Plugin Name:       SSL Zen — SSL Certificate Installer & HTTPS Redirects
  * Plugin URI:        https://sslzen.com
  * Description:       Helps install a free SSL certificate from LetsEncrypt, fixes mixed content, insecure content by redirecting to https, and forces SSL on all pages.
- * Version:           4.7.13
+ * Version:           4.7.14
  * Author:            SSL Zen
  * Author URI:        http://sslzen.com
  * License:           GNU General Public License v3.0
@@ -96,7 +96,7 @@ if ( !function_exists( 'sz_fs' ) ) {
  * Define constants used in the plugin
  */
 if ( !defined( 'SSL_ZEN_PLUGIN_VERSION' ) ) {
-    define( 'SSL_ZEN_PLUGIN_VERSION', '4.7.13' );
+    define( 'SSL_ZEN_PLUGIN_VERSION', '4.7.14' );
 }
 if ( !defined( 'SSL_ZEN_DIR' ) ) {
     define( 'SSL_ZEN_DIR', plugin_dir_path( __FILE__ ) . 'ssl_zen/' );

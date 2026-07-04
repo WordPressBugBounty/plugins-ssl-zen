@@ -54,7 +54,36 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             add_action( 'wp_ajax_ssl_zen_cert_files', __CLASS__ . '::ssl_zen_cert_files' );
             // Enable log debugging mode
             add_action( 'wp_ajax_ssl_zen_settings_debug', __CLASS__ . '::ssl_zen_settings_debug' );
+            // Guide paying customers still on the free build to activate Pro.
+            add_action( 'admin_notices', __CLASS__ . '::paid_activation_notice' );
             self::review_notice();
+        }
+
+        /**
+         * Show a success notice to customers who have PAID but are still running the
+         * free wordpress.org build (premium code not yet active). This is the exact
+         * state behind the recurring "I upgraded but it still shows Free / nothing
+         * changed" tickets: the purchase worked; they just need to activate the Pro
+         * build that unlocks auto-install & auto-renewal.
+         *
+         * @since 4.7.14
+         * @static
+         */
+        public static function paid_activation_notice() {
+            if ( ! function_exists( 'sz_fs' ) ) {
+                return;
+            }
+            if ( ! sz_fs()->is_paying() || sz_fs()->is_premium() ) {
+                return;
+            }
+            $account = esc_url( sz_fs()->get_account_url() );
+            $msg = sprintf(
+                /* translators: %1$s: opening link tag, %2$s: closing link tag */
+                __( 'Thanks for upgrading to SSL Zen Pro — your payment is active. To unlock the paid features (automatic installation &amp; auto-renewal), download and activate the Pro version from your %1$saccount page%2$s. It replaces the free plugin automatically and keeps your certificate &amp; settings.', 'ssl-zen' ),
+                '<a href="' . $account . '">',
+                '</a>'
+            );
+            echo '<div class="notice notice-success"><p><strong>' . esc_html__( 'SSL Zen:', 'ssl-zen' ) . '</strong> ' . wp_kses_post( $msg ) . '</p></div>';
         }
 
         public static function detect_nginx_and_show_notice() {
@@ -586,8 +615,14 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                 <span>V<?php 
             echo esc_html( SSL_ZEN_PLUGIN_VERSION );
             ?></span>
-                                <span><?php 
-            echo esc_html( ( sz_fs()->can_use_premium_code__premium_only() ? 'Premium' : ' Free' ) );
+                                <span><?php
+            // Base the plan badge on the LICENSE (server truth), not on whether the
+            // premium *code build* is active. A customer who has paid but is still
+            // running the free wordpress.org build should see their paid plan here —
+            // showing "Free" to a paying customer is the #1 "I upgraded but it still
+            // says Free" support ticket. is_free_plan() reflects the actual license
+            // and works on the free build too (matches class.ssl_zen_scripts.php).
+            echo esc_html( ( sz_fs()->is_free_plan() ? ' Free' : 'Premium' ) );
             ?></span>
                             </div>
                             <div class="col-lg-6 text-lg-right text-center external-actions-container">

@@ -155,7 +155,7 @@
                                         <div>
                                             <label for="enable_301_htaccess_redirect"
                                                    class="d-block title"><?php esc_html_e( 'Enable 301 .htaccess redirect', 'ssl-zen' ) ?></label>
-                                            <span><?php esc_html_e( 'Speeds up your website but might also cause a redirect loop and lock you out of your website.', 'ssl-zen' ) ?></span>
+                                            <span><?php esc_html_e( 'Applies the HTTPS redirect at the server level (.htaccess) for the best performance. On a few host setups this can cause a redirect loop — if that happens, just switch this back off and the built-in redirect keeps your site secure.', 'ssl-zen' ) ?></span>
                                         </div>
                                     </li>
                                     <li class="d-flex mb-4 line">

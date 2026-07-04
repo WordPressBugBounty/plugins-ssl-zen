@@ -120,7 +120,14 @@ class cPanel
         curl_setopt($ch, CURLOPT_USERPWD, $this->username . ':' . $this->password);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        // Installing a certificate (uploading cert+key+cabundle and having cPanel
+        // deploy it) routinely takes longer than the old 3s timeout. When it timed
+        // out, curl_exec() returned false -> json_decode(false)=null -> the
+        // confusing "install_ssl cURL did not return valid JSON" error that drove
+        // a large share of support tickets. Give the request real time, with a
+        // separate short connect timeout so a genuinely dead host still fails fast.
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 45);
 
         if (null !== $payload) {
             // Set up a POST request with the payload.
@@ -130,12 +137,30 @@ class cPanel
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        // Make the call, and then terminate the cURL caller object.
+        // Make the call, capturing transport-level diagnostics before closing.
         $curl_response = curl_exec($ch);
+        $curl_errno    = curl_errno($ch);
+        $curl_error    = curl_error($ch);
+        $http_code     = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        // Surface transport failures (timeout, DNS, refused, TLS) with a log line
+        // instead of silently returning null and blaming "invalid JSON".
+        if ($curl_response === false || $curl_errno) {
+            if (class_exists('ssl_zen_helper')) {
+                ssl_zen_helper::log('cPanel UAPI transport error (' . $curl_errno . '): ' . $curl_error . ' [' . $request_uri . ']');
+            }
+            return null;
+        }
+
         // Decode and return output.
-        return json_decode($curl_response);
+        $decoded = json_decode($curl_response);
+        if (null === $decoded && class_exists('ssl_zen_helper')) {
+            // Non-JSON (auth failure, HTML error page, WAF block…). Log a snippet
+            // of WHAT came back so a real cause can be diagnosed from the logs.
+            ssl_zen_helper::log('cPanel UAPI non-JSON response (HTTP ' . $http_code . '): ' . substr((string) $curl_response, 0, 300));
+        }
+        return $decoded;
     }
 
     public function checkConnection()
@@ -205,12 +230,15 @@ class cPanel
 
         //Validate $response
         if (empty($response)) {
+            // $response is null here (timeout / non-JSON), so it has no ->errors.
+            // The old code dereferenced $response->errors[0] and threw a PHP error
+            // on top of the original failure. See connectUapi() logs for the cause.
             if ($is_ajax == true) {
                 return ['status' => false, 'msg' => 'cpanel_install_ssl_err1'];
             } else {
                 $info = 'cpanel_install_ssl_err1';
 	            update_option( 'ssl_zen_settings_stage', 'step2' );
-                wp_redirect(admin_url('admin.php?page=ssl_zen&tab=step2&info=' . $info . '&msg=' . base64_encode($response->errors[0])));
+                wp_redirect(admin_url('admin.php?page=ssl_zen&tab=step2&info=' . $info));
                 die;
             }
         }

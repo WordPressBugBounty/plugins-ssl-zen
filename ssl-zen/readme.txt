@@ -1,12 +1,11 @@
 === SSL Zen — SSL Certificate Installer & HTTPS Redirects ===
 Contributors: sslzen, sslzensupport
-Donate link: https://paypal.me/sagarspatil
 Tags: ssl,ssl certificate,free ssl,force ssl,mixed content
 Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.13
+Stable tag: 4.7.14
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -37,33 +36,14 @@ Note: The free version requires you to manually verify your domain name with [Le
 If you want the plugin to automatically install the SSL certificate and auto-renew it, please check the premium version of the plugin.
 
 = Features of Premium Version: =
-* Automatic Domain Verification
-* Automatic free SSL Certificate Generation
-* Automatic free SSL Certificate Installation
-* Automatic free SSL Certificate Renewal
-* Automatic HTTPS redirection
-* Accelerate your website with StackPath's Global Content Delivery Network
-* Premium Support - Live Chat, Email Support
-* Spam Protection
-* Brute-Force Protection
-* Forces Browser Validation on traffic anomalies
-* Performs Real-time threat intelligence for IP addresses, source location, and information on malicious IPs.
-* Patches known vulnerabilities in the Apache Struts framework by blocking requests suspected of exploiting these vulnerabilities
-* Enables a set of rules designed to block common WordPress exploits
-* Blocks clients performing multiple injection attacks.
-* Blocks Probing and Forced Browsing
-* Blocks SQL injection attack attempts
-* Blocks Cross-Site-Scripting (XSS) attack attempts
-* Blocks Shellshock attack attempts
-* Blocks requests suspected of being a Remote File Inclusion attempt
-* Blocks requests suspected of a Local File Inclusion attempt
-* Blocks attempts to access and potentially harm your servers through backdoors
-* Blocks requests suspected of web shell attempts
-* Blocks requests suspected of Response header injection attempts
-* Blocks Invalid User Agents
-* Blocks Unknown User Agents
+* Automatic domain verification
+* Automatic free SSL certificate generation
+* Automatic free SSL certificate installation
+* Automatic free SSL certificate renewal
+* Automatic HTTP to HTTPS redirection
+* Premium support - Live Chat & Email
 
-[CLICK HERE TO THE BUY PREMIUM VERSION](https://sslzen.com/#pricing)
+[CLICK HERE TO BUY THE PREMIUM VERSION](https://sslzen.com/#pricing)
 
 = Why get an SSL certificate? =
 * Trust - Starting from July 2018, Google Chrome has begun to mark all non-SSL websites as 'Not-Secure'. When your users see the broken padlock, their trust wavers!
@@ -88,7 +68,7 @@ When you add translations, get in touch with us as we will get you listed as a P
 - We use [Let's Debug](https://letsdebug.net/) API, a diagnostic tool to help figure out why you might not be able to issue a certificate for Let's Encrypt®.
 - We use [Freemius](https://freemius.com) to collect non-sensitive diagnostic data about your website should you opt-in.
 
-Internet Security Research Group™, Let’s Encrypt®, ISRG™ are trademarks of the Internet Security Research Group. StackPath®, EdgeSSL™ are trademarks of StackPath, LLC. All rights reserved.
+Internet Security Research Group™, Let’s Encrypt®, ISRG™ are trademarks of the Internet Security Research Group. All rights reserved.
 
 == Installation ==
 To install this plugin:
@@ -197,6 +177,12 @@ You can get the help of your hosting provider to install your WordPress in the r
 7. Settings to enable 301 redirection the settings page.
 
 == Changelog ==
+
+= 4.7.14 =
+* Fixed: paying customers running the free build now correctly show as "Premium" and see a clear prompt to activate the Pro version — resolves the recurring "I upgraded but it still shows Free" issue.
+* Improved: cPanel SSL installation reliability — raised the API timeout that caused "install_ssl did not return valid JSON" failures, added diagnostic logging, and fixed an error in the failure path.
+* Improved: Step 2 now advances automatically after a successful domain verification instead of appearing to stall.
+* Improved: clearer, less alarming wording for the 301 .htaccess redirect option.
 
 = 4.7.13 =
 * New: self-serve account controls on the Settings screen — re-check your license in one click if you upgraded but the plugin still shows "Free", and manage or cancel your subscription (including turning off auto-renewal) yourself, without contacting support.

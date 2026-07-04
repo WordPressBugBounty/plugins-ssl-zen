@@ -262,6 +262,17 @@ function preventDefault(event) {
                 $('.ssl-zen-domain-verification-variant-tabs li.' + variant).removeClass('error');
                 // Disable the current button
                 $this.addClass('disabled');
+                // Auto-advance: verification succeeded, so move the user to the
+                // next step instead of leaving them on a screen that looks stuck
+                // with only a newly-enabled Next button. Small delay so the
+                // success message is seen; only fires while Next is enabled.
+                var $sslNext = $('#frmstep2 a.primary.next');
+                if ($sslNext.length) {
+                  try { $sslNext[0].scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+                  setTimeout(function () {
+                    if (!$sslNext.hasClass('disabled')) { $sslNext.trigger('click'); }
+                  }, 1800);
+                }
               } else {
                 // Show error message and mark variant as error
                 $('.ssl-zen-domain-verification-variant-tabs li.' + variant).addClass('error');
