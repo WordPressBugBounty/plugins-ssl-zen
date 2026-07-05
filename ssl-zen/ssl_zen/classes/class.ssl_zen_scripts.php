@@ -154,6 +154,42 @@ if ( !class_exists( 'SSLZenScripts' ) ) {
                     . ';</script>' . "\n";
                 echo '<script type="text/javascript" src="' . esc_url( $support_base . '/chat-widget.js' )
                     . '" defer></script>' . "\n";
+
+                // -----------------------------------------------------------
+                // v4.7.39: anonymous setup-funnel analytics (first-party, no PII).
+                // Only active when the user opted in to usage tracking on the
+                // Freemius consent screen (is_tracking_allowed). Sends which setup
+                // step is reached and which buttons are clicked to our own endpoint
+                // so we can see where installs drop off. Uses a random per-install
+                // id — no personal data, no third-party trackers.
+                // -----------------------------------------------------------
+                $sz_track_ok = ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'is_tracking_allowed' ) && sz_fs()->is_tracking_allowed() );
+                if ( $sz_track_ok ) {
+                    $sz_anon = get_option( 'ssl_zen_anon_id' );
+                    if ( empty( $sz_anon ) ) {
+                        $sz_anon = function_exists( 'wp_generate_uuid4' ) ? wp_generate_uuid4() : md5( uniqid( 'sz', true ) );
+                        update_option( 'ssl_zen_anon_id', $sz_anon, false );
+                    }
+                    $sz_stage = get_option( 'ssl_zen_settings_stage', '' );
+                    $sz_step  = ( $sz_stage === 'review' ) ? 'activated' : ( $sz_stage ? $sz_stage : 'unknown' );
+                    echo '<script type="text/javascript">window.SSLZEN_TRACK='
+                        . wp_json_encode( array(
+                            'url'  => $support_base . '/api/track',
+                            'anon' => $sz_anon,
+                            'v'    => SSL_ZEN_PLUGIN_VERSION,
+                            'step' => $sz_step,
+                        ) ) . ';</script>' . "\n";
+                    echo '<script type="text/javascript">'
+                        . '(function(){var C=window.SSLZEN_TRACK;if(!C||!C.url)return;'
+                        . 'function b(ev,st){try{var d=JSON.stringify({event:ev,step:st||null,anon_id:C.anon,v:C.v});'
+                        . 'if(navigator.sendBeacon){navigator.sendBeacon(C.url,new Blob([d],{type:"text/plain"}));}'
+                        . 'else{fetch(C.url,{method:"POST",headers:{"Content-Type":"text/plain"},body:d,keepalive:true}).catch(function(){});}}catch(e){}}'
+                        . 'b("step_reached",C.step);'
+                        . 'document.addEventListener("click",function(e){var el=e.target.closest&&e.target.closest("button,a.btn,a.review,input[type=submit],.btn,.review,.primary,.button-primary");if(!el||!el.closest(".ssl-zen-content-container"))return;'
+                        . 'var l=(el.getAttribute("data-sz-track")||(el.textContent||el.value||"").replace(/\\s+/g," ").trim().slice(0,24)||"button");b("button_click",l);},true);'
+                        . '})();'
+                        . '</script>' . "\n";
+                }
             }
         }
 
