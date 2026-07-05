@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.37
+Stable tag: 4.7.38
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -182,6 +182,9 @@ You can get the help of your hosting provider to install your WordPress in the r
 5. Built-in status and debug tools to troubleshoot your free SSL certificate installation fast.
 
 == Changelog ==
+
+= 4.7.38 =
+* Simplified the post-setup screen: one friendly, no-pressure review request shown to everyone, with a help option always available
 
 = 4.7.37 =
 * Redesigned the upgrade screen: a clearer good-better-best choice (annual, a pay-once lifetime option, and a done-for-you setup) with a simple side-by-side of what changes when you go Pro

@@ -2,13 +2,15 @@
 /**
  * Template — SSL activated / success screen.
  *
- * Redesigned (4.7.12) to do more than ask for a review:
+ * Success screen:
  *   1. Confirm the site is secured, with a one-click "verify" link.
  *   2. On the free plan, a single honest Pro nudge at the moment of peak
  *      intent — automatic renewal, so the site never goes "Not Secure" again.
- *   3. A sentiment gate: happy users are routed to a wp.org review (protecting
- *      the star rating — the plugin's biggest asset), and users who aren't
- *      happy are routed to support instead of leaving a public 1-star review.
+ *   3. A single, ungated review ask shown to everyone, with an always-visible
+ *      "get help" link alongside it. (4.7.38 removed the earlier happy/unhappy
+ *      sentiment gate: routing only satisfied users to public reviews is a
+ *      review-manipulation pattern that risks the wp.org rating — every user now
+ *      sees the same ask and the same support option.)
  */
 $is_free    = ( function_exists( 'sz_fs' ) && sz_fs()->is_free_plan() );
 $site_url   = home_url( '/', 'https' );
@@ -59,28 +61,17 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
                     </div>
 					<?php endif; ?>
 
-                    <div class="szv-gate" id="szv-gate">
-                        <p class="szv-gate-q"><?php esc_html_e( 'Is everything working as expected?', 'ssl-zen' ); ?></p>
-                        <div class="szv-gate-btns">
-                            <button type="button" class="szv-mood" data-mood="happy">😀 <?php esc_html_e( 'Yes, all good!', 'ssl-zen' ); ?></button>
-                            <button type="button" class="szv-mood" data-mood="sad">😕 <?php esc_html_e( 'Not quite', 'ssl-zen' ); ?></button>
-                        </div>
-                    </div>
-
-                    <div class="szv-reveal" id="szv-review" hidden>
+                    <div class="szv-review-block">
                         <div class="propose d-lg-flex align-items-center">
-							<?php esc_html_e( 'Wonderful! Could you do us a BIG favour and give SSL Zen a', 'ssl-zen' ); ?>
-                            <i class="star ml-2 mr-2"></i><i class="star mr-2"></i><i class="star mr-2"></i><i class="star mr-2"></i><i class="star mr-2"></i>
-							<?php esc_html_e( 'on WordPress.org?', 'ssl-zen' ); ?>
+                            <i class="star mr-2"></i>
+							<?php esc_html_e( 'Enjoying SSL Zen? Please leave a review for SSL Zen on WordPress.org — it genuinely helps a small team.', 'ssl-zen' ); ?>
                         </div>
                         <a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank" rel="noopener" class="review primary mt-4 mb-2"><?php esc_html_e( 'LEAVE A REVIEW', 'ssl-zen' ); ?></a>
-                        <span class="review-timing"><?php esc_html_e( 'It only takes a moment — and it genuinely helps a small team.', 'ssl-zen' ); ?></span>
-                    </div>
-
-                    <div class="szv-reveal" id="szv-help" hidden>
-                        <p class="szv-help-q"><?php esc_html_e( "Sorry to hear that — let's get it sorted.", 'ssl-zen' ); ?></p>
-                        <p class="szv-help-sub"><?php esc_html_e( 'Search our guides for an instant answer, or send our team a message (your site details are attached automatically so we can help fast).', 'ssl-zen' ); ?></p>
-                        <button type="button" class="review primary mt-2 mb-2" id="szv-open-help"><?php esc_html_e( 'GET HELP NOW', 'ssl-zen' ); ?></button>
+                        <span class="review-timing"><?php esc_html_e( 'It only takes a moment.', 'ssl-zen' ); ?></span>
+                        <p class="szv-help-line">
+							<?php esc_html_e( 'Something not working right?', 'ssl-zen' ); ?>
+                            <a href="#" id="szv-open-help"><?php esc_html_e( 'Get help from our team', 'ssl-zen' ); ?></a>
+                        </p>
                     </div>
 
 					<?php require SSL_ZEN_TEMPLATE_DIR . 'admin/recommendations.php'; ?>
@@ -102,32 +93,17 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
 .szv-pro-body span{color:#5b616e;font-size:13.5px;line-height:1.5}
 .szv-pro-btn{white-space:nowrap;background:#e5397f;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:9px;text-decoration:none}
 .szv-pro-btn:hover{background:#c72d6c;color:#fff}
-.szv-gate{margin-top:26px}
-.szv-gate-q{font-weight:700;font-size:15px;color:#1a1d24;margin:0 0 12px}
-.szv-gate-btns{display:flex;gap:12px;flex-wrap:wrap}
-.szv-mood{background:#fff;border:1.5px solid #e0e3ec;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:.12s}
-.szv-mood:hover{border-color:#e5397f;color:#c72d6c}
-.szv-reveal{margin-top:22px}
-.szv-help-q{font-weight:700;font-size:15px;margin:0 0 4px;color:#1a1d24}
-.szv-help-sub{color:#5b616e;font-size:13.5px;line-height:1.5;margin:0 0 6px;max-width:640px}
+.szv-review-block{margin-top:26px}
+.szv-help-line{margin:14px 0 0;color:#5b616e;font-size:13.5px}
+.szv-help-line a{color:#e5397f;font-weight:600;text-decoration:none}
+.szv-help-line a:hover{color:#c72d6c}
 </style>
 <script>
 (function(){
-    var gate = document.getElementById('szv-gate');
-    if(!gate) return;
-    var review = document.getElementById('szv-review');
-    var help = document.getElementById('szv-help');
-    gate.querySelectorAll('.szv-mood').forEach(function(b){
-        b.addEventListener('click', function(){
-            var mood = b.getAttribute('data-mood');
-            gate.setAttribute('hidden','');
-            if(mood === 'happy'){ if(review) review.removeAttribute('hidden'); }
-            else { if(help) help.removeAttribute('hidden'); }
-        });
-    });
     var open = document.getElementById('szv-open-help');
     if(open){
-        open.addEventListener('click', function(){
+        open.addEventListener('click', function(e){
+            if(e && e.preventDefault) e.preventDefault();
             if(window.SSLZEN_SUPPORT && typeof window.SSLZEN_SUPPORT.open === 'function'){
                 window.SSLZEN_SUPPORT.open('ask');
             } else {

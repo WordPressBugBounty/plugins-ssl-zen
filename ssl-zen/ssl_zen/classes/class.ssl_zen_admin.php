@@ -1342,7 +1342,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             add_action( 'admin_notices', function () {
                 $class = 'm-1 notice notice-info is-dismissible';
                 $heading = esc_html__( 'Wohooo!!!', 'ssl-zen' );
-                $message = sprintf( __( 'Your site has an SSL now! SSL Zen just saved you $60/year in SSL Certificate fees. Could you please do us a BIG favor and rate SSL Zen a 5-star on %1$swordpress.org%2$s and help us spread the word about the plugin?', 'ssl-zen' ), '<a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank">', '</a>' );
+                $message = sprintf( __( 'Your site has an SSL now! SSL Zen just saved you $60/year in SSL Certificate fees. Could you please do us a BIG favor and leave a review for SSL Zen on %1$swordpress.org%2$s to help others find the plugin?', 'ssl-zen' ), '<a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank">', '</a>' );
                 $rate_the_plugin = sprintf( __( '%1$sRate the plugin%2$s', 'ssl-zen' ), '<a class="button button-primary" href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post" target="_blank">', '</a>' );
                 $dont_ask_again = sprintf( __( '%1$sDon\'t ask again%2$s', 'ssl-zen' ), '<a class="button" href="' . admin_url( 'admin.php?page=ssl_zen&tab=settings&reviewed=done' ) . '">', '</a>' );
                 $remind_me_later = sprintf( __( '%1$sRemind me later%2$s', 'ssl-zen' ), '<a class="button" href="' . admin_url( 'admin.php?page=ssl_zen&tab=settings&reviewed=later' ) . '">', '</a>' );
@@ -1388,16 +1388,9 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             ?>
                                 </p>
                                 <div class="propose d-lg-flex align-items-center">
-                                    <?php 
-            esc_html_e( 'Could you please do us a BIG favour and give SSL Zen a', 'ssl-zen' );
-            ?>
-                                    <i class="star ml-2 mr-2"></i>
                                     <i class="star mr-2"></i>
-                                    <i class="star mr-2"></i>
-                                    <i class="star mr-2"></i>
-                                    <i class="star mr-2"></i>
-                                    <?php 
-            esc_html_e( 'on WordPress.org?', 'ssl-zen' );
+                                    <?php
+            esc_html_e( 'Could you please do us a BIG favour and leave a review for SSL Zen on WordPress.org?', 'ssl-zen' );
             ?>
                                 </div>
                                 <a href="https://wordpress.org/support/plugin/ssl-zen/reviews/#new-post"
