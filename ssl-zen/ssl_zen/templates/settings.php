@@ -200,7 +200,7 @@ $sz_ring_color    = ! empty( $circleColor ) ? $circleColor : '#1FA971';
 						<?php endforeach; ?>
                         </tbody>
                     </table>
-                    <a href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=settings&download=status_info' ); ?>" class="d-inline-block primary mb-2 download-status">Download Status Info</a>
+                    <a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=ssl_zen&tab=settings&download=status_info' ), 'ssl_zen_download', '_sslzen_dl' ); ?>" class="d-inline-block primary mb-2 download-status">Download Status Info</a>
                     <span class="d-block mini-message"><?php esc_html_e( 'When asked, please download and share this file with SSL Zen support team.', 'ssl-zen' ) ?></span>
                 </div>
                 <div class="col-md-6">

@@ -106,7 +106,7 @@
                                            title="<?php esc_attr_e( 'Copy', 'ssl-zen' ); ?>"
                                            data-content="certificate.crt"></i>
                                         <a title="<?php esc_attr_e( 'Download', 'ssl-zen' ); ?>"
-                                           href="<?php echo esc_url( $downloadLink . 'certificate' ); ?>"></a>
+                                           href="<?php echo esc_url( $downloadLink . 'certificate' . $dlNonce ); ?>"></a>
                                     </div>
                                 </div>
                             </li>
@@ -119,7 +119,7 @@
                                            title="<?php esc_attr_e( 'Copy', 'ssl-zen' ); ?>"
                                            data-content="private.pem"></i>
                                         <a title="<?php esc_attr_e( 'Download', 'ssl-zen' ); ?>"
-                                           href="<?php echo esc_url( $downloadLink . 'private' ); ?>"></a>
+                                           href="<?php echo esc_url( $downloadLink . 'private' . $dlNonce ); ?>"></a>
                                     </div>
                                 </div>
                             </li>
@@ -132,7 +132,7 @@
                                             title="<?php esc_attr_e( 'Copy', 'ssl-zen' ); ?>"
                                             data-content="cabundle.crt"></i>
                                         <a title="<?php esc_attr_e( 'Download', 'ssl-zen' ); ?>"
-                                           href="<?php echo esc_url( $downloadLink . 'cabundle' ); ?>"></a>
+                                           href="<?php echo esc_url( $downloadLink . 'cabundle' . $dlNonce ); ?>"></a>
                                     </div>
                                 </div>
                             </li>

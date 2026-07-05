@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.39
+Stable tag: 4.7.40
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -182,6 +182,9 @@ You can get the help of your hosting provider to install your WordPress in the r
 5. Built-in status and debug tools to troubleshoot your free SSL certificate installation fast.
 
 == Changelog ==
+
+= 4.7.40 =
+* Security hardening: certificate, private key, status and debug-log downloads now require administrator privileges and a valid security nonce (fixes a report where the setup-file download handler ran without an explicit capability/nonce check)
 
 = 4.7.39 =
 * Added anonymous, opt-in setup analytics so we can see where users get stuck during SSL setup and make it smoother (first-party only, no personal data, respects your tracking-consent choice)

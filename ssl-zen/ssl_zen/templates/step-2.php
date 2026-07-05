@@ -180,7 +180,7 @@
 										$arrPendingHttp as $index => $item
 									) {
 										?>
-                                        <a href="<?php echo admin_url( 'admin.php?page=ssl_zen&tab=step2&download=' . $index ); ?>"
+                                        <a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=ssl_zen&tab=step2&download=' . $index ), 'ssl_zen_download', '_sslzen_dl' ); ?>"
                                            class="download-file primary mr-3"><?php echo esc_html( __( 'Download file', 'ssl-zen' ) . ' ' . ( $index + 1 ) ); ?>
                                         </a>
 										<?php

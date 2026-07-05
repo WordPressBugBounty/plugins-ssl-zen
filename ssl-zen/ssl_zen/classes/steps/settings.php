@@ -139,7 +139,7 @@ if ( !function_exists( 'ssl_zen_debug_container' ) ) {
 
                         <a
                             href="<?php 
-            echo admin_url( 'admin.php?page=ssl_zen&tab=settings&download=debug_log' );
+            echo wp_nonce_url( admin_url( 'admin.php?page=ssl_zen&tab=settings&download=debug_log' ), 'ssl_zen_download', '_sslzen_dl' );
             ?>"
                             class="d-inline-block primary mb-2 download-debug"><?php 
             esc_html_e( 'Download Debug Log', 'ssl-zen' );

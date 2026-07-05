@@ -1284,6 +1284,7 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             $url = wp_parse_url( home_url() );
             $cPanel = SSLZenCPanel::detect_cpanel();
             $downloadLink = admin_url( 'admin.php?page=ssl_zen&tab=step3&download=' );
+            $dlNonce = '&_sslzen_dl=' . wp_create_nonce( 'ssl_zen_download' ); // 4.7.40: gate cert/key downloads
             require SSL_ZEN_TEMPLATE_DIR . 'step-3.php';
         }
 
@@ -2009,6 +2010,20 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                 $download = trim( sanitize_text_field( $_REQUEST['download'] ) );
             }
             if ( isset( $download ) && $download != '' ) {
+                // SECURITY (4.7.40): handleDownload() runs on admin_init, which fires
+                // for ANY logged-in user (subscribers included) before the ssl_zen
+                // menu page's manage_options gate. Without a check here, a low-priv
+                // user could fetch the TLS private key / certs / logs. Require the
+                // admin capability AND a purpose-bound nonce before serving anything.
+                if ( ! current_user_can( 'manage_options' )
+                    || ! isset( $_REQUEST['_sslzen_dl'] )
+                    || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_sslzen_dl'] ) ), 'ssl_zen_download' ) ) {
+                    wp_die(
+                        esc_html__( 'You are not allowed to download this file.', 'ssl-zen' ),
+                        esc_html__( 'Forbidden', 'ssl-zen' ),
+                        array( 'response' => 403 )
+                    );
+                }
                 $currentSettingTab = get_option( 'ssl_zen_settings_stage', '' );
                 if ( is_numeric( $download ) && $currentSettingTab == 'step2' ) {
                     $arrPending = ssl_zen_certificate::getPendingAuthorization( \LEClient\LEOrder::CHALLENGE_TYPE_HTTP );
