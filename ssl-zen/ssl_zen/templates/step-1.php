@@ -190,11 +190,15 @@ if ( !sz_fs()->is_plan( 'cdn', true ) ) {
     ?>
                         </label>
                     </div>
-                    <div class="sz-check">
-                        <input type="checkbox" name="marketing_optin" id="marketing_optin" value="1">
-                        <label for="marketing_optin">
-							<?php esc_html_e( 'Receive occasional product updates and SSL security tips from Zen Plugins. Unsubscribe anytime.', 'ssl-zen' ); ?>
-                        </label>
+                    <div style="margin-top:14px;padding:14px 16px;background:#fdf0f6;border:2px solid #e5397f;border-radius:10px;box-shadow:0 2px 8px rgba(229,57,127,0.12);">
+                        <span style="display:inline-block;background:#e5397f;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 10px;border-radius:20px;margin-bottom:9px;"><?php esc_html_e( 'Recommended', 'ssl-zen' ); ?></span>
+                        <div class="sz-check">
+                            <input type="checkbox" name="marketing_optin" id="marketing_optin" value="1">
+                            <label for="marketing_optin">
+                                <strong style="display:block;color:#1b1620;font-size:15px;margin-bottom:2px;"><?php esc_html_e( 'Email me before my SSL certificate expires', 'ssl-zen' ); ?></strong>
+                                <span style="color:#5a5560;font-size:13px;line-height:1.5;"><?php esc_html_e( 'Get a renewal reminder so your site never slips back to “Not Secure” — plus occasional SSL security tips and new free tools from Zen Plugins. No spam, unsubscribe in one click anytime.', 'ssl-zen' ); ?></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 			<?php 

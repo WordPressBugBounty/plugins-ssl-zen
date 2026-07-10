@@ -54,9 +54,27 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
             add_action( 'wp_ajax_ssl_zen_cert_files', __CLASS__ . '::ssl_zen_cert_files' );
             // Enable log debugging mode
             add_action( 'wp_ajax_ssl_zen_settings_debug', __CLASS__ . '::ssl_zen_settings_debug' );
+            // v4.7.x: persist a marketing opt-in captured on the success screen.
+            add_action( 'wp_ajax_ssl_zen_optin_success', __CLASS__ . '::ssl_zen_optin_success' );
             // Guide paying customers still on the free build to activate Pro.
             add_action( 'admin_notices', __CLASS__ . '::paid_activation_notice' );
             self::review_notice();
+        }
+
+        /**
+         * v4.7.x: persist a marketing opt-in captured on the SSL-activated success
+         * screen (the higher-intent second touchpoint). The email is posted to the
+         * list endpoint client-side; this just sets the local flags so the box is
+         * shown once. Nonce-checked + capability-gated.
+         */
+        public static function ssl_zen_optin_success() {
+            check_ajax_referer( 'ssl_zen_ajax', 'security' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( 'forbidden', 403 );
+            }
+            update_option( 'ssl_zen_marketing_optin', 1 );
+            update_option( 'ssl_zen_optin_sent', 1 );
+            wp_send_json_success();
         }
 
         /**
@@ -1402,6 +1420,32 @@ if ( !class_exists( 'ssl_zen_admin' ) ) {
                                 <span class="review-timing"><?php 
             esc_html_e( 'It will only take few moments', 'ssl-zen' );
             ?></span>
+                                <?php
+            $sz_optin_email  = get_option( 'ssl_zen_email' );
+            $sz_optin_domain = get_option( 'ssl_zen_base_domain' );
+            if ( ! get_option( 'ssl_zen_marketing_optin' ) && ! get_option( 'ssl_zen_optin_sent' ) && is_email( $sz_optin_email ) ) :
+            ?>
+                                <div id="szv-optin" style="margin:24px 0 6px;max-width:660px;border:2px solid #1f7ec2;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(31,126,194,0.18)">
+                                    <div style="background:#1f7ec2;color:#fff;padding:9px 18px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase"><?php esc_html_e( 'Recommended — set this up now', 'ssl-zen' ); ?></div>
+                                    <div style="background:#fff;padding:18px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+                                    <div style="flex:1;min-width:250px">
+                                    <strong style="display:block;font-size:16.5px;color:#12324a;margin-bottom:4px"><?php esc_html_e( 'Turn on certificate-expiry reminders', 'ssl-zen' ); ?></strong>
+                                    <span style="color:#5b616e;font-size:13.5px;line-height:1.5"><?php esc_html_e( 'We’ll email you a renewal reminder so your site never slips back to “Not Secure” — plus occasional SSL tips and new free tools. No spam, unsubscribe anytime.', 'ssl-zen' ); ?></span>
+                                    </div><button type="button" id="szv-optin-btn" style="white-space:nowrap;background:#1f7ec2;color:#fff;font-weight:700;font-size:14.5px;padding:13px 24px;border-radius:9px;border:0;cursor:pointer;box-shadow:0 2px 6px rgba(31,126,194,0.35)"><?php esc_html_e( 'Yes, email me reminders', 'ssl-zen' ); ?></button></div>
+                                </div>
+                                <script>
+                                (function(){
+                                    var b=document.getElementById('szv-optin-btn'); if(!b) return;
+                                    b.addEventListener('click',function(){
+                                        b.disabled=true;
+                                        var body='email='+encodeURIComponent(<?php echo wp_json_encode( (string) $sz_optin_email ); ?>)+'&domain='+encodeURIComponent(<?php echo wp_json_encode( (string) $sz_optin_domain ); ?>)+'&consent=1&source=sslzen_success&plugin_ver='+encodeURIComponent(<?php echo wp_json_encode( (string) ( defined( 'SSL_ZEN_PLUGIN_VERSION' ) ? SSL_ZEN_PLUGIN_VERSION : '' ) ); ?>);
+                                        fetch('https://support.sslzen.com/api/subscribe',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body}).catch(function(){});
+                                        fetch(<?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'action=ssl_zen_optin_success&security='+encodeURIComponent(<?php echo wp_json_encode( wp_create_nonce( 'ssl_zen_ajax' ) ); ?>)}).catch(function(){});
+                                        var box=document.getElementById('szv-optin'); if(box){ box.style.borderColor='#7fce9f'; box.style.boxShadow='none'; box.innerHTML='<div style="background:#e9f7ef;padding:16px 18px"><strong style="color:#1c7a45;font-size:15px">✓<?php echo esc_js( __( 'You\'re in — we\'ll email you before renewal.', 'ssl-zen' ) ); ?></strong></div>'; }
+                                    });
+                                })();
+                                </script>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="col-md-2">

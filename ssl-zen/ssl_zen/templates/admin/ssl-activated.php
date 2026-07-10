@@ -25,6 +25,9 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
 		'currency'      => 'usd',
 	), sz_fs()->get_upgrade_url() );
 }
+$sz_optin_email  = get_option( 'ssl_zen_email' );
+$sz_optin_domain = get_option( 'ssl_zen_base_domain' );
+$sz_show_optin   = ( ! get_option( 'ssl_zen_marketing_optin' ) && ! get_option( 'ssl_zen_optin_sent' ) && is_email( $sz_optin_email ) );
 ?>
 <form name="frmReview" id="frmReview" action="" method="post">
 	<?php wp_nonce_field( 'ssl_zen_review', 'ssl_zen_review_nonce' ); ?>
@@ -60,6 +63,16 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
                         </a>
                     </div>
 					<?php endif; ?>
+
+                    <?php if ( $sz_show_optin ) : ?>
+                    <div class="szv-optin" id="szv-optin">
+                        <div class="szv-optin-body">
+                            <strong><?php esc_html_e( 'Want a heads-up before your certificate expires?', 'ssl-zen' ); ?></strong>
+                            <span><?php esc_html_e( 'We’ll email you a renewal reminder so your site never slips back to “Not Secure” — plus occasional SSL tips and new free tools. No spam, unsubscribe anytime.', 'ssl-zen' ); ?></span>
+                        </div>
+                        <button type="button" class="szv-optin-btn" id="szv-optin-btn"><?php esc_html_e( 'Yes, email me renewal alerts', 'ssl-zen' ); ?></button>
+                    </div>
+                    <?php endif; ?>
 
                     <div class="szv-review-block">
                         <div class="propose d-lg-flex align-items-center">
@@ -97,6 +110,14 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
 .szv-help-line{margin:14px 0 0;color:#5b616e;font-size:13.5px}
 .szv-help-line a{color:#e5397f;font-weight:600;text-decoration:none}
 .szv-help-line a:hover{color:#c72d6c}
+.szv-optin{margin:22px 0 6px;background:#eef6fb;border:1px solid #cfe4f2;border-radius:12px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;max-width:720px}
+.szv-optin-body{flex:1;min-width:260px}
+.szv-optin-body strong{display:block;font-size:15px;color:#1a1d24;margin-bottom:3px}
+.szv-optin-body span{color:#5b616e;font-size:13.5px;line-height:1.5}
+.szv-optin-btn{white-space:nowrap;background:#1f7ec2;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:9px;border:0;cursor:pointer}
+.szv-optin-btn:hover{background:#1a6ba6}
+.szv-optin.done{background:#e9f7ef;border-color:#c3e9d3}
+.szv-optin.done .szv-optin-body strong{color:#1c7a45}
 </style>
 <script>
 (function(){
@@ -110,6 +131,20 @@ if ( function_exists( 'sz_fs' ) && method_exists( sz_fs(), 'get_upgrade_url' ) )
                 var btn = document.querySelector('.szw-btn');
                 if(btn) btn.click();
             }
+        });
+    }
+    var oBtn = document.getElementById('szv-optin-btn');
+    if(oBtn){
+        oBtn.addEventListener('click', function(){
+            oBtn.disabled = true;
+            var email  = <?php echo wp_json_encode( (string) $sz_optin_email ); ?>;
+            var domain = <?php echo wp_json_encode( (string) $sz_optin_domain ); ?>;
+            var ver    = <?php echo wp_json_encode( (string) ( defined( 'SSL_ZEN_PLUGIN_VERSION' ) ? SSL_ZEN_PLUGIN_VERSION : '' ) ); ?>;
+            var body = 'email=' + encodeURIComponent(email) + '&domain=' + encodeURIComponent(domain) + '&consent=1&source=sslzen_success&plugin_ver=' + encodeURIComponent(ver);
+            fetch('https://support.sslzen.com/api/subscribe', { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body: body }).catch(function(){});
+            fetch(<?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>, { method:'POST', headers:{ 'Content-Type':'application/x-www-form-urlencoded' }, body: 'action=ssl_zen_optin_success&security=' + encodeURIComponent(<?php echo wp_json_encode( wp_create_nonce( 'ssl_zen_ajax' ) ); ?>) }).catch(function(){});
+            var box = document.getElementById('szv-optin');
+            if(box){ box.classList.add('done'); box.innerHTML = '<div class="szv-optin-body"><strong>✓ <?php echo esc_js( __( 'You\'re in — we\'ll email you before renewal.', 'ssl-zen' ) ); ?></strong></div>'; }
         });
     }
 })();
