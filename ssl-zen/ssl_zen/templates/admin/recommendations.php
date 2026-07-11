@@ -2,9 +2,9 @@
 /**
  * Reusable "Recommended for your site" cross-sell card (v4.7.21).
  *
- * LinkGuard (own product, free) always shows — $0 network acquisition.
+ * 404Zen (own product, free) always shows — $0 network acquisition.
  * Affiliate slots appear ONLY when their URL is set, so out of the box the
- * card shows just LinkGuard; each sponsored slot auto-appears the moment a
+ * card shows just 404Zen; each sponsored slot auto-appears the moment a
  * tracking link is added. First-party only — no third-party ad/tracker
  * scripts (matches the privacy-first Zen Plugins brand).
  *
@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $sz_recs = apply_filters( 'ssl_zen_recommendations', array(
     array(
-        'id'     => 'linkguard',
+        'id'     => '404zen',
         'family' => true,
         'icon'   => '&#128279;', // link
         'badge'  => __( 'Zen Plugins · Free', 'ssl-zen' ),
-        'title'  => 'LinkGuard',
-        'desc'   => __( 'Find and fix every broken link before Google does — dead links quietly cost you rankings. Runs on your server.', 'ssl-zen' ),
-        'url'    => 'https://getlinkguard.com/?utm_source=sslzen&utm_medium=plugin&utm_campaign=crosssell',
-        'cta'    => __( 'Get LinkGuard — free', 'ssl-zen' ),
+        'title'  => '404Zen',
+        'desc'   => __( 'Find and fix broken links, 404s and dead images before Google does — one Link Health Grade for your whole site. Runs on your server, unlimited, free.', 'ssl-zen' ),
+        'url'    => 'https://wordpress.org/plugins/404zen-broken-link-fixer/?utm_source=sslzen&utm_medium=plugin&utm_campaign=crosssell',
+        'cta'    => __( 'Get 404Zen — free', 'ssl-zen' ),
     ),
     array(
         'id'    => 'kinsta',

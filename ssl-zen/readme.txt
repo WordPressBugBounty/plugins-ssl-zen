@@ -5,7 +5,7 @@ Requires at least: 4.2
 License: GPL3
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 4.7.41
+Stable tag: 4.7.42
 
 Free SSL certificate for WordPress — install a Let's Encrypt SSL, force HTTPS, fix mixed content and redirect HTTP to HTTPS. No coding needed.
 
@@ -182,6 +182,9 @@ You can get the help of your hosting provider to install your WordPress in the r
 5. Built-in status and debug tools to troubleshoot your free SSL certificate installation fast.
 
 == Changelog ==
+
+= 4.7.42 =
+* Dashboard: the "More from Zen Plugins" panel now recommends 404Zen — our free broken-link & 404 checker that grades your whole site — with a direct link to it on WordPress.org.
 
 = 4.7.41 =
 * Added an optional email opt-in during setup (Step 1) and on the SSL-activated success screen — get a reminder before your certificate expires so your site never slips back to "Not Secure", plus occasional SSL tips. Unchecked by default, one-click unsubscribe.

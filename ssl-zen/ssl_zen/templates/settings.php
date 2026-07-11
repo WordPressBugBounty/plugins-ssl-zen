@@ -164,13 +164,13 @@ $sz_ring_color    = ! empty( $circleColor ) ? $circleColor : '#1FA971';
                 <div class="szdash-xp">
                     <div class="szdash-xp-head"><?php esc_html_e( 'More from Zen Plugins', 'ssl-zen' ); ?><span class="szdash-xp-trust"><?php esc_html_e( '1M+ downloads · trusted on 77k+ sites', 'ssl-zen' ); ?></span></div>
                     <div class="szdash-xp-grid">
-                        <a class="szdash-xp-card" target="_blank" rel="noopener nofollow" href="https://getlinkguard.com/?utm_source=plugin&utm_medium=sslzen_dashboard&utm_campaign=cross_promo">
+                        <a class="szdash-xp-card" target="_blank" rel="noopener nofollow" href="https://wordpress.org/plugins/404zen-broken-link-fixer/?utm_source=plugin&utm_medium=sslzen_dashboard&utm_campaign=cross_promo">
                             <div class="szdash-xp-top">
                                 <span class="szdash-xp-logo lg"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="19" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-dasharray="98.2 21.2" transform="rotate(120 24 24)"/><path d="M24 14.5 L32 17.5 V24 C32 29 28.8 33 24 35 C19.2 33 16 29 16 24 V17.5 Z" fill="none" stroke="#fff" stroke-width="2.8" stroke-linejoin="round"/></svg></span>
                                 <span class="szdash-xp-flag"><?php esc_html_e( 'Not on your site yet', 'ssl-zen' ); ?></span>
                             </div>
-                            <div class="szdash-xp-name">LinkGuard</div>
-                            <div class="szdash-xp-desc"><?php esc_html_e( 'Broken links are quietly costing you SEO and visitors. LinkGuard finds and fixes them automatically — your site isn’t protected yet.', 'ssl-zen' ); ?></div>
+                            <div class="szdash-xp-name">404Zen</div>
+                            <div class="szdash-xp-desc"><?php esc_html_e( 'Broken links and 404s quietly cost you SEO and visitors. 404Zen finds and fixes them on your server and grades your whole site — free.', 'ssl-zen' ); ?></div>
                             <span class="szdash-xp-cta"><?php esc_html_e( 'Add to your site', 'ssl-zen' ); ?> &rarr;</span>
                         </a>
                         <a class="szdash-xp-card" target="_blank" rel="noopener nofollow" href="https://redirectzen.com/?utm_source=plugin&utm_medium=sslzen_dashboard&utm_campaign=cross_promo">
